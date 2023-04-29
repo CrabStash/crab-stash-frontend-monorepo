@@ -1,0 +1,17 @@
+{
+  "name": "landing",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro preview",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "ts:check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "astro": "^2.3.2",
+    "typescript": "^5.0.4"
+  }
+}

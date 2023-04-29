@@ -1,0 +1,7 @@
+packages:
+  - apps/docs
+  - apps/web
+  - apps/landing
+  - packages/config
+  - packages/tsconfig
+  - packages/ui
