@@ -1,0 +1,32 @@
+{
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build", "test"],
+      "outputs": ["dist/**", ".next/**", "storybook-static/**"]
+    },
+    "start": {
+      "cache": false,
+      "dependsOn": ["build"],
+      "persistent": true
+    },
+    "eslint:check": {
+      "outputs": []
+    },
+    "ts:check": {},
+    "dev": {
+      "cache": false
+    },
+    "storybook": {
+      "cache": false
+    },
+    "build:storybook": {
+      "outputs": ["storybook-static/**"]
+    },
+    "build:ui": {
+      "cache": false
+    },
+    "test": {
+      "dependsOn": ["eslint:check", "ts:check"]
+    }
+  }
+}

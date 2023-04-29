@@ -1,0 +1,32 @@
+{
+  "name": "turborepo-starter",
+  "version": "0.0.1",
+  "private": true,
+  "packageManager": "pnpm@8.3.1",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "eslint:check": "turbo run eslint:check",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "storybook": "turbo run storybook",
+    "build:storybook": "turbo run build:storybook",
+    "build:ui": "turbo run build:ui",
+    "ts:check": "turbo run ts:check",
+    "test": "turbo run test",
+    "start": "turbo run start"
+  },
+  "devDependencies": {
+    "@crab-stash/linting": "workspace:*",
+    "@crab-stash/tsconfig": "workspace:*",
+    "eslint": "7.32.0",
+    "prettier": "^2.5.1",
+    "turbo": "latest"
+  },
+  "engines": {
+    "node": "18.x"
+  }
+}
