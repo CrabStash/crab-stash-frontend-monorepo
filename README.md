@@ -1,4 +1,4 @@
-# Turborepo starter (Next.js, React, Astro, TypeScript, Docker, ESLint, Jest, Prettier, Tailwind, Storybook)
+# Crab Stash monorepo (Next.js, React, Astro, TypeScript, Docker, ESLint, Jest, Prettier, Tailwind, Storybook)
 
 ## What's inside?
 
