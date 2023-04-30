@@ -10,7 +10,7 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "lint": "turbo run lint",
+    "eslint:check": "turbo run eslint:check",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "storybook": "turbo run storybook",
     "build:storybook": "turbo run build:storybook",
@@ -20,10 +20,11 @@
     "start": "turbo run start"
   },
   "devDependencies": {
+    "@crab-stash/linting": "workspace:*",
+    "@crab-stash/tsconfig": "workspace:*",
+    "eslint": "7.32.0",
     "prettier": "^2.5.1",
-    "turbo": "latest",
-    "@crab-stash/config": "workspace:*",
-    "@crab-stash/tsconfig": "workspace:*"
+    "turbo": "latest"
   },
   "engines": {
     "node": "18.x"

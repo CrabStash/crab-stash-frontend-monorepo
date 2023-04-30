@@ -65,7 +65,8 @@
     "build:storybook": "build-storybook",
     "build:ui": "NODE_ENV=production rollup -c rollup.config.js",
     "test": "jest",
-    "ts:check": "tsc --noEmit"
+    "ts:check": "tsc --noEmit",
+    "eslint:check": "eslint . --ext .cjs,.ts,.tsx,.astro"
   },
   "dependencies": {
     "react": "18",

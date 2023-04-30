@@ -9,7 +9,7 @@
       "dependsOn": ["build"],
       "persistent": true
     },
-    "lint": {
+    "eslint:check": {
       "outputs": []
     },
     "ts:check": {},
@@ -26,7 +26,7 @@
       "cache": false
     },
     "test": {
-      "dependsOn": ["lint", "ts:check"]
+      "dependsOn": ["eslint:check", "ts:check"]
     }
   }
 }

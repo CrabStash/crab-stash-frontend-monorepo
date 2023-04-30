@@ -1,7 +1,9 @@
+import "@crab-stash/ui/styles/tailwind.css";
+
 import type { NextPage } from "next";
 import Head from "next/head";
+
 import { Button } from "@crab-stash/ui";
-import "@crab-stash/ui/styles/tailwind.css";
 
 const Docs: NextPage = () => {
   return (
@@ -13,7 +15,7 @@ const Docs: NextPage = () => {
       </Head>
       <main>
         <h1>Turborepo Starter: Docs</h1>
-        <Button label="button" onClick={() => console.log("click")} />
+        <Button label="button" />
       </main>
     </>
   );

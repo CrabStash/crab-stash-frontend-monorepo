@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start --port 3001",
     "lint": "next lint",
+    "eslint:check": "eslint . --ext .cjs,.ts,.tsx,.astro",
     "ts:check": "tsc --jsx preserve --skipLibCheck"
   },
   "dependencies": {
@@ -19,7 +20,7 @@
     "@types/node": "18.16.3",
     "@types/react": "17.0.37",
     "autoprefixer": "^10.4.13",
-    "@crab-stash/config": "*",
+    "@crab-stash/linting": "*",
     "eslint": "7.32.0",
     "next-transpile-modules": "10.0.0",
     "postcss": "^8.4.19",

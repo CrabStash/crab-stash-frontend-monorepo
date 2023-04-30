@@ -1,1 +1,3 @@
-module.exports = require("@crab-stash/config/eslint-preset");
+const getConfig = require("@crab-stash/linting/eslint-preset");
+
+module.exports = getConfig();

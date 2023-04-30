@@ -1,4 +1,5 @@
 import { forwardRef } from "react";
+
 import { classNames } from "../helpers/classNames";
 
 export type ButtonSize = "sm" | "md" | "lg" | "xl" | "xxl";
@@ -8,6 +9,7 @@ export interface ButtonProps {
   label: string;
   onClick?: () => void;
   disabled?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   icon?: any | SVGElement;
   iconAlign?: "left" | "right";
   type?: "submit" | "reset" | "button";
@@ -19,13 +21,7 @@ export type ButtonRef = HTMLButtonElement;
  * Buttons communicate actions that users can take.
  */
 export const Button = forwardRef<ButtonRef, ButtonProps>((props, ref) => {
-  const {
-    size = "sm",
-    disabled = false,
-    label,
-    onClick,
-    type = "button",
-  } = props;
+  const { size = "sm", disabled = false, label, onClick, type = "button" } = props;
 
   return (
     <button
@@ -40,7 +36,7 @@ export const Button = forwardRef<ButtonRef, ButtonProps>((props, ref) => {
         size === "xl" ? "px-5 py-3" : "",
         size === "xxl" ? "px-7 py-4" : "",
         // Default
-        "gap-2 bg-black rounded-lg text-white text-sm font-medium flex items-center justify-center"
+        "gap-2 bg-black rounded-lg text-white text-sm font-medium flex items-center justify-center",
       )}
     >
       {label}
