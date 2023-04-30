@@ -35,6 +35,12 @@ importers:
         specifier: latest
         version: 18.2.0(react@18.2.0)
     devDependencies:
+      '@crab-stash/config':
+        specifier: '*'
+        version: link:../../packages/config
+      '@crab-stash/tsconfig':
+        specifier: '*'
+        version: link:../../packages/tsconfig
       '@types/node':
         specifier: 18.16.3
         version: 18.16.3
@@ -44,9 +50,6 @@ importers:
       autoprefixer:
         specifier: ^10.4.13
         version: 10.4.13(postcss@8.4.19)
-      config:
-        specifier: '*'
-        version: 0.2.3
       eslint:
         specifier: 7.32.0
         version: 7.32.0
@@ -59,9 +62,6 @@ importers:
       tailwindcss:
         specifier: ^3.2.4
         version: 3.2.4(postcss@8.4.19)(ts-node@10.9.1)
-      tsconfig:
-        specifier: '*'
-        version: 0.0.1
       typescript:
         specifier: ^4.5.3
         version: 4.5.3
