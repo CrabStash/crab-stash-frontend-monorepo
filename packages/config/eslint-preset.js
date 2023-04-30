@@ -1,11 +1,17 @@
 module.exports = {
-  extends: ["next", "prettier"],
-  settings: {
-    next: {
-      rootDir: ["apps/*/", "packages/*/"],
-    },
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "react-hooks"],
+  "env": {
+      "node": true,
+      "browser": true,
+      "amd": true
   },
-  rules: {
-    "@next/next/no-html-link-for-pages": "off",
-  },
+  "extends": [
+      "eslint:recommended",
+      "plugin:@next/next/recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:prettier/recommended"
+  ],
 };

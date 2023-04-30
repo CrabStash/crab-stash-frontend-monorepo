@@ -22,9 +22,9 @@
   "devDependencies": {
     "prettier": "^2.5.1",
     "turbo": "latest",
-    "config": "workspace:*",
-    "tsconfig": "workspace:*",
-    "ui": "workspace:*"
+    "@crab-stash/config": "workspace:*",
+    "@crab-stash/tsconfig": "workspace:*",
+    "@crab-stash/tailwind": "workspace:*"
   },
   "engines": {
     "node": "18.x"

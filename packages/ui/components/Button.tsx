@@ -1,7 +1,7 @@
-import { forwardRef } from 'react';
-import { classNames } from '../helpers/classNames';
+import { forwardRef } from "react";
+import { classNames } from "../helpers/classNames";
 
-export type ButtonSize = 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+export type ButtonSize = "sm" | "md" | "lg" | "xl" | "xxl";
 
 export interface ButtonProps {
   size?: ButtonSize;
@@ -9,8 +9,8 @@ export interface ButtonProps {
   onClick?: () => void;
   disabled?: boolean;
   icon?: any | SVGElement;
-  iconAlign?: 'left' | 'right';
-  type?: 'submit' | 'reset' | 'button';
+  iconAlign?: "left" | "right";
+  type?: "submit" | "reset" | "button";
 }
 
 export type ButtonRef = HTMLButtonElement;
@@ -20,11 +20,11 @@ export type ButtonRef = HTMLButtonElement;
  */
 export const Button = forwardRef<ButtonRef, ButtonProps>((props, ref) => {
   const {
-    size = 'sm',
+    size = "sm",
     disabled = false,
     label,
     onClick,
-    type = 'button',
+    type = "button",
   } = props;
 
   return (
@@ -34,13 +34,13 @@ export const Button = forwardRef<ButtonRef, ButtonProps>((props, ref) => {
       onClick={onClick}
       disabled={disabled}
       className={classNames(
-        size === 'sm' ? 'px-3.5 py-2' : '',
-        size === 'md' ? 'px-4 py-2.5' : '',
-        size === 'lg' ? 'px-4.5 py-2.5' : '',
-        size === 'xl' ? 'px-5 py-3' : '',
-        size === 'xxl' ? 'px-7 py-4' : '',
+        size === "sm" ? "px-3.5 py-2" : "",
+        size === "md" ? "px-4 py-2.5" : "",
+        size === "lg" ? "px-4.5 py-2.5" : "",
+        size === "xl" ? "px-5 py-3" : "",
+        size === "xxl" ? "px-7 py-4" : "",
         // Default
-        'gap-2 bg-black rounded-lg text-white text-sm font-medium flex items-center justify-center'
+        "gap-2 bg-black rounded-lg text-white text-sm font-medium flex items-center justify-center"
       )}
     >
       {label}
@@ -48,4 +48,4 @@ export const Button = forwardRef<ButtonRef, ButtonProps>((props, ref) => {
   );
 });
 
-Button.displayName = 'Button';
+Button.displayName = "Button";

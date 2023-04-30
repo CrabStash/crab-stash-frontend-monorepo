@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { Button } from "ui";
-import "ui/styles/tailwind.css";
+import "@crab-stash/ui/styles/tailwind.css";
+import { Button } from "@crab-stash/ui";
 
 const Web: NextPage = () => {
   return (

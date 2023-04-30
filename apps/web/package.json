@@ -1,5 +1,5 @@
 {
-  "name": "web",
+  "name": "@crab-stash/web",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -10,10 +10,10 @@
     "ts:check": "tsc --jsx preserve --skipLibCheck"
   },
   "dependencies": {
+    "@crab-stash/ui": "workspace:*",
     "next": "latest",
     "react": "latest",
-    "react-dom": "latest",
-    "ui": "*"
+    "react-dom": "latest"
   },
   "devDependencies": {
     "@types/node": "18.16.3",
