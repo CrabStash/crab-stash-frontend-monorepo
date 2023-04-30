@@ -1,10 +1,8 @@
 # Turborepo starter (Next.js, TypeScript, Docker, ESLint, Jest, Prettier, Rollup.js, Tailwind, Storybook)
 
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/thmsmtylr/turborepo-starter/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/thmsmtylr/turborepo-starter/tree/main)[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=thmsmtylr_turborepo-starter&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=thmsmtylr_turborepo-starter)
-
 ## What's inside?
 
-This turborepo uses [Yarn](https://classic.yarnpkg.com/lang/en/) as a package manager. It includes the following packages/apps:
+This turborepo uses [pnpm](https://pnpm.io/) as a package manager. It includes the following packages/apps:
 
 ### Apps and Packages
 
@@ -24,7 +22,6 @@ This turborepo has some additional tools already setup for you:
 - [ESLint](https://eslint.org/) for code linting
 - [Jest](https://jestjs.io) test runner for all things JavaScript
 - [Prettier](https://prettier.io) for code formatting
-- [Rollup.js](https://rollupjs.org) module bundler for packaging the component library
 - [GitHub Actions](https://docs.github.com/en/actions) for publishing the component library
 - [Docker](https://www.docker.com/) as an alternative build/development tool
 - [Tailwind](https://tailwindcss.com/) a utility first css framework for styling
@@ -46,13 +43,6 @@ To develop all apps and packages, run the following command:
 ```sh
 cd turborepo-starter
 pnpm run dev
-```
-
-or
-
-```sh
-cd turborepo-starter
-docker-compose up
 ```
 
 ### Remote Caching
