@@ -15,7 +15,7 @@ const Web: NextPage = () => {
       </Head>
       <main>
         <h1>Turborepo Starter: Web</h1>
-        <Button label="button" />
+        <Button>Button</Button>
       </main>
     </>
   );
