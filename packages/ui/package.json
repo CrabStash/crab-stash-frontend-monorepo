@@ -69,8 +69,15 @@
     "eslint:check": "eslint . --ext .cjs,.ts,.tsx,.astro"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.0.2",
+    "class-variance-authority": "^0.6.0",
+    "clsx": "^1.2.1",
+    "lucide-react": "^0.241.0",
     "react": "18",
-    "react-dom": "18"
+    "react-dom": "18",
+    "tailwind-merge": "^1.13.1",
+    "tailwindcss-animate": "^1.0.5",
+    "tsconfig-paths-webpack-plugin": "^4.0.1"
   },
   "resolutions": {
     "**/fsevents": "^2.3.2"
