@@ -1,8 +1,8 @@
 import type { Meta, Story } from "@storybook/react";
+import { Mail } from "lucide-react";
 
 import { Button } from "./";
-import { ButtonProps } from "./Button";
-import { Mail } from "lucide-react";
+import type { ButtonProps } from "./Button";
 
 const icons = {
   Mail: Mail,
