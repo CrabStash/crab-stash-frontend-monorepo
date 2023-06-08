@@ -8,7 +8,7 @@ const { Playground } = composeStories(stories);
 test("renders default button with default args", () => {
   render(<Playground />);
 
-  const buttonElement = screen.getByText(/Default/i);
+  const buttonElement = screen.getByText(/Button/i);
 
   expect(buttonElement).not.toBeNull();
 });

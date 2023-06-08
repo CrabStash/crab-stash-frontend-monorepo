@@ -62,7 +62,7 @@
   "scripts": {
     "dev": "storybook dev -p 6006",
     "build": "storybook build",
-    "start": "storybook dev --no-manager-cache -p 6006",
+    "start": "storybook dev -p 6006",
     "storybook": "storybook dev -p 6006",
     "build:storybook": "storybook build",
     "build:ui": "NODE_ENV=production rollup -c rollup.config.js",
