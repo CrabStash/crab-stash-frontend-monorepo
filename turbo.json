@@ -12,6 +12,9 @@
     "eslint:check": {
       "outputs": []
     },
+    "eslint:fix": {
+      "outputs": []
+    },
     "ts:check": {},
     "dev": {
       "cache": false

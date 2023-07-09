@@ -1,12 +1,12 @@
 import { composeStories } from "@storybook/testing-react";
 import { render, screen } from "@testing-library/react";
 
-import * as stories from "./Button.stories";
+import * as stories from "./button.stories";
 
-const { Playground } = composeStories(stories);
+const { Primary } = composeStories(stories);
 
 test("renders default button with default args", () => {
-  render(<Playground />);
+  render(<Primary />);
 
   const buttonElement = screen.getByText(/Button/i);
 

@@ -23,6 +23,9 @@ module.exports = {
   typescript: {
     reactDocgen: "react-docgen-typescript",
   },
+  docs: {
+    autodocs: true,
+  },
 
   webpackFinal: async (config) => {
     config.resolve.plugins = [
@@ -43,8 +46,5 @@ module.exports = {
       loader: require.resolve("@svgr/webpack"),
     });
     return config;
-  },
-  docs: {
-    autodocs: true,
   },
 };

@@ -79,7 +79,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     return (
       <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props}>
-        {Icon && <Icon className={cn(iconVariants({ size }))} />}
+        {!loading && Icon && <Icon className={cn(iconVariants({ size }))} />}
         {loading && <Loader2 className={cn(loaderVariants({ size }))} />}
         {children}
       </Comp>

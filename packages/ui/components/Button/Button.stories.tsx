@@ -1,15 +1,14 @@
-import type { Meta, Story } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { Mail } from "lucide-react";
 
 import { Button } from "./";
-import type { ButtonProps } from "./Button";
 
 const icons = {
   Mail: Mail,
   None: undefined,
 };
 
-const meta: Meta<ButtonProps> = {
+const meta: Meta<typeof Button> = {
   title: "Components / Core / Button",
   component: Button,
   argTypes: {
@@ -21,46 +20,97 @@ const meta: Meta<ButtonProps> = {
       },
     },
   },
-  decorators: [(Story) => <div className="w-60 flex flex-col gap-4">{Story()}</div>],
 };
 
 export default meta;
 
-const Template: Story<ButtonProps> = (args) => <Button {...args}>Button</Button>;
+type Story = StoryObj<typeof Button>;
 
-export const Playground = Template.bind({});
-
-Playground.args = {
-  variant: "default",
-  size: "default",
-  loading: false,
-  disabled: false,
-  icon: undefined,
+export const Primary: Story = {
+  args: {
+    variant: "default",
+    size: "default",
+    loading: false,
+    disabled: false,
+    icon: undefined,
+    children: "Button",
+  },
 };
 
-export const Variants = () => (
-  <>
-    <Button variant="default">Default</Button>
-    <Button variant="secondary">Secondary</Button>
-    <Button variant="outline">Outline</Button>
-    <Button variant="ghost">Ghost</Button>
-    <Button variant="link">Link</Button>
-    <Button variant="destructive">Destructive</Button>
-  </>
-);
+export const Secondary: Story = {
+  args: {
+    variant: "secondary",
+    children: "Button",
+  },
+};
 
-export const Sizes = () => (
-  <>
-    <Button size="default">Normal</Button>
-    <Button size="lg">Medium</Button>
-    <Button size="sm">Small</Button>
-  </>
-);
+export const Outline: Story = {
+  args: {
+    variant: "outline",
+    children: "Button",
+  },
+};
 
-export const OtherStates = () => (
-  <>
-    <Button disabled>Disabled</Button>
-    <Button loading>Loading</Button>
-    <Button icon={Mail}>With Icon</Button>
-  </>
-);
+export const Ghost: Story = {
+  args: {
+    variant: "ghost",
+    children: "Button",
+  },
+};
+
+export const Link: Story = {
+  args: {
+    variant: "link",
+    children: "Button",
+  },
+};
+
+export const Destructive: Story = {
+  args: {
+    variant: "destructive",
+    children: "Button",
+  },
+};
+
+export const DefaultSize: Story = {
+  args: {
+    size: "default",
+    children: "Default size",
+  },
+};
+
+export const LargeSize: Story = {
+  args: {
+    size: "lg",
+    children: "Large size",
+  },
+};
+
+export const SmallSize: Story = {
+  args: {
+    size: "sm",
+    children: "Small size",
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+
+    children: "Disabled",
+  },
+};
+
+export const Loading: Story = {
+  args: {
+    loading: true,
+    children: "Loading",
+  },
+};
+
+export const WithIcon: Story = {
+  args: {
+    icon: Mail,
+    children: "With Icon",
+  },
+};

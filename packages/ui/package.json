@@ -68,10 +68,15 @@
     "build:ui": "NODE_ENV=production rollup -c rollup.config.js",
     "test": "jest",
     "ts:check": "tsc --noEmit",
-    "eslint:check": "eslint . --ext .cjs,.ts,.tsx,.astro"
+    "eslint:check": "eslint . --ext .cjs,.ts,.tsx,.astro",
+    "eslint:fix": "eslint . --ext .cjs,.ts,.tsx,.astro --fix"
   },
   "dependencies": {
+    "@radix-ui/react-checkbox": "^1.0.4",
+    "@radix-ui/react-label": "^2.0.2",
+    "@radix-ui/react-select": "^1.2.2",
     "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-switch": "^1.0.3",
     "class-variance-authority": "^0.6.0",
     "clsx": "^1.2.1",
     "lucide-react": "^0.241.0",
