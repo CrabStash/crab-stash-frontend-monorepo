@@ -1,24 +1,7 @@
+const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 module.exports = {
-  stories: [
-    "../stories/**/*.stories.mdx",
-    "../stories/**/*.stories.@(js|jsx|ts|tsx)",
-  ],
+  stories: ["../**/*.stories.mdx", "../**/*.stories.@(js|jsx|ts|tsx)"],
   staticDirs: ["../images"],
-  webpackFinal: (config) => {
-    // Default rule for images /\.(svg|ico|jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|cur|ani|pdf)(\?.*)?$/
-    const fileLoaderRule = config.module.rules.find(
-      (rule) => rule.test && rule.test.test(".svg")
-    );
-    fileLoaderRule.exclude = /\.svg$/;
-
-    config.module.rules.push({
-      test: /\.svg$/,
-      enforce: "pre",
-      loader: require.resolve("@svgr/webpack"),
-    });
-
-    return config;
-  },
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
@@ -31,10 +14,37 @@ module.exports = {
         },
       },
     },
+    "@storybook/addon-mdx-gfm",
   ],
-  framework: "@storybook/react",
-  core: {
-    builder: "webpack5",
+  framework: {
+    name: "@storybook/react-webpack5",
+    options: {},
   },
-  typescript: { reactDocgen: false },
+  typescript: {
+    reactDocgen: "react-docgen-typescript",
+  },
+  docs: {
+    autodocs: true,
+  },
+
+  webpackFinal: async (config) => {
+    config.resolve.plugins = [
+      ...(config.resolve.plugins || []),
+      new TsconfigPathsPlugin({
+        extensions: config.resolve.extensions,
+      }),
+    ];
+    config.resolve.fallback.fs = false;
+    config.resolve.fallback.stream = false;
+    config.resolve.fallback.os = false;
+    config.resolve.fallback.hasha = false;
+    const fileLoaderRule = config.module.rules.find((rule) => rule.test && rule.test.test(".svg"));
+    fileLoaderRule.exclude = /\.svg$/;
+    config.module.rules.push({
+      test: /\.svg$/,
+      enforce: "pre",
+      loader: require.resolve("@svgr/webpack"),
+    });
+    return config;
+  },
 };

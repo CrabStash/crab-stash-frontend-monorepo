@@ -1,3 +1,6 @@
 const getConfig = require("@crab-stash/linting/eslint-preset");
-
-module.exports = getConfig(true);
+const config = getConfig(true);
+module.exports = {
+  ...config,
+  extends: [...config.extends, "plugin:storybook/recommended"],
+};

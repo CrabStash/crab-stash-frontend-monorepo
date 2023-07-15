@@ -8,7 +8,8 @@
     "start": "next start --port 3001",
     "lint": "next lint",
     "eslint:check": "eslint . --ext .cjs,.ts,.tsx,.astro",
-    "ts:check": "tsc --jsx preserve --skipLibCheck"
+    "ts:check": "tsc --jsx preserve --skipLibCheck",
+    "eslint:fix": "eslint . --ext .cjs,.ts,.tsx,.astro --fix"
   },
   "dependencies": {
     "@crab-stash/ui": "workspace:*",

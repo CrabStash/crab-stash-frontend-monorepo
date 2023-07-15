@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "eslint:check": "eslint . --ext .cjs,.ts,.tsx,.astro",
+    "eslint:fix": "eslint . --ext .cjs,.ts,.tsx,.astro --fix",
     "ts:check": "tsc --jsx preserve --skipLibCheck"
   },
   "dependencies": {
