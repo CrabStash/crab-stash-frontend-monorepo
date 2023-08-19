@@ -6,7 +6,13 @@ import { Select } from ".";
 const meta: Meta<typeof Select> = {
   title: "Components / Core / Select",
   component: Select,
-  decorators: [(Story) => <div className="w-60 flex flex-col gap-4">{Story()}</div>],
+  decorators: [
+    (Story) => (
+      <div className="w-60 flex flex-col gap-4">
+        <Story />
+      </div>
+    ),
+  ],
 };
 
 const items: SelectItem[] = [
