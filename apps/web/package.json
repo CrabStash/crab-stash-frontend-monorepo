@@ -12,9 +12,12 @@
   },
   "dependencies": {
     "@crab-stash/ui": "workspace:*",
+    "@hookform/resolvers": "^3.2.0",
     "next": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "react-hook-form": "^7.45.4",
+    "zod": "^3.22.2"
   },
   "devDependencies": {
     "@types/node": "18.16.3",
