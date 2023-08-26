@@ -2,11 +2,14 @@ import { useForm } from "react-hook-form";
 
 import Link from "next/link";
 
+import { useLoginMutation } from "./useLoginMutation";
+
+import { URLS } from "@app/constants/urls";
 import { Button, Card, Form, FormField, InputField } from "@crab-stash/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
-const schema = z.object({
+export const loginSchema = z.object({
   email: z.string().email({
     message: "Please enter a valid email address.",
   }),
@@ -15,20 +18,23 @@ const schema = z.object({
   }),
 });
 
-type LoginForm = z.infer<typeof schema>;
+type LoginForm = z.infer<typeof loginSchema>;
 
 function LoginScreen() {
   const form = useForm<LoginForm>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
       password: "",
     },
   });
+  const { mutate: login } = useLoginMutation();
 
   const onSubmit = (data: LoginForm) => {
-    // eslint-disable-next-line no-console
-    console.log(data);
+    login({
+      email: data.email,
+      passwd: data.password,
+    });
   };
 
   return (
@@ -61,7 +67,12 @@ function LoginScreen() {
                 control={form.control}
                 name="password"
                 render={({ field }) => (
-                  <InputField label="Password" placeholder="Enter your password" {...field} />
+                  <InputField
+                    type="password"
+                    label="Password"
+                    placeholder="Enter your password"
+                    {...field}
+                  />
                 )}
               />
               <Button variant="link" size="sm" className="w-min whitespace-nowrap p-0">
@@ -69,7 +80,7 @@ function LoginScreen() {
               </Button>
             </div>
             <Button variant="ghost">
-              <Link href="/signup">Don't have an account? Sign up</Link>
+              <Link href={URLS.register}>Don't have an account? Sign up</Link>
             </Button>
           </div>
         </Card>

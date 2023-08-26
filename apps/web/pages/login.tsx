@@ -8,8 +8,8 @@ const Login: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Login</title>
-        <meta name="description" content="Turborepo Starter: Web" />
+        <title>Login to Crabstash</title>
+        <meta name="description" content="Login to Crabstash to start managing your shop stash." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>

@@ -13,7 +13,7 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, id, label, message, asField = false, ...props }, ref) => {
     return (
-      <div className="grid w-full max-w-sm items-center gap-1.5">
+      <div className="grid w-full max-w-full items-center gap-1.5">
         {asField && label && <FormLabel htmlFor={id}>{label}</FormLabel>}
         {!asField && label && <Label htmlFor={id}>{label}</Label>}
         <input

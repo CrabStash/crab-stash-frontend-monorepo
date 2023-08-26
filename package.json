@@ -8,8 +8,8 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
+    "build": "dotenv -- turbo run build",
+    "dev": "dotenv -- turbo run dev",
     "eslint:check": "turbo run eslint:check",
     "eslint:fix": "turbo run eslint:fix",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
@@ -17,8 +17,8 @@
     "build:storybook": "turbo run build:storybook",
     "build:ui": "turbo run build:ui",
     "ts:check": "turbo run ts:check",
-    "test": "turbo run test",
-    "start": "turbo run start"
+    "test": "dotenv -- turbo run test",
+    "start": "dotenv -- turbo run start"
   },
   "devDependencies": {
     "@crab-stash/linting": "workspace:*",
@@ -29,5 +29,8 @@
   },
   "engines": {
     "node": "18.x"
+  },
+  "dependencies": {
+    "dotenv-cli": "^7.3.0"
   }
 }

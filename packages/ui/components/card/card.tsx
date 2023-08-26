@@ -3,7 +3,7 @@ import { forwardRef } from "react";
 
 import { cn } from "../../lib/utils";
 
-const wrapperClasses = "rounded-lg border bg-card text-card-foreground shadow-md";
+const wrapperClasses = "rounded-lg border bg-card text-card-foreground shadow-md max-w-full";
 
 const CardWrapper = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
