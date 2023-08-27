@@ -6,7 +6,7 @@ import { loginSchema } from "../login";
 import { useRegisterMutation } from "./useRegisterMutation";
 
 import { URLS } from "@app/constants/urls";
-import { Button, Card, Form, FormField, InputField } from "@crab-stash/ui";
+import { Button, Card, Form, FormField, InputField, useToast } from "@crab-stash/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
@@ -33,22 +33,36 @@ function Register() {
   const form = useForm<RegisterForm>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      email: "test@test.com",
-      password: "testtest",
-      confirmPassword: "testtest",
-      firstName: "Sergio",
-      lastName: "Gonzalez",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      firstName: "",
+      lastName: "",
     },
   });
-  const { mutate: register } = useRegisterMutation();
+  const { mutateAsync: register, isLoading } = useRegisterMutation();
+  const { toast } = useToast();
 
-  const onSubmit = (data: RegisterForm) => {
-    register({
-      email: data.email,
-      passwd: data.password,
-      firstName: data.firstName,
-      lastName: data.lastName,
-    });
+  const onSubmit = async (data: RegisterForm) => {
+    try {
+      await register({
+        email: data.email,
+        passwd: data.password,
+        firstName: data.firstName,
+        lastName: data.lastName,
+      });
+
+      toast({
+        title: "Register successful",
+        description: "You have been registered successfully.",
+      });
+    } catch (error) {
+      toast({
+        title: "Register failed",
+        description: "Please check your credentials and try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -59,8 +73,10 @@ function Register() {
           description="Create an account to start managing your shop's stash."
           footerContent={
             <div className="flex justify-between w-full">
-              <Button variant="secondary">Cancel</Button>
-              <Button type="submit" variant="outline">
+              <Button variant="secondary" disabled={isLoading}>
+                Cancel
+              </Button>
+              <Button type="submit" variant="outline" loading={isLoading}>
                 Reigster
               </Button>
             </div>

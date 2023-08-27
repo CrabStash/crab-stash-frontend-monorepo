@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useLoginMutation } from "./useLoginMutation";
 
 import { URLS } from "@app/constants/urls";
-import { Button, Card, Form, FormField, InputField } from "@crab-stash/ui";
+import { Button, Card, Form, FormField, InputField, useToast } from "@crab-stash/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
@@ -28,13 +28,27 @@ function LoginScreen() {
       password: "",
     },
   });
-  const { mutate: login } = useLoginMutation();
+  const { mutateAsync: login, isLoading } = useLoginMutation();
+  const { toast } = useToast();
 
-  const onSubmit = (data: LoginForm) => {
-    login({
-      email: data.email,
-      passwd: data.password,
-    });
+  const onSubmit = async (data: LoginForm) => {
+    try {
+      await login({
+        email: data.email,
+        passwd: data.password,
+      });
+
+      toast({
+        title: "Login successful",
+        description: "You have been logged in successfully.",
+      });
+    } catch (error) {
+      toast({
+        title: "Login failed",
+        description: "Please check your credentials and try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -45,8 +59,10 @@ function LoginScreen() {
           description="Enter your credentials to login"
           footerContent={
             <div className="flex justify-between w-full">
-              <Button variant="secondary">Cancel</Button>
-              <Button type="submit" variant="outline">
+              <Button variant="secondary" disabled={isLoading}>
+                Cancel
+              </Button>
+              <Button type="submit" variant="outline" loading={isLoading}>
                 Login
               </Button>
             </div>

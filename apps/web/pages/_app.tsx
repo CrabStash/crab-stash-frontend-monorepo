@@ -5,6 +5,8 @@ import { useState } from "react";
 
 import type { AppProps } from "next/app";
 
+import { Toaster } from "@crab-stash/ui";
+
 function MyApp({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(() => new QueryClient());
 
@@ -12,6 +14,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
         <Component {...pageProps} />
+        <Toaster />
       </Hydrate>
     </QueryClientProvider>
   );

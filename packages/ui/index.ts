@@ -8,3 +8,4 @@ export * from "./components/switch";
 export * from "./components/typography";
 export * from "./components/card";
 export * from "./components/form";
+export * from "./components/toast";
