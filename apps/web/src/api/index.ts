@@ -11,6 +11,7 @@ export const api = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });
 
 api.interceptors.request.use((config) => {
@@ -24,11 +25,9 @@ api.interceptors.request.use((config) => {
 });
 
 createAuthRefreshInterceptor(api, (failedRequest) => {
-  const refreshToken = localStorage.getItem(TOKEN_KEY);
-
-  return axios
-    .post(`${BASE_URL}${API_ENDPOINTS.auth.refresh}`, {
-      token: refreshToken,
+  return api
+    .get(API_ENDPOINTS.auth.refresh, {
+      withCredentials: true,
     })
     .then(({ data }) => {
       localStorage.setItem(TOKEN_KEY, data.token);
