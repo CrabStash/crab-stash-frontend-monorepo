@@ -24,15 +24,13 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-createAuthRefreshInterceptor(api, (failedRequest) => {
-  return api
-    .get(API_ENDPOINTS.auth.refresh, {
-      withCredentials: true,
-    })
-    .then(({ data }) => {
-      localStorage.setItem(TOKEN_KEY, data.token);
-      failedRequest.response.config.headers["Authorization"] = "Bearer " + data.token;
+createAuthRefreshInterceptor(api, async (failedRequest) => {
+  const { data } = await api.get(API_ENDPOINTS.auth.refresh, {
+    withCredentials: true,
+  });
 
-      return Promise.resolve();
-    });
+  localStorage.setItem(TOKEN_KEY, data.token);
+  failedRequest.response.config.headers["Authorization"] = "Bearer " + data.token;
+
+  return Promise.resolve();
 });
