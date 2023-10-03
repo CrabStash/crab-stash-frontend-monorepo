@@ -1,18 +1,21 @@
 import * as React from "react";
 
 import { cn } from "../../lib/utils";
+import { FormLabel, FormMessage } from "../form";
 import { Label } from "../label";
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   message?: string;
+  asField?: boolean;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, id, label, message, ...props }, ref) => {
+  ({ className, type, id, label, message, asField = false, ...props }, ref) => {
     return (
-      <div className="grid w-full max-w-sm items-center gap-1.5">
-        {label && <Label htmlFor={id}>{label}</Label>}
+      <div className="grid w-full max-w-full items-center gap-1.5">
+        {asField && label && <FormLabel htmlFor={id}>{label}</FormLabel>}
+        {!asField && label && <Label htmlFor={id}>{label}</Label>}
         <input
           type={type}
           className={cn(
@@ -23,7 +26,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           {...props}
         />{" "}
-        <p className="text-sm text-muted-foreground">{message}</p>
+        {!asField && <p className="text-sm text-muted-foreground">{message}</p>}
+        {asField && <FormMessage>{message}</FormMessage>}
       </div>
     );
   },

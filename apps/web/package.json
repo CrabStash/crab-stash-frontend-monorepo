@@ -12,17 +12,23 @@
   },
   "dependencies": {
     "@crab-stash/ui": "workspace:*",
+    "@hookform/resolvers": "^3.3.0",
+    "@tanstack/react-query": "^4.33.0",
+    "axios": "^1.4.0",
+    "axios-auth-refresh": "^3.3.6",
     "next": "latest",
+    "nookies": "^2.5.2",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "react-hook-form": "^7.45.4",
+    "zod": "^3.22.2"
   },
   "devDependencies": {
     "@types/node": "18.16.3",
-    "@types/react": "17.0.37",
+    "@types/react": "18.2.20",
     "autoprefixer": "^10.4.13",
     "config": "*",
     "eslint": "7.32.0",
-    "next-transpile-modules": "10.0.0",
     "postcss": "^8.4.19",
     "tailwindcss": "^3.2.4",
     "tsconfig": "*",

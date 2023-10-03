@@ -1,9 +1,8 @@
-import "@crab-stash/ui/styles/tailwind.css";
-
 import type { NextPage } from "next";
 import Head from "next/head";
 
-import { Button } from "@crab-stash/ui";
+import { Button, Card } from "@crab-stash/ui";
+import { withAuth } from "lib/withAuth";
 
 const Web: NextPage = () => {
   return (
@@ -16,9 +15,18 @@ const Web: NextPage = () => {
       <main>
         <h1>Turborepo Starter: Web</h1>
         <Button>Button</Button>
+        <Card title="Card Title" description="Card Description" footerContent="Card Footer">
+          Card Content
+        </Card>
       </main>
     </>
   );
 };
+
+export const getServerSideProps = withAuth(async () => {
+  return {
+    props: {},
+  };
+});
 
 export default Web;
