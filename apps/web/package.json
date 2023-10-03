@@ -17,6 +17,7 @@
     "axios": "^1.4.0",
     "axios-auth-refresh": "^3.3.6",
     "next": "latest",
+    "nookies": "^2.5.2",
     "react": "latest",
     "react-dom": "latest",
     "react-hook-form": "^7.45.4",

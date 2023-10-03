@@ -2,10 +2,10 @@ import { useMutation } from "@tanstack/react-query";
 
 import { api } from "@app/api";
 import { API_ENDPOINTS } from "@app/constants/apiEndpoints";
+import type { Response } from "types";
 
 type LoginMutation = {
   token: string;
-  refresh: string;
 };
 
 type LoginMutationVariables = {
@@ -13,10 +13,16 @@ type LoginMutationVariables = {
   passwd: string;
 };
 
+type LoginMutationResponse = Response<LoginMutation>;
+
+const fetcher = async (options: LoginMutationVariables) => {
+  const { data } = await api.post<LoginMutationResponse>(API_ENDPOINTS.auth.login, options);
+
+  return data;
+};
+
 export function useLoginMutation() {
-  const mutation = useMutation<LoginMutation, unknown, LoginMutationVariables>((data) =>
-    api.post(API_ENDPOINTS.auth.login, data),
-  );
+  const mutation = useMutation<LoginMutationResponse, unknown, LoginMutationVariables>(fetcher);
 
   return mutation;
 }

@@ -4,14 +4,13 @@ import createAuthRefreshInterceptor from "axios-auth-refresh";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL as string;
 
-const TOKEN_KEY = "token";
+export const TOKEN_KEY = "token";
 
 export const api = axios.create({
   baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
-  withCredentials: true,
 });
 
 api.interceptors.request.use((config) => {

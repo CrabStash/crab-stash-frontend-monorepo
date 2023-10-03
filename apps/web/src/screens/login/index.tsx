@@ -1,10 +1,13 @@
 import { useForm } from "react-hook-form";
 
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import { useLoginMutation } from "./useLoginMutation";
 
+import { TOKEN_KEY } from "@app/api";
 import { URLS } from "@app/constants/urls";
+import { storeAuthTokens } from "@app/utils/tokens";
 import { Button, Card, Form, FormField, InputField, useToast } from "@crab-stash/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -21,6 +24,7 @@ export const loginSchema = z.object({
 type LoginForm = z.infer<typeof loginSchema>;
 
 function LoginScreen() {
+  const { push } = useRouter();
   const form = useForm<LoginForm>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -33,16 +37,21 @@ function LoginScreen() {
 
   const onSubmit = async (data: LoginForm) => {
     try {
-      await login({
+      const { response } = await login({
         email: data.email,
         passwd: data.password,
       });
+
+      localStorage.setItem(TOKEN_KEY, response.data.token);
+      storeAuthTokens(null, { token: response.data.token });
 
       toast({
         title: "Login successful",
         description: "You have been logged in successfully.",
       });
+      push(URLS.dashboard);
     } catch (error) {
+      console.error(error);
       toast({
         title: "Login failed",
         description: "Please check your credentials and try again.",

@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import { loginSchema } from "../login";
 import { useRegisterMutation } from "./useRegisterMutation";
@@ -30,6 +31,7 @@ const registerSchema = loginSchema
 type RegisterForm = z.infer<typeof registerSchema>;
 
 function Register() {
+  const { push } = useRouter();
   const form = useForm<RegisterForm>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -56,6 +58,8 @@ function Register() {
         title: "Register successful",
         description: "You have been registered successfully.",
       });
+
+      push(URLS.dashboard);
     } catch (error) {
       toast({
         title: "Register failed",

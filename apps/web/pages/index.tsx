@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 
 import { Button, Card } from "@crab-stash/ui";
+import { withAuth } from "lib/withAuth";
 
 const Web: NextPage = () => {
   return (
@@ -21,5 +22,11 @@ const Web: NextPage = () => {
     </>
   );
 };
+
+export const getServerSideProps = withAuth(async () => {
+  return {
+    props: {},
+  };
+});
 
 export default Web;
