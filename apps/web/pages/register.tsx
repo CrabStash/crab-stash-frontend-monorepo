@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 
-import Layout from "@app/components/layout";
+import { Layout } from "@app/components";
 import RegisterScreen from "@app/screens/register";
 
 const RegisterPage: NextPage = () => {

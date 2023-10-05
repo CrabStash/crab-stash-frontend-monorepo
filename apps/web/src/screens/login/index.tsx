@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 
 import { useLoginMutation } from "./useLoginMutation";
 
-import { TOKEN_KEY } from "@app/api";
 import { URLS } from "@app/constants/urls";
 import { storeAuthTokens } from "@app/utils/tokens";
 import { Button, Card, Form, FormField, InputField, useToast } from "@crab-stash/ui";
@@ -42,7 +41,6 @@ function LoginScreen() {
         passwd: data.password,
       });
 
-      localStorage.setItem(TOKEN_KEY, response.data.token);
       storeAuthTokens(null, { token: response.data.token });
 
       toast({

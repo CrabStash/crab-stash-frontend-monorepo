@@ -59,7 +59,7 @@ function Register() {
         description: "You have been registered successfully.",
       });
 
-      push(URLS.dashboard);
+      push(URLS.login);
     } catch (error) {
       toast({
         title: "Register failed",

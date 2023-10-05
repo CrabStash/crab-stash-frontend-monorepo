@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 
-import Layout from "@app/components/layout";
+import { Layout } from "@app/components";
 import LoginScreen from "@app/screens/login";
 
 const Login: NextPage = () => {
