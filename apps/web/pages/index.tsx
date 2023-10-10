@@ -22,7 +22,7 @@ const Web: NextPage = () => {
   );
 };
 
-export const getServerSideProps = withAuth(async (queryClient) => {
+export const getServerSideProps = withAuth(async (_, queryClient) => {
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
