@@ -6,8 +6,6 @@ import { API_ENDPOINTS } from "@app/constants/api-endpoints";
 export const meFetcher = async () => {
   const { data } = await api.get(API_ENDPOINTS.user.me);
 
-  console.log(data);
-
   return data;
 };
 

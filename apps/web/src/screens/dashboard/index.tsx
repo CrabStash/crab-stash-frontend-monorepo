@@ -1,4 +1,4 @@
-import LogoutButton from "@app/components/logout-button";
+import { LogoutButton } from "@app/components";
 import { Card } from "@crab-stash/ui";
 
 const Dashboard = () => {
