@@ -1,3 +1,5 @@
+import { dehydrate } from "@tanstack/react-query";
+
 import type { NextPage } from "next";
 import Head from "next/head";
 
@@ -20,9 +22,11 @@ const Web: NextPage = () => {
   );
 };
 
-export const getServerSideProps = withAuth(async () => {
+export const getServerSideProps = withAuth(async (queryClient) => {
   return {
-    props: {},
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
   };
 });
 

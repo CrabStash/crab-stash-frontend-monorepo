@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import { loginSchema } from "../login";
-import { useRegisterMutation } from "./useRegisterMutation";
+import { useRegisterMutation } from "./use-register-mutation";
 
 import { URLS } from "@app/constants/urls";
 import { Button, Card, Form, FormField, InputField, useToast } from "@crab-stash/ui";

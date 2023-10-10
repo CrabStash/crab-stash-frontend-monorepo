@@ -1,6 +1,6 @@
 import type { GetServerSidePropsContext } from "next";
 
-import { API_ENDPOINTS } from "@app/constants/apiEndpoints";
+import { API_ENDPOINTS } from "@app/constants/api-endpoints";
 import { COOKIES_AUTH_TOKEN_KEY } from "@app/constants/tokens";
 import { storeAuthTokens } from "@app/utils/tokens";
 import axios from "axios";

@@ -1,4 +1,4 @@
-import { useLogoutMutation } from "./useLogoutMutation";
+import { useLogoutMutation } from "./use-logout-mutation";
 
 import { Button } from "@crab-stash/ui";
 

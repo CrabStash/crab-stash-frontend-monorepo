@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 
 import { api } from "@app/api";
-import { API_ENDPOINTS } from "@app/constants/apiEndpoints";
+import { API_ENDPOINTS } from "@app/constants/api-endpoints";
 import { URLS } from "@app/constants/urls";
 
 export const useLogoutMutation = () => {
