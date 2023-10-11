@@ -34,6 +34,7 @@ type Story = StoryObj<typeof Dropdown>;
 export const Default: Story = {
   args: {
     trigger: <Button>Dropdown</Button>,
+    align: "start",
     itemGroups: [items, items],
     label: (
       <div className="flex flex-col space-y-1">

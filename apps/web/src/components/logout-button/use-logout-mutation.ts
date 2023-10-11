@@ -15,7 +15,7 @@ export const useLogoutMutation = () => {
       }),
     {
       onSuccess: () => {
-        push(URLS.login);
+        // push(URLS.login);
       },
     },
   );

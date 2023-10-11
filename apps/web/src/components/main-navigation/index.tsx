@@ -22,11 +22,11 @@ const mainNavigationLinks: Link[] = [
   },
 
   {
-    href: "/test",
+    href: "/test1",
     label: "Products",
   },
   {
-    href: "/test",
+    href: "/test2",
     label: "Settings",
   },
 ];

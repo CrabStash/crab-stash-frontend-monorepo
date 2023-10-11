@@ -10,12 +10,6 @@ const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
 
 const DropdownMenuGroup = DropdownMenuPrimitive.Group;
 
-// const DropdownMenuPortal = DropdownMenuPrimitive.Portal;
-//
-// const DropdownMenuSub = DropdownMenuPrimitive.Sub;
-//
-// const DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup;
-
 const DropdownMenuSubTrigger = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.SubTrigger>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubTrigger> & {
@@ -187,16 +181,17 @@ interface DropdownProps {
   trigger: React.ReactNode | string;
   label: React.ReactNode;
   itemGroups: DropdownItemGroup[];
+  align?: React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content>["align"];
 }
 
 const Dropdown = React.forwardRef<
   React.ElementRef<typeof DropdownMenuContent>,
   DropdownProps & React.ComponentPropsWithoutRef<"div">
->(({ trigger, label, itemGroups, ...rest }, ref) => {
+>(({ trigger, label, itemGroups, align = "end", ...rest }, ref) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild={typeof trigger !== "string"}>{trigger}</DropdownMenuTrigger>
-      <DropdownMenuContent {...rest} ref={ref}>
+      <DropdownMenuContent {...rest} align={align} ref={ref}>
         {label && (
           <>
             <DropdownMenuLabel className="font-normal">{label}</DropdownMenuLabel>

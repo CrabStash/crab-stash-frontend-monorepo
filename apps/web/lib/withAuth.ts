@@ -1,10 +1,12 @@
-import { Query, QueryClient } from "@tanstack/react-query";
+import type { Query } from "@tanstack/react-query";
+import { QueryClient } from "@tanstack/react-query";
 
 import type { GetServerSideProps, GetServerSidePropsContext } from "next";
 
 import { setContext } from "@app/api";
 import { COOKIES_AUTH_TOKEN_KEY } from "@app/constants/tokens";
 import { URLS } from "@app/constants/urls";
+import type { MeQueryResponse } from "@app/hooks/use-me-query";
 import { meFetcher, meQueryKey } from "@app/hooks/use-me-query";
 import { destroyAuthTokens } from "@app/utils/tokens";
 import nookies from "nookies";
@@ -34,6 +36,12 @@ export const withAuth = (getServerSidePropsFunc: GSSPWithQueryClient) => {
 
     try {
       await queryClient.prefetchQuery([meQueryKey], meFetcher);
+
+      const query = queryClient.getQueryData<MeQueryResponse>([meQueryKey]);
+
+      if (!query?.response.data) {
+        throw new Error("No data");
+      }
     } catch (error) {
       destroyAuthTokens(context);
 

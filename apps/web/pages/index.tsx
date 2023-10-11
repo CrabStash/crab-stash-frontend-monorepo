@@ -4,7 +4,6 @@ import type { NextPage } from "next";
 import Head from "next/head";
 
 import { Layout } from "@app/components";
-import MainNavigation from "@app/components/main-navigation";
 import Dashboard from "@app/screens/dashboard";
 import { withAuth } from "lib/withAuth";
 

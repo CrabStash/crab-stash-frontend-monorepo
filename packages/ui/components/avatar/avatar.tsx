@@ -50,19 +50,24 @@ interface AvatarProps {
   fullName?: string;
 }
 
-const Avatar = ({ src, fullName }: AvatarProps) => {
+const Avatar = React.forwardRef<
+  React.ElementRef<typeof AvatarWrapper>,
+  React.ComponentPropsWithoutRef<typeof AvatarWrapper> & AvatarProps
+>(({ src, fullName, ...rest }, ref) => {
   const fallback = fullName
     ?.split(" ")
     .map((n) => n[0])
     .join("");
 
   return (
-    <AvatarWrapper>
-      <AvatarImage src="https://avatars.githubusercontent.com/u/2065981?v=4" alt={fullName} />
+    <AvatarWrapper ref={ref} {...rest}>
+      <AvatarImage src={src} alt={fullName} />
       <AvatarFallback>{fallback}</AvatarFallback>
     </AvatarWrapper>
   );
-};
+});
+
+Avatar.displayName = "Avatar";
 
 export { Avatar };
 export type { AvatarProps };
