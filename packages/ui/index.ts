@@ -9,3 +9,5 @@ export * from "./components/typography";
 export * from "./components/card";
 export * from "./components/form";
 export * from "./components/toast";
+export * from "./components/dropdown";
+export * from "./components/avatar";

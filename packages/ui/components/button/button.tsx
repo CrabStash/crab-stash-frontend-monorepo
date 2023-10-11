@@ -37,7 +37,7 @@ const loaderVariants = cva("animate-spin mr-2", {
     size: {
       default: "h-4 w-4",
       sm: "h-4 w-4",
-      lg: "h-5 h-5",
+      lg: "h-5 w-5",
     },
   },
 });
@@ -47,7 +47,7 @@ const iconVariants = cva("mr-2", {
     size: {
       default: "h-4 w-4",
       sm: "h-4 w-4",
-      lg: "h-5 h-5",
+      lg: "h-5 w-5",
     },
   },
 });
