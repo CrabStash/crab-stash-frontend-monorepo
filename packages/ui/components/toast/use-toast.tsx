@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import type { ToastActionElement, ToastProps } from "./toast";
 
 const TOAST_LIMIT = 3;
-const TOAST_REMOVE_DELAY = 10 * 1000;
+const TOAST_REMOVE_DELAY = 3 * 1000;
 
 type ToasterToast = ToastProps & {
   id: string;

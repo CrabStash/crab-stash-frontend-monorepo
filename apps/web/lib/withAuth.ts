@@ -35,7 +35,7 @@ export const withAuth = (getServerSidePropsFunc: GSSPWithQueryClient) => {
     const queryClient = new QueryClient();
 
     try {
-      await queryClient.prefetchQuery([meQueryKey], meFetcher);
+      await queryClient.prefetchQuery([meQueryKey], () => meFetcher(context));
 
       const query = queryClient.getQueryData<MeQueryResponse>([meQueryKey]);
 

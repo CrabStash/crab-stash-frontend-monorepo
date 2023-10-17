@@ -52,7 +52,15 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+const endpointsWithoutAuth = [API_ENDPOINTS.auth.login, API_ENDPOINTS.auth.register];
+
 createAuthRefreshInterceptor(api, async (failedRequest) => {
+  const failedRequestUrl = failedRequest.config.url;
+
+  if (endpointsWithoutAuth.includes(failedRequestUrl)) {
+    return Promise.reject(failedRequest);
+  }
+
   const { data } = await api.get<{ token: string }>(API_ENDPOINTS.auth.refresh, {
     withCredentials: true,
   });

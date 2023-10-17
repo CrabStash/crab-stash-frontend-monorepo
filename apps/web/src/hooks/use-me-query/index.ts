@@ -1,38 +1,32 @@
 import { useQuery } from "@tanstack/react-query";
 
+import type { GetServerSidePropsContext } from "next";
+
 import { api } from "@app/api";
 import { API_ENDPOINTS } from "@app/constants/api-endpoints";
-import type { Response } from "types";
+import { COOKIES_AUTH_TOKEN_KEY } from "@app/constants/tokens";
+import nookies from "nookies";
+import type { Response, User } from "types";
 
-export type MeQueryResponse = Response<{
-  firstName: string;
-  lastName: string;
-  email: string;
-}>;
+export type MeQueryResponse = Response<User>;
 
-export const meFetcher = async () => {
+export const meFetcher = async (context?: GetServerSidePropsContext) => {
+  const cookies = nookies.get(context || null);
+
+  if (!cookies[COOKIES_AUTH_TOKEN_KEY]) {
+    return undefined;
+  }
+
   const { data } = await api.get<MeQueryResponse>(API_ENDPOINTS.user.me);
 
-  return {
-    response: {
-      data: {
-        // @ts-ignore TODO
-        firstName: data.Response.Data.firstName,
-        // @ts-ignore TODO
-        lastName: data.Response.Data.lastName,
-        // @ts-ignore TODO
-        email: data.Response.Data.email,
-      },
-    },
-    status: data.status,
-  };
+  return data;
 };
 
 export const meQueryKey = API_ENDPOINTS.user.me;
 
 export default function useMeQuery() {
   const query = useQuery([meQueryKey], {
-    queryFn: meFetcher,
+    queryFn: () => meFetcher(),
   });
 
   return query;

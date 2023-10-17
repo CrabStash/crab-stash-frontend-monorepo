@@ -47,6 +47,7 @@ function LoginScreen() {
         title: "Login successful",
         description: "You have been logged in successfully.",
       });
+
       push(URLS.dashboard);
     } catch (error) {
       console.error(error);
