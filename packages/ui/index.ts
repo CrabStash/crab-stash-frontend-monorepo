@@ -11,3 +11,7 @@ export * from "./components/form";
 export * from "./components/toast";
 export * from "./components/dropdown";
 export * from "./components/avatar";
+export * from "./components/combobox";
+export * from "./components/command";
+export * from "./components/dialog";
+export * from "./components/popover";
