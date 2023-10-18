@@ -1,9 +1,12 @@
+import { QueryClient } from "@tanstack/react-query";
+
 import type { GetServerSideProps, GetServerSidePropsContext } from "next";
 
-import { api, setContext } from "@app/api";
-import { API_ENDPOINTS } from "@app/constants/apiEndpoints";
+import { setContext } from "@app/api";
 import { COOKIES_AUTH_TOKEN_KEY } from "@app/constants/tokens";
 import { URLS } from "@app/constants/urls";
+import type { MeQueryResponse } from "@app/hooks/use-me-query";
+import { meFetcher, meQueryKey } from "@app/hooks/use-me-query";
 import { destroyAuthTokens } from "@app/utils/tokens";
 import nookies from "nookies";
 
@@ -14,7 +17,11 @@ const redirectToLogin = {
   },
 } as const;
 
-export const withAuth = (getServerSidePropsFunc: GetServerSideProps) => {
+type GSSPWithQueryClient = GetServerSideProps extends (a: infer U) => infer R
+  ? (a: U, queryClient: QueryClient) => R
+  : never;
+
+export const withAuth = (getServerSidePropsFunc: GSSPWithQueryClient) => {
   return async (context: GetServerSidePropsContext) => {
     const cookies = nookies.get(context);
 
@@ -24,14 +31,22 @@ export const withAuth = (getServerSidePropsFunc: GetServerSideProps) => {
       return redirectToLogin;
     }
 
+    const queryClient = new QueryClient();
+
     try {
-      await api.get(API_ENDPOINTS.user.me);
+      await queryClient.prefetchQuery([meQueryKey], () => meFetcher(context));
+
+      const query = queryClient.getQueryData<MeQueryResponse>([meQueryKey]);
+
+      if (!query?.response.data) {
+        throw new Error("No data");
+      }
     } catch (error) {
       destroyAuthTokens(context);
 
       return redirectToLogin;
     }
 
-    return await getServerSidePropsFunc(context);
+    return await getServerSidePropsFunc(context, queryClient);
   };
 };

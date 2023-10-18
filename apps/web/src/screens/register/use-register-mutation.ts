@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 
 import { api } from "@app/api";
-import { API_ENDPOINTS } from "@app/constants/apiEndpoints";
+import { API_ENDPOINTS } from "@app/constants/api-endpoints";
 
 type RegisterMutation = {
   token: string;

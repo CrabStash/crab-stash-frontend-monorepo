@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { useLoginMutation } from "./useLoginMutation";
+import { useLoginMutation } from "./use-login-mutation";
 
 import { URLS } from "@app/constants/urls";
 import { storeAuthTokens } from "@app/utils/tokens";
@@ -47,6 +47,7 @@ function LoginScreen() {
         title: "Login successful",
         description: "You have been logged in successfully.",
       });
+
       push(URLS.dashboard);
     } catch (error) {
       console.error(error);
