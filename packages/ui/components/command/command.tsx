@@ -2,8 +2,6 @@ import { Search } from "lucide-react";
 import * as React from "react";
 
 import { cn } from "../../lib/utils";
-import type { DialogProps } from "../dialog";
-import { Dialog } from "../dialog";
 
 import { Command as CommandPrimitive } from "cmdk";
 
@@ -22,25 +20,6 @@ const CommandWrapper = React.forwardRef<
 ));
 
 CommandWrapper.displayName = CommandPrimitive.displayName;
-
-type CommandDialogProps = DialogProps;
-
-const CommandDialog = ({
-  children,
-  ...props
-}: Omit<CommandDialogProps, "content"> & { children: React.ReactNode }) => {
-  return (
-    <Dialog
-      content={
-        <CommandWrapper className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
-          {children}
-        </CommandWrapper>
-      }
-      contentClassName="overflow-hidden p-0 shadow-lg"
-      {...props}
-    ></Dialog>
-  );
-};
 
 const CommandInput = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive.Input>,
@@ -141,11 +120,15 @@ CommandShortcut.displayName = "CommandShortcut";
 
 export type CommandItemType = {
   label: string;
+  value?: string;
   icon?: React.ReactNode;
-  onSelect?: (value: string) => void;
 };
 
-export type CommandGroupType = { items: CommandItemType[]; heading?: string };
+export type CommandGroupType = {
+  items: CommandItemType[];
+  heading?: string;
+  onSelect?: (item: CommandItemType) => void;
+};
 
 export interface CommandProps {
   groups: CommandGroupType[];
@@ -163,7 +146,7 @@ export function Command({ groups, empty, placeholder }: CommandProps) {
           <React.Fragment key={index}>
             <CommandGroup heading={group.heading}>
               {group.items.map((item, index) => (
-                <CommandItem onSelect={item.onSelect} key={index}>
+                <CommandItem onSelect={() => group.onSelect?.(item)} key={index}>
                   {item.icon}
                   <span>{item.label}</span>
                 </CommandItem>

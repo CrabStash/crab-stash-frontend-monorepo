@@ -94,6 +94,8 @@ DialogDescription.displayName = DialogPrimitive.Description.displayName;
 
 export interface DialogProps {
   content: React.ReactNode;
+  title: string;
+  description: string;
   footer?: React.ReactNode;
   trigger?: React.ReactNode;
   contentClassName?: string;
@@ -104,6 +106,8 @@ export function Dialog({
   footer,
   trigger,
   contentClassName,
+  title,
+  description,
   ...rest
 }: React.ComponentPropsWithoutRef<typeof DialogPrimitive.Root> & DialogProps) {
   return (
@@ -111,10 +115,8 @@ export function Dialog({
       {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
       <DialogContent className={cn("sm:max-w-[425px]", contentClassName)}>
         <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
-          <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
-          </DialogDescription>
+          <DialogTitle>{title}</DialogTitle>
+          <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         {content}
         {footer && <DialogFooter>{footer}</DialogFooter>}

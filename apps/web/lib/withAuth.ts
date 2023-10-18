@@ -1,4 +1,3 @@
-import type { Query } from "@tanstack/react-query";
 import { QueryClient } from "@tanstack/react-query";
 
 import type { GetServerSideProps, GetServerSidePropsContext } from "next";

@@ -17,6 +17,8 @@ type Story = StoryObj<typeof Dialog>;
 export const Default: Story = {
   args: {
     trigger: <Button>Dialog</Button>,
+    title: "Dialog title",
+    description: "Dialog description",
     content: (
       <div className="grid gap-4 py-4">
         <div className="grid grid-cols-4 items-center gap-4">
