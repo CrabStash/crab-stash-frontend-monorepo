@@ -14,11 +14,11 @@ type Link = {
 const mainNavigationLinks: Link[] = [
   {
     href: URLS.dashboard,
-    label: "Overview",
+    label: "Dashboard",
   },
   {
     href: "/test",
-    label: "Customers",
+    label: "Categories",
   },
 
   {
