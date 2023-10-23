@@ -1,3 +1,4 @@
+import ThemeToggle from "../theme-toggle";
 import WarehouseSwitcher from "../warehouse-switcher";
 import MainNavigation from "./main-navigation";
 import UserNavigation from "./user-navigation";
@@ -19,7 +20,8 @@ function Navigation() {
         <div className="flex h-16 items-center px-6">
           <WarehouseSwitcher />
           <MainNavigation className="hidden md:block ml-4" />
-          <div className="ml-auto flex items-center space-x-4">
+          <div className="ml-auto flex items-center gap-2">
+            <ThemeToggle />
             <UserNavigation user={user} />
           </div>
         </div>

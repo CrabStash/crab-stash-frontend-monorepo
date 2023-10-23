@@ -80,7 +80,7 @@ function Register() {
               <Button variant="secondary" disabled={isLoading}>
                 Cancel
               </Button>
-              <Button type="submit" variant="outline" loading={isLoading}>
+              <Button type="submit" loading={isLoading}>
                 Reigster
               </Button>
             </div>

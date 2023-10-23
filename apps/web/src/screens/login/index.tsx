@@ -70,7 +70,7 @@ function LoginScreen() {
               <Button variant="secondary" disabled={isLoading}>
                 Cancel
               </Button>
-              <Button type="submit" variant="outline" loading={isLoading}>
+              <Button type="submit" loading={isLoading}>
                 Login
               </Button>
             </div>
