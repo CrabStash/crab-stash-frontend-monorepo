@@ -15,3 +15,5 @@ export * from "./components/combobox";
 export * from "./components/command";
 export * from "./components/dialog";
 export * from "./components/popover";
+export * from "./components/tabs";
+export * from "./components/bar-graph";
