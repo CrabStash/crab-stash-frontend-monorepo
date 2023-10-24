@@ -31,7 +31,10 @@ const CardTitle = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLHeadingEle
   ({ className, ...props }, ref) => (
     <h3
       ref={ref}
-      className={cn("text-2xl font-semibold leading-none tracking-tight", className)}
+      className={cn(
+        "text-2xl font-semibold leading-none tracking-tight flex justify-between gap-1",
+        className,
+      )}
       {...props}
     />
   ),
@@ -66,20 +69,34 @@ CardFooter.displayName = "CardFooter";
 export interface CardProps extends HTMLAttributes<HTMLDivElement | HTMLFormElement> {
   children: ReactNode;
   title: string;
-  description: string;
-  footerContent: ReactNode;
+  icon?: ReactNode;
+  titleClassName?: string;
+  description?: string;
+  footerContent?: ReactNode;
   asForm?: boolean;
 }
 
-export function Card({ children, title, description, footerContent, asForm, ...rest }: CardProps) {
+export function Card({
+  children,
+  title,
+  titleClassName,
+  description,
+  footerContent,
+  icon,
+  asForm,
+  ...rest
+}: CardProps) {
   const content = (
     <>
       <CardHeader>
-        <CardTitle>{title}</CardTitle>
-        <CardDescription>{description}</CardDescription>
+        <CardTitle className={titleClassName}>
+          {title}
+          {icon}
+        </CardTitle>
+        {description && <CardDescription>{description}</CardDescription>}
       </CardHeader>
       <CardContent>{children}</CardContent>
-      <CardFooter>{footerContent}</CardFooter>
+      {footerContent && <CardFooter>{footerContent}</CardFooter>}
     </>
   );
 
