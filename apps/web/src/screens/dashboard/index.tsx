@@ -1,5 +1,6 @@
 import Overview from "./components/overview";
 
+import PageTitle from "@app/components/page-title";
 import type { Tab } from "@crab-stash/ui";
 import { Tabs } from "@crab-stash/ui";
 
@@ -20,10 +21,8 @@ function Dashboard() {
   ];
 
   return (
-    <div className="flex-1 space-y-4 p-8 pt-6">
-      <div className="flex items-center justify-between space-y-2">
-        <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
-      </div>
+    <div className="flex-1">
+      <PageTitle>Dashboard</PageTitle>
       <Tabs tabs={dashboardTabs} defaultValue="overview" />
     </div>
   );

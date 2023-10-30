@@ -11,7 +11,7 @@ function Layout({ children }: LayoutProps) {
     <>
       <Navigation />
       <main className="flex items-stretch flex-[1_0_auto]">
-        <div className="flex-1 w-full mx-auto max-w-screen-2xl">{children}</div>
+        <div className="flex-1 w-full mx-auto max-w-screen-2xl space-y-4 p-8 pt-6">{children}</div>
       </main>
     </>
   );

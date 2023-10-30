@@ -17,3 +17,5 @@ export * from "./components/dialog";
 export * from "./components/popover";
 export * from "./components/tabs";
 export * from "./components/bar-graph";
+export * from "./components/textarea";
+export * from "./components/textarea-field";

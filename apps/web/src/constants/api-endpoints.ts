@@ -8,4 +8,7 @@ export const API_ENDPOINTS = {
   user: {
     me: "/user/me",
   },
+  warehouse: {
+    warehouses: "/warehouse",
+  },
 };
