@@ -1,8 +1,9 @@
 import { useMemo } from "react";
 
 import BasicInformation from "./steps/basic-information";
+import LogoUploader from "./steps/logo";
 import type { WarehouseCreateStepFormId, WarehouseCreatorStep } from "./types";
-import useWarehouseCreatorNavigation from "./use-warehouse-creator-navigation";
+import { useWarehouseCreatorStore } from "./warehouse-creator-store";
 
 import PageTitle from "@app/components/page-title";
 import type { Tab } from "@crab-stash/ui";
@@ -10,7 +11,10 @@ import { Button } from "@crab-stash/ui";
 import { Card, Tabs } from "@crab-stash/ui";
 
 function WarehouseCreator() {
-  const { currentStep, goToPreviousStep } = useWarehouseCreatorNavigation();
+  const { currentStep, goToPreviousStep } = useWarehouseCreatorStore((state) => ({
+    currentStep: state.step,
+    goToPreviousStep: state.goToPreviousStep,
+  }));
 
   const currentStepFormId: WarehouseCreateStepFormId = `${currentStep}-form`;
 
@@ -24,7 +28,7 @@ function WarehouseCreator() {
       {
         label: "Logo",
         value: "logo",
-        content: <>Logo</>,
+        content: <LogoUploader />,
       },
       {
         label: "Additional Information",
@@ -45,9 +49,10 @@ function WarehouseCreator() {
         <Tabs
           tabs={tabs}
           defaultValue="basic-information"
-          className="my-auto"
           value={currentStep}
           readonly
+          className="flex flex-col"
+          tabsClassName="w-fit align-center mx-auto"
         />
         <div className="flex justify-end space-x-4 mt-8">
           <Button variant="secondary" onClick={goToPreviousStep}>

@@ -66,9 +66,11 @@ export interface Tab<TValue extends string> {
   content: ReactElement;
 }
 
-export interface TabsProps<TValue extends string> {
+export interface TabsProps<TValue extends string>
+  extends ComponentPropsWithoutRef<typeof TabsWrapper> {
   tabs: Tab<TValue>[];
   defaultValue?: TValue;
+  tabsClassName?: string;
   readonly?: boolean;
 }
 
@@ -77,13 +79,14 @@ function TabsInner<TValue extends string>(
     tabs,
     defaultValue,
     readonly,
+    tabsClassName,
     ...props
   }: ComponentPropsWithoutRef<typeof TabsWrapper> & TabsProps<TValue>,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
   return (
     <TabsWrapper defaultValue={defaultValue} {...props} ref={ref}>
-      <TabsList>
+      <TabsList className={tabsClassName}>
         {tabs.map(({ label, value }) => (
           <TabsTrigger value={value} key={value} readonly={readonly}>
             {label}

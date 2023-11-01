@@ -12,7 +12,7 @@ const Login: NextPage = () => {
         <meta name="description" content="Login to Crabstash to start managing your shop stash." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Layout>
+      <Layout type="auth">
         <LoginScreen />
       </Layout>
     </>
