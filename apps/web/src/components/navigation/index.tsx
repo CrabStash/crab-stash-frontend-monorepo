@@ -3,7 +3,7 @@ import WarehouseSwitcher from "../warehouse-switcher";
 import MainNavigation from "./main-navigation";
 import UserNavigation from "./user-navigation";
 
-import useMeQuery from "@app/hooks/use-me-query";
+import useMeQuery from "@app/hooks/queries/use-me-query";
 
 function Navigation() {
   const { data, isError } = useMeQuery();

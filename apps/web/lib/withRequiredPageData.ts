@@ -1,6 +1,6 @@
 import type { QueryClient } from "@tanstack/react-query";
 
-import { warehousesFetcher, warehousesQueryKey } from "@app/hooks/use-warehouses-query";
+import { warehousesFetcher, warehousesQueryKey } from "@app/hooks/queries/use-warehouses-query";
 
 type Options = {
   withWarehouses?: boolean;

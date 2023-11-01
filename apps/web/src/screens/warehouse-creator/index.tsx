@@ -1,5 +1,4 @@
-import { useMemo } from "react";
-
+import AdditionalInformation from "./steps/additional-information";
 import BasicInformation from "./steps/basic-information";
 import LogoUploader from "./steps/logo";
 import type { WarehouseCreateStepFormId, WarehouseCreatorStep } from "./types";
@@ -10,6 +9,24 @@ import type { Tab } from "@crab-stash/ui";
 import { Button } from "@crab-stash/ui";
 import { Card, Tabs } from "@crab-stash/ui";
 
+const tabs: Tab<WarehouseCreatorStep>[] = [
+  {
+    label: "Basic Information",
+    value: "basic-information",
+    content: <BasicInformation />,
+  },
+  {
+    label: "Logo",
+    value: "logo",
+    content: <LogoUploader />,
+  },
+  {
+    label: "Additional Information",
+    value: "additional-information",
+    content: <AdditionalInformation />,
+  },
+];
+
 function WarehouseCreator() {
   const { currentStep, goToPreviousStep } = useWarehouseCreatorStore((state) => ({
     currentStep: state.step,
@@ -17,27 +34,6 @@ function WarehouseCreator() {
   }));
 
   const currentStepFormId: WarehouseCreateStepFormId = `${currentStep}-form`;
-
-  const tabs: Tab<WarehouseCreatorStep>[] = useMemo(
-    () => [
-      {
-        label: "Basic Information",
-        value: "basic-information",
-        content: <BasicInformation />,
-      },
-      {
-        label: "Logo",
-        value: "logo",
-        content: <LogoUploader />,
-      },
-      {
-        label: "Additional Information",
-        value: "additional-information",
-        content: <>Additional Information</>,
-      },
-    ],
-    [],
-  );
 
   return (
     <div className="flex-1">
@@ -52,7 +48,7 @@ function WarehouseCreator() {
           value={currentStep}
           readonly
           className="flex flex-col"
-          tabsClassName="w-fit align-center mx-auto"
+          tabsClassName="w-fit align-center mx-auto flex-wrap h-fit"
         />
         <div className="flex justify-end space-x-4 mt-8">
           <Button variant="secondary" onClick={goToPreviousStep}>

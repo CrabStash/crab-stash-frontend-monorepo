@@ -1,4 +1,4 @@
-import { useLogoutMutation } from "@app/hooks/use-logout-mutation";
+import { useLogoutMutation } from "@app/hooks/mutations/use-logout-mutation";
 import { Avatar, Button, Dropdown } from "@crab-stash/ui";
 import type { User } from "types";
 

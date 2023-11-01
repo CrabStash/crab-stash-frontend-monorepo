@@ -10,5 +10,6 @@ export const API_ENDPOINTS = {
   },
   warehouse: {
     warehouses: "/warehouse",
+    createWarehouse: "/warehouse/create",
   },
 };

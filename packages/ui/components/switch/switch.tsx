@@ -2,14 +2,16 @@ import * as SwitchPrimitives from "@radix-ui/react-switch";
 import * as React from "react";
 
 import { cn } from "../../lib/utils";
+import { FormLabel } from "../form";
 import { Label } from "../label";
 
 export interface SwitchProps extends React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root> {
   label: string;
+  asField?: boolean;
 }
 
 const Switch = React.forwardRef<React.ElementRef<typeof SwitchPrimitives.Root>, SwitchProps>(
-  ({ className, id, label, ...props }, ref) => (
+  ({ className, asField, id, label, ...props }, ref) => (
     <div className="flex items-center space-x-2">
       <SwitchPrimitives.Root
         className={cn(
@@ -27,9 +29,13 @@ const Switch = React.forwardRef<React.ElementRef<typeof SwitchPrimitives.Root>, 
           )}
         />
       </SwitchPrimitives.Root>
-      <Label pointer htmlFor={id}>
-        {label}
-      </Label>
+      {asField ? (
+        <FormLabel htmlFor={id}>{label}</FormLabel>
+      ) : (
+        <Label pointer htmlFor={id}>
+          {label}
+        </Label>
+      )}
     </div>
   ),
 );

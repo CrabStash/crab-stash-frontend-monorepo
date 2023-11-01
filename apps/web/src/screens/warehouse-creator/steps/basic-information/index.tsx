@@ -14,11 +14,11 @@ const basicInformationSchema = z.object({
   description: z.string().nonempty({ message: "Description is required" }),
 });
 
-export type BasicInfromationForm = z.infer<typeof basicInformationSchema>;
+export type BasicInformationForm = z.infer<typeof basicInformationSchema>;
 
 const basicInformationFormId: WarehouseCreateStepFormId = "basic-information-form";
 
-const defaultValues: BasicInfromationForm = {
+const defaultValues: BasicInformationForm = {
   name: "",
   description: "",
 };
@@ -29,12 +29,12 @@ function BasicInformation() {
   );
   const goToNextStep = useWarehouseCreatorStore((state) => state.goToNextStep);
 
-  const form = useForm<BasicInfromationForm>({
+  const form = useForm<BasicInformationForm>({
     resolver: zodResolver(basicInformationSchema),
     defaultValues: basicInformationStepData ?? defaultValues,
   });
 
-  const onSubmit = (data: BasicInfromationForm) => {
+  const onSubmit = (data: BasicInformationForm) => {
     // eslint-disable-next-line no-console
     console.log(data);
     submitBasicInformationStepData(data);

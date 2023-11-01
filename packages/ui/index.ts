@@ -5,6 +5,7 @@ export * from "./components/input-field";
 export * from "./components/label";
 export * from "./components/select";
 export * from "./components/switch";
+export * from "./components/switch-field";
 export * from "./components/typography";
 export * from "./components/card";
 export * from "./components/form";

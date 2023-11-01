@@ -4,7 +4,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 
 import { Layout } from "@app/components";
-import useWarehousesQuery from "@app/hooks/use-warehouses-query";
+import useWarehousesQuery from "@app/hooks/queries/use-warehouses-query";
 import Dashboard from "@app/screens/dashboard";
 import WarehouseCreator from "@app/screens/warehouse-creator";
 import { withAuth } from "lib/withAuth";
@@ -27,7 +27,7 @@ const Web: NextPage = () => {
 
 export const getServerSideProps = withAuth(async (_, queryClient) => {
   await getRequiredPageData(queryClient, {
-    withWarehouses: true,
+    //    withWarehouses: true,
   });
 
   return {
