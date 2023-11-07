@@ -5,8 +5,8 @@ import type { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { setContext } from "@app/api";
 import { COOKIES_AUTH_TOKEN_KEY } from "@app/constants/tokens";
 import { URLS } from "@app/constants/urls";
-import type { MeQueryResponse } from "@app/hooks/use-me-query";
-import { meFetcher, meQueryKey } from "@app/hooks/use-me-query";
+import type { MeQueryResponse } from "@app/hooks/queries/use-me-query";
+import { meFetcher, meQueryKey } from "@app/hooks/queries/use-me-query";
 import { destroyAuthTokens } from "@app/utils/tokens";
 import nookies from "nookies";
 

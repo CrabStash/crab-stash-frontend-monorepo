@@ -65,7 +65,7 @@ function Overview() {
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
         <Card title="Overview" className="col-span-4">
-          <BarGraph data={data} />
+          <BarGraph data={data} tickFormatter={(value) => formatPrice(value)} />
         </Card>
         <Card
           title="Recently added products"

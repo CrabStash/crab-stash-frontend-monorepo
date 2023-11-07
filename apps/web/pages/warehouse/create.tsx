@@ -4,15 +4,11 @@ import type { NextPage } from "next";
 import Head from "next/head";
 
 import { Layout } from "@app/components";
-import useWarehousesQuery from "@app/hooks/queries/use-warehouses-query";
-import Dashboard from "@app/screens/dashboard";
 import WarehouseCreator from "@app/screens/warehouse-creator";
 import { withAuth } from "lib/withAuth";
 import { getRequiredPageData } from "lib/withRequiredPageData";
 
-const Web: NextPage = () => {
-  const { data } = useWarehousesQuery();
-
+const WarehouseCreatePage: NextPage = () => {
   return (
     <>
       <Head>
@@ -21,11 +17,7 @@ const Web: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        {data?.response.data.list && data.response.data.list.length > 0 ? (
-          <Dashboard />
-        ) : (
-          <WarehouseCreator />
-        )}
+        <WarehouseCreator />
       </Layout>
     </>
   );
@@ -43,4 +35,4 @@ export const getServerSideProps = withAuth(async (_, queryClient) => {
   };
 });
 
-export default Web;
+export default WarehouseCreatePage;

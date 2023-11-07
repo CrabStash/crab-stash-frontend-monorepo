@@ -8,9 +8,10 @@ export type BarField = {
 export interface BarGraphProps {
   data: BarField[];
   color?: string;
+  tickFormatter?: (value: number) => string;
 }
 
-export function BarGraph({ data, color }: BarGraphProps) {
+export function BarGraph({ data, color, tickFormatter }: BarGraphProps) {
   return (
     <ResponsiveContainer width="100%" height={350}>
       <BarChart data={data}>
@@ -20,7 +21,7 @@ export function BarGraph({ data, color }: BarGraphProps) {
           fontSize={12}
           tickLine={false}
           axisLine={false}
-          tickFormatter={(value) => `$${value}`}
+          tickFormatter={tickFormatter}
         />
         <Bar dataKey="total" className="fill-primary" fill={color} radius={[4, 4, 0, 0]} />
       </BarChart>

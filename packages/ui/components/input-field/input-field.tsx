@@ -6,7 +6,7 @@ import { Input } from "../input";
 
 const InputField = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   return (
-    <FormItem>
+    <FormItem className="w-full">
       <FormControl>
         <Input {...props} ref={ref} asField />
       </FormControl>

@@ -15,7 +15,7 @@ const RegisterPage: NextPage = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Layout>
+      <Layout type="auth">
         <RegisterScreen />
       </Layout>
     </>

@@ -22,15 +22,21 @@ const TabsList = forwardRef<
 
 TabsList.displayName = TabsPrimitive.List.displayName;
 
+interface TabsTriggerProps {
+  readonly?: boolean;
+}
+
 const TabsTrigger = forwardRef<
   ElementRef<typeof TabsPrimitive.Trigger>,
-  ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
->(({ className, ...props }, ref) => (
+  ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger> & TabsTriggerProps
+>(({ className, disabled, readonly, ...props }, ref) => (
   <TabsPrimitive.Trigger
     ref={ref}
+    disabled={disabled || readonly}
     className={cn(
       "inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow",
       className,
+      readonly && "disabled:opacity-100",
     )}
     {...props}
   />
@@ -60,24 +66,29 @@ export interface Tab<TValue extends string> {
   content: ReactElement;
 }
 
-export interface TabsProps<TValue extends string> {
+export interface TabsProps<TValue extends string>
+  extends ComponentPropsWithoutRef<typeof TabsWrapper> {
   tabs: Tab<TValue>[];
   defaultValue?: TValue;
+  tabsClassName?: string;
+  readonly?: boolean;
 }
 
 function TabsInner<TValue extends string>(
   {
     tabs,
     defaultValue,
+    readonly,
+    tabsClassName,
     ...props
   }: ComponentPropsWithoutRef<typeof TabsWrapper> & TabsProps<TValue>,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
   return (
     <TabsWrapper defaultValue={defaultValue} {...props} ref={ref}>
-      <TabsList>
+      <TabsList className={tabsClassName}>
         {tabs.map(({ label, value }) => (
-          <TabsTrigger value={value} key={value}>
+          <TabsTrigger value={value} key={value} readonly={readonly}>
             {label}
           </TabsTrigger>
         ))}
