@@ -1,4 +1,3 @@
-import type { BasicInfromationForm } from "./steps/basic-information";
 import type { WarehouseCreatorStep } from "./types";
 
 import { create } from "zustand";

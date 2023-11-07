@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { api } from "@app/api";
 import { API_ENDPOINTS } from "@app/constants/api-endpoints";
@@ -12,6 +12,7 @@ type CreateWarehouseMutationVariables = {
   name: string;
   desc: string;
   capacity: number;
+  logo: string;
   isPhysical?: boolean;
 };
 
@@ -27,11 +28,16 @@ const fetcher = async (options: CreateWarehouseMutationVariables) => {
 };
 
 export function useCreateWarehouseMutation() {
+  const queryClient = useQueryClient();
   const mutation = useMutation<
     CreateWarehouseMutationResponse,
     unknown,
     CreateWarehouseMutationVariables
-  >(fetcher);
+  >(fetcher, {
+    onSuccess: () => {
+      queryClient.invalidateQueries([API_ENDPOINTS.warehouse.warehouses]);
+    },
+  });
 
   return mutation;
 }

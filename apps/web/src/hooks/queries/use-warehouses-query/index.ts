@@ -3,22 +3,15 @@ import { useQuery } from "@tanstack/react-query";
 import { api } from "@app/api";
 import { API_ENDPOINTS } from "@app/constants/api-endpoints";
 import type { Response } from "types";
+import type { Paginated } from "types/paginated";
+import type { WarehouseListItem } from "types/warehouse";
 
-export type WarehousesQueryResponse = Response<[]>;
+export type WarehousesQueryResponse = Response<Paginated<WarehouseListItem[]>>;
 
 export const warehousesFetcher = async () => {
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { data } = await api.get<WarehousesQueryResponse>(API_ENDPOINTS.warehouse.warehouses);
-  } catch (error) {
-    //
-  }
+  const { data } = await api.get<WarehousesQueryResponse>(API_ENDPOINTS.warehouse.warehouses);
 
-  return {
-    response: {
-      data: [],
-    },
-  };
+  return data;
 };
 
 export const warehousesQueryKey = API_ENDPOINTS.warehouse.warehouses;

@@ -20,14 +20,20 @@ const Web: NextPage = () => {
         <meta name="description" content="Turborepo Starter: Web" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Layout>{data?.response.data.length === 0 ? <WarehouseCreator /> : <Dashboard />}</Layout>
+      <Layout>
+        {data?.response.data.list && data.response.data.list.length > 0 ? (
+          <Dashboard />
+        ) : (
+          <WarehouseCreator />
+        )}
+      </Layout>
     </>
   );
 };
 
 export const getServerSideProps = withAuth(async (_, queryClient) => {
   await getRequiredPageData(queryClient, {
-    //    withWarehouses: true,
+    withWarehouses: true,
   });
 
   return {

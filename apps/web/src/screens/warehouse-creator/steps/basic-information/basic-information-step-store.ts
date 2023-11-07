@@ -1,10 +1,10 @@
-import type { BasicInfromationForm } from "./";
+import type { BasicInformationForm } from ".";
 
 import { create } from "zustand";
 
 type BasicInformationStepStore = {
-  basicInformationStepData: BasicInfromationForm | null;
-  submitBasicInformationStepData: (data: BasicInfromationForm) => void;
+  basicInformationStepData: BasicInformationForm | null;
+  submitBasicInformationStepData: (data: BasicInformationForm) => void;
   clearBasicInformationStepData: () => void;
 };
 

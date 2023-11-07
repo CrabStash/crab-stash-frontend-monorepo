@@ -47,7 +47,8 @@ function AdditionalInformation() {
         name: basicInformationStepData.name,
         desc: basicInformationStepData.description,
         isPhysical: data.isPhysical,
-        capacity: data.capacity,
+        capacity: data.capacity || 0,
+        logo: "https://google.com",
       });
 
       toast({

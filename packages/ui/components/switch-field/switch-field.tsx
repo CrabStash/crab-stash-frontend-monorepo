@@ -6,11 +6,11 @@ import type { SwitchProps } from "../switch";
 import { Switch } from "../switch";
 
 const SwitchField = forwardRef<React.ElementRef<typeof SwitchPrimitives.Root>, SwitchProps>(
-  ({ value, ...props }, ref) => {
+  (props, ref) => {
     return (
       <FormItem className="w-full">
         <FormControl>
-          <Switch value={value as unknown as boolean} {...props} ref={ref} asField />
+          <Switch {...props} ref={ref} asField />
         </FormControl>
       </FormItem>
     );
