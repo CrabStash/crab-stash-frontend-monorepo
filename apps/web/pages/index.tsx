@@ -10,7 +10,7 @@ import WarehouseCreator from "@app/screens/warehouse-creator";
 import { withAuth } from "lib/withAuth";
 import { getRequiredPageData } from "lib/withRequiredPageData";
 
-const Web: NextPage = () => {
+const Page: NextPage = () => {
   const { data } = useWarehousesQuery();
 
   return (
@@ -43,4 +43,4 @@ export const getServerSideProps = withAuth(async (_, queryClient) => {
   };
 });
 
-export default Web;
+export default Page;

@@ -4,7 +4,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 
 import { Layout } from "@app/components";
-import WarehouseCreator from "@app/screens/warehouse-creator";
+import Dashboard from "@app/screens/dashboard";
 import { withAuth } from "lib/withAuth";
 import { getRequiredPageData } from "lib/withRequiredPageData";
 
@@ -12,12 +12,12 @@ const Page: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Turborepo Starter: Web</title>
+        <title>Warehouse</title>
         <meta name="description" content="Turborepo Starter: Web" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <WarehouseCreator redirectToDashboardOnSuccess />
+        <Dashboard />
       </Layout>
     </>
   );

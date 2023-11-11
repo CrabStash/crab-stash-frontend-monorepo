@@ -1,11 +1,14 @@
 import { useForm } from "react-hook-form";
 
+import { useRouter } from "next/router";
+
 import StepHeader from "../../components/step-header";
 import type { WarehouseCreateStepFormId } from "../../types";
 import { useCreateWarehouseMutation } from "../../use-create-warehouse-mutation";
 import { useBasicInformationStepStore } from "../basic-information/basic-information-step-store";
 import { useAdditionalInformationStepStore } from "./additional-information-step-store";
 
+import { URLS } from "@app/constants/urls";
 import { Form, FormField, InputField, SwitchField, useToast } from "@crab-stash/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -24,7 +27,14 @@ const defaultValues: AdditionalInformationForm = {
 
 const additionalInformationFormId: WarehouseCreateStepFormId = "additional-information-form";
 
-function AdditionalInformation() {
+interface AdditionalInformationProps {
+  redirectToDashboardOnSuccess?: boolean;
+}
+
+function AdditionalInformation({
+  redirectToDashboardOnSuccess = false,
+}: AdditionalInformationProps) {
+  const router = useRouter();
   const { additionalInformationStepData: storeAdditionalInformationStepData } =
     useAdditionalInformationStepStore();
   const form = useForm({
@@ -55,6 +65,10 @@ function AdditionalInformation() {
         title: "Warehouse created",
         description: "Warehouse has been created successfully",
       });
+
+      if (redirectToDashboardOnSuccess) {
+        router.push(URLS.dashboard);
+      }
     } catch (e) {
       toast({
         variant: "destructive",

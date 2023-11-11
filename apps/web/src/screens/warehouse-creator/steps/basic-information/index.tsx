@@ -35,8 +35,6 @@ function BasicInformation() {
   });
 
   const onSubmit = (data: BasicInformationForm) => {
-    // eslint-disable-next-line no-console
-    console.log(data);
     submitBasicInformationStepData(data);
     goToNextStep();
   };

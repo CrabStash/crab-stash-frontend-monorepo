@@ -74,7 +74,7 @@ function Overview() {
         >
           <div className="space-y-8">
             {products.map((product) => (
-              <div className="flex items-center">
+              <div className="flex items-center" key={product.name}>
                 <Avatar src={product.image} fullName={product.name} className="h-9 w-9" />
                 <div className="ml-4 space-y-1">
                   <p className="text-sm font-medium leading-none">{product.name}</p>
