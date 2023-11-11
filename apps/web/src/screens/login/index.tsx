@@ -50,7 +50,6 @@ function LoginScreen() {
 
       push(URLS.dashboard);
     } catch (error) {
-      console.error(error);
       toast({
         title: "Login failed",
         description: "Please check your credentials and try again.",

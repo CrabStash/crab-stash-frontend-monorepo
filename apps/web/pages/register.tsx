@@ -4,7 +4,7 @@ import Head from "next/head";
 import { Layout } from "@app/components";
 import RegisterScreen from "@app/screens/register";
 
-const RegisterPage: NextPage = () => {
+const Page: NextPage = () => {
   return (
     <>
       <Head>
@@ -22,4 +22,4 @@ const RegisterPage: NextPage = () => {
   );
 };
 
-export default RegisterPage;
+export default Page;

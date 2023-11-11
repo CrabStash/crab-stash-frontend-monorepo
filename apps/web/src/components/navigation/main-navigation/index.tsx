@@ -5,38 +5,55 @@ import { useRouter } from "next/router";
 
 import { URLS } from "@app/constants/urls";
 import { cn } from "@crab-stash/ui/lib/utils";
+import type { ParsedUrlQuery } from "querystring";
 
 type Link = {
   href: string;
   label: string;
 };
 
-const mainNavigationLinks: Link[] = [
-  {
-    href: URLS.dashboard,
-    label: "Dashboard",
-  },
-  {
-    href: "/test",
-    label: "Categories",
-  },
-
-  {
-    href: "/test1",
-    label: "Products",
-  },
-  {
-    href: "/test2",
-    label: "Settings",
-  },
-];
-
 const isLinkActive = (currentPath: string, path: string) => {
   return currentPath === path;
 };
 
+const getWarehouseId = (query: ParsedUrlQuery) => {
+  const warehouseId = query["warehouse-id"];
+
+  if (warehouseId && typeof warehouseId === "string") {
+    return warehouseId;
+  }
+
+  return null;
+};
+
 function MainNavigation({ className, ...props }: HTMLAttributes<HTMLElement>) {
   const router = useRouter();
+
+  const warehouseId = getWarehouseId(router.query);
+
+  const mainNavigationLinks: Link[] = [
+    {
+      href: warehouseId ? URLS.warehouseDashboard(warehouseId) : URLS.dashboard,
+      label: "Dashboard",
+    },
+    {
+      href: "/test",
+      label: "Categories",
+    },
+
+    {
+      href: "/test1",
+      label: "Products",
+    },
+    ...(warehouseId
+      ? [
+          {
+            href: URLS.warehouseSettings(warehouseId),
+            label: "Settings",
+          },
+        ]
+      : []),
+  ];
 
   return (
     <nav className={cn("flex items-center space-x-4 lg:space-x-6", className)} {...props}>

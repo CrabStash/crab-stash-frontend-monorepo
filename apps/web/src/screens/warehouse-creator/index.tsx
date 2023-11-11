@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+
 import AdditionalInformation from "./steps/additional-information";
 import BasicInformation from "./steps/basic-information";
 import LogoUploader from "./steps/logo";
@@ -9,31 +11,40 @@ import type { Tab } from "@crab-stash/ui";
 import { Button } from "@crab-stash/ui";
 import { Card, Tabs } from "@crab-stash/ui";
 
-const tabs: Tab<WarehouseCreatorStep>[] = [
-  {
-    label: "Basic Information",
-    value: "basic-information",
-    content: <BasicInformation />,
-  },
-  {
-    label: "Logo",
-    value: "logo",
-    content: <LogoUploader />,
-  },
-  {
-    label: "Additional Information",
-    value: "additional-information",
-    content: <AdditionalInformation />,
-  },
-];
+interface WarehouseCreatorProps {
+  redirectToDashboardOnSuccess?: boolean;
+}
 
-function WarehouseCreator() {
+function WarehouseCreator({ redirectToDashboardOnSuccess = false }: WarehouseCreatorProps) {
   const { currentStep, goToPreviousStep } = useWarehouseCreatorStore((state) => ({
     currentStep: state.step,
     goToPreviousStep: state.goToPreviousStep,
   }));
 
   const currentStepFormId: WarehouseCreateStepFormId = `${currentStep}-form`;
+
+  const tabs: Tab<WarehouseCreatorStep>[] = useMemo(
+    () => [
+      {
+        label: "Basic Information",
+        value: "basic-information",
+        content: <BasicInformation />,
+      },
+      {
+        label: "Logo",
+        value: "logo",
+        content: <LogoUploader />,
+      },
+      {
+        label: "Additional Information",
+        value: "additional-information",
+        content: (
+          <AdditionalInformation redirectToDashboardOnSuccess={redirectToDashboardOnSuccess} />
+        ),
+      },
+    ],
+    [redirectToDashboardOnSuccess],
+  );
 
   return (
     <div className="flex-1">

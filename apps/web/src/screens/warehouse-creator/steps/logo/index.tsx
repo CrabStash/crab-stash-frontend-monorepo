@@ -65,8 +65,6 @@ function LogoUploader() {
   const goToNextStep = useWarehouseCreatorStore((state) => state.goToNextStep);
 
   const onSubmit = (data: LogoUploaderForm) => {
-    // eslint-disable-next-line no-console
-    console.log(data);
     submitLogoStepData({
       logoAsBase64: data.logoAsBase64,
       logoFileName: data.logo,

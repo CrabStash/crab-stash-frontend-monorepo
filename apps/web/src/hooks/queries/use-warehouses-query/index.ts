@@ -6,7 +6,7 @@ import type { Response } from "types";
 import type { Paginated } from "types/paginated";
 import type { WarehouseListItem } from "types/warehouse";
 
-export type WarehousesQueryResponse = Response<Paginated<WarehouseListItem[]>>;
+export type WarehousesQueryResponse = Response<Paginated<WarehouseListItem>>;
 
 export const warehousesFetcher = async () => {
   const { data } = await api.get<WarehousesQueryResponse>(API_ENDPOINTS.warehouse.warehouses);

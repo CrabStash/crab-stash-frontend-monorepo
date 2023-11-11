@@ -4,7 +4,7 @@ import Head from "next/head";
 import { Layout } from "@app/components";
 import LoginScreen from "@app/screens/login";
 
-const Login: NextPage = () => {
+const Page: NextPage = () => {
   return (
     <>
       <Head>
@@ -19,4 +19,4 @@ const Login: NextPage = () => {
   );
 };
 
-export default Login;
+export default Page;
