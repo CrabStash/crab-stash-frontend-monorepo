@@ -1,6 +1,7 @@
 import type { WarehouseRole } from "./warehouse-role";
 
 export type Warehouse = {
+  id: string;
   capacity: number;
   desc: string;
   logo: string;

@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 
 import { URLS } from "@app/constants/urls";
 import useWarehousesQuery from "@app/hooks/queries/use-warehouses-query";
+import { formatIdToQuery } from "@app/utils/queryIds";
 import type { CommandGroupType, CommandItemType } from "@crab-stash/ui";
 import { Avatar, Button, Command, Dialog, Input, Label, Popover } from "@crab-stash/ui";
 
@@ -18,17 +19,17 @@ function WarehouseSwitcher() {
     setSelectedWarehouse(item);
     setOpen(false);
 
-    const warehouseId = item.label.toLowerCase().split(" ").join("-");
+    if (!item.value) return;
 
-    router.push(URLS.warehouseDashboard(warehouseId));
+    router.push(URLS.warehouseDashboard(formatIdToQuery(item.value)));
   };
 
   const warehousesAsCommandItems: CommandItemType[] = useMemo(() => {
-    if (!data) return [];
+    if (!data || !data.response.data.list) return [];
 
-    return data.response.data.list.map((warehouse) => ({
-      label: warehouse.warehouse.name,
-      value: warehouse.warehouse.name,
+    return data.response.data.list.map(({ warehouse }) => ({
+      label: warehouse.name,
+      value: warehouse.id,
     }));
   }, [data]);
 
@@ -53,7 +54,11 @@ function WarehouseSwitcher() {
     },
   ];
 
-  const [selectedWarehouse, setSelectedWarehouse] = useState<CommandItemType>(groups[0].items[0]);
+  const [selectedWarehouse, setSelectedWarehouse] = useState<CommandItemType | null>(
+    groups[0].items[0],
+  );
+
+  if (!selectedWarehouse) return null;
 
   return (
     <>

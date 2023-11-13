@@ -17,7 +17,7 @@ const isLinkActive = (currentPath: string, path: string) => {
 };
 
 const getWarehouseId = (query: ParsedUrlQuery) => {
-  const warehouseId = query["warehouse-id"];
+  const warehouseId = query.warehouseId;
 
   if (warehouseId && typeof warehouseId === "string") {
     return warehouseId;
