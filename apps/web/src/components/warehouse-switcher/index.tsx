@@ -1,7 +1,9 @@
 import { CaretSortIcon, PlusCircledIcon } from "@radix-ui/react-icons";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { useRouter } from "next/router";
+
+import { getWarehouseId } from "../navigation/main-navigation";
 
 import { URLS } from "@app/constants/urls";
 import useWarehousesQuery from "@app/hooks/queries/use-warehouses-query";
@@ -13,7 +15,9 @@ function WarehouseSwitcher() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [showNewWarehouseDialog, setShowNewWarehouseDialog] = useState(false);
-  const { data } = useWarehousesQuery();
+  const { data, dataUpdatedAt } = useWarehousesQuery();
+  const { query } = useRouter();
+  const warehouseId = getWarehouseId(query);
 
   const handleWarehouseSelect = (item: CommandItemType) => {
     setSelectedWarehouse(item);
@@ -55,8 +59,15 @@ function WarehouseSwitcher() {
   ];
 
   const [selectedWarehouse, setSelectedWarehouse] = useState<CommandItemType | null>(
-    groups[0].items[0],
+    warehousesAsCommandItems.find((item) => item.value === warehouseId) ?? null,
   );
+
+  useEffect(() => {
+    setSelectedWarehouse(
+      warehousesAsCommandItems.find((item) => item.value === warehouseId) ?? null,
+    );
+    query;
+  }, [dataUpdatedAt]);
 
   if (!selectedWarehouse) return null;
 

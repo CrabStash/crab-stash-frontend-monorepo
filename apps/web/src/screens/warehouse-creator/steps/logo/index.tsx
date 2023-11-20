@@ -16,7 +16,7 @@ import * as z from "zod";
 
 const ALLOWED_FILE_TYPES = ["image/png", "image/jpeg", "image/jpg"];
 
-const logoUploaderSchema = z.object({
+export const logoUploaderSchema = z.object({
   logo: z.string(),
   logoAsBase64: z.string().nonempty({ message: "Logo is required" }),
 });

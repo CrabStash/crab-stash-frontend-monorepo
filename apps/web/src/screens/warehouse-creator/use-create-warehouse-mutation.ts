@@ -8,7 +8,7 @@ type CreateWarehouseMutation = {
   token: string;
 };
 
-type CreateWarehouseMutationVariables = {
+export type CreateWarehouseMutationVariables = {
   name: string;
   desc: string;
   capacity: number;

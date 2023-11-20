@@ -9,7 +9,7 @@ import { Form, FormField, InputField, TextareaField } from "@crab-stash/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
-const basicInformationSchema = z.object({
+export const basicInformationSchema = z.object({
   name: z.string().nonempty({ message: "Name is required" }),
   description: z.string().nonempty({ message: "Description is required" }),
 });

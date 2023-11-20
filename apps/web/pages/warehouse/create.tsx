@@ -24,7 +24,7 @@ const Page: NextPage = () => {
 };
 
 export const getServerSideProps = withAuth(async (_, queryClient) => {
-  await getRequiredPageData(queryClient, {
+  await getRequiredPageData(_, queryClient, {
     withWarehouses: true,
   });
 

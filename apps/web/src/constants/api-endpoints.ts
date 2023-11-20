@@ -11,5 +11,7 @@ export const API_ENDPOINTS = {
   warehouse: {
     warehouses: "/warehouse",
     createWarehouse: "/warehouse/create",
+    info: (id: string) => `/warehouse/info/${id}`,
+    update: (id: string) => `/warehouse/update/${id}`,
   },
 };

@@ -20,4 +20,5 @@ export * from "./components/tabs";
 export * from "./components/bar-graph";
 export * from "./components/textarea";
 export * from "./components/textarea-field";
+export * from "./components/separator";
 export * from "./lib/utils";

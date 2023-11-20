@@ -4,7 +4,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 
 import { Layout } from "@app/components";
-import Dashboard from "@app/screens/dashboard";
+import WarehouseSettingLayout from "@app/components/warehouse-settings-layout";
 import { withAuth } from "lib/withAuth";
 import { getRequiredPageData } from "lib/withRequiredPageData";
 
@@ -12,12 +12,12 @@ const Page: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Warehouse</title>
+        <title>Settings</title>
         <meta name="description" content="Turborepo Starter: Web" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <Dashboard />
+        <WarehouseSettingLayout>Users</WarehouseSettingLayout>
       </Layout>
     </>
   );
@@ -26,6 +26,7 @@ const Page: NextPage = () => {
 export const getServerSideProps = withAuth(async (_, queryClient) => {
   await getRequiredPageData(_, queryClient, {
     withWarehouses: true,
+    withCurrentWarehouse: true,
   });
 
   return {

@@ -13,9 +13,9 @@ import { Form, FormField, InputField, SwitchField, useToast } from "@crab-stash/
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
-const additionalInformationSchema = z.object({
+export const additionalInformationSchema = z.object({
   isPhysical: z.boolean().optional(),
-  capacity: z.number().int().positive().optional(),
+  capacity: z.number().int().optional(),
 });
 
 export type AdditionalInformationForm = z.infer<typeof additionalInformationSchema>;
@@ -41,6 +41,7 @@ function AdditionalInformation({
     resolver: zodResolver(additionalInformationSchema),
     defaultValues: storeAdditionalInformationStepData ?? defaultValues,
   });
+  const isPhysical = form.watch("isPhysical");
   const basicInformationStepData = useBasicInformationStepStore(
     (state) => state.basicInformationStepData,
   );
@@ -57,7 +58,7 @@ function AdditionalInformation({
         name: basicInformationStepData.name,
         desc: basicInformationStepData.description,
         isPhysical: data.isPhysical,
-        capacity: data.capacity || 0,
+        capacity: data.isPhysical ? data.capacity || 0 : -1,
         logo: "https://google.com",
       });
 
@@ -93,26 +94,31 @@ function AdditionalInformation({
               <SwitchField
                 label="Determine if your warehouse has a physical location"
                 {...field}
-                value="true"
+                value="isPhysical"
+                onClick={() => {
+                  form.setValue("isPhysical", !field.value);
+                }}
                 checked={field.value}
               />
             )}
           />
-          <FormField
-            control={form.control}
-            name="capacity"
-            render={({ field }) => (
-              <InputField
-                type="number"
-                label="Capacity"
-                placeholder="Enter capacity of your warehouse"
-                {...field}
-                onChange={(e) => {
-                  field.onChange(parseInt(e.target.value));
-                }}
-              />
-            )}
-          />
+          {isPhysical && (
+            <FormField
+              control={form.control}
+              name="capacity"
+              render={({ field }) => (
+                <InputField
+                  type="number"
+                  label="Capacity"
+                  placeholder="Enter capacity of your warehouse"
+                  {...field}
+                  onChange={(e) => {
+                    field.onChange(parseInt(e.target.value));
+                  }}
+                />
+              )}
+            />
+          )}
         </div>
       </form>
     </Form>

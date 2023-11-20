@@ -16,11 +16,11 @@ const isLinkActive = (currentPath: string, path: string) => {
   return currentPath === path;
 };
 
-const getWarehouseId = (query: ParsedUrlQuery) => {
+export const getWarehouseId = (query: ParsedUrlQuery) => {
   const warehouseId = query.warehouseId;
 
   if (warehouseId && typeof warehouseId === "string") {
-    return warehouseId;
+    return decodeURIComponent(warehouseId);
   }
 
   return null;
