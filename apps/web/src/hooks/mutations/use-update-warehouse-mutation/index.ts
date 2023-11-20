@@ -35,11 +35,10 @@ export const useUpdateWarehouseMutation = (params: UseUpdateWarehouseMutationPar
     {
       onSuccess: () => {
         queryClient.invalidateQueries({
-          queryKey: [API_ENDPOINTS.warehouse.warehouses, params.id],
-        });
-
-        queryClient.invalidateQueries({
           queryKey: [API_ENDPOINTS.warehouse.warehouses],
+        });
+        queryClient.invalidateQueries({
+          queryKey: [API_ENDPOINTS.warehouse.warehouses, params.id],
         });
       },
     },

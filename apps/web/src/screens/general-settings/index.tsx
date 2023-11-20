@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 
 import { additionalInformationSchema } from "../warehouse-creator/steps/additional-information";
 import { basicInformationSchema } from "../warehouse-creator/steps/basic-information";
+import WarehouseDelete from "./warehouse-delete";
 
 import { getWarehouseId } from "@app/components/navigation/main-navigation";
 import { useUpdateWarehouseMutation } from "@app/hooks/mutations/use-update-warehouse-mutation";
@@ -137,7 +138,10 @@ function GeneralSettings() {
               )}
             />
           )}
-          <Button type="submit">Update general settings</Button>
+          <div className="flex flex-col gap-4 w-fit">
+            <Button type="submit">Update general settings</Button>
+            <WarehouseDelete />
+          </div>
         </form>
       </Form>
     </div>

@@ -6,11 +6,11 @@ import type { Response } from "types";
 import type { Warehouse } from "types/warehouse";
 import type { WarehouseRole } from "types/warehouse-role";
 
-export type WarehousesQueryResponse = Response<
-  Warehouse &
-    WarehouseRole & {
-      isPhysical: boolean;
-    }
+export type WarehouseQueryResponse = Response<
+  Warehouse & {
+    isPhysical: boolean;
+    role: WarehouseRole;
+  }
 >;
 
 export const warehouseInfoFetcher = async (id: string | null) => {
@@ -18,7 +18,7 @@ export const warehouseInfoFetcher = async (id: string | null) => {
     throw new Error("No id");
   }
 
-  const { data } = await api.get<WarehousesQueryResponse>(API_ENDPOINTS.warehouse.info(id));
+  const { data } = await api.get<WarehouseQueryResponse>(API_ENDPOINTS.warehouse.info(id));
 
   return data;
 };

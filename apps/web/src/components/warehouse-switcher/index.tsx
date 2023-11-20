@@ -45,9 +45,8 @@ function WarehouseSwitcher() {
     },
     {
       onSelect: () => {
-        setOpen(false);
-
         router.push(URLS.createWarehouse);
+        setOpen(false);
       },
       items: [
         {
@@ -66,7 +65,6 @@ function WarehouseSwitcher() {
     setSelectedWarehouse(
       warehousesAsCommandItems.find((item) => item.value === warehouseId) ?? null,
     );
-    query;
   }, [dataUpdatedAt]);
 
   if (!selectedWarehouse) return null;
@@ -117,7 +115,7 @@ function WarehouseSwitcher() {
             </div>
           </div>
         }
-      ></Dialog>
+      />
     </>
   );
 }
