@@ -12,17 +12,14 @@ const meta: Meta<typeof Dropdown> = {
 const items: DropdownItem[] = [
   {
     label: "Item 1",
-    shortcut: "⌘+1",
     onClick: () => alert("Item 1 clicked"),
   },
   {
     label: "Item 2",
-    shortcut: "⌘+2",
     onClick: () => alert("Item 2 clicked"),
   },
   {
     label: "Item 3",
-    shortcut: "⌘+3",
     onClick: () => alert("Item 3 clicked"),
   },
 ];

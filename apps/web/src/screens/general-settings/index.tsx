@@ -77,15 +77,15 @@ function GeneralSettings() {
 
   return (
     <div className="space-y-6">
-      <div>
+      <div className="max-w-2xl">
         <h3 className="text-lg font-medium">General</h3>
         <p className="text-sm text-muted-foreground">
           Update your general settings. Set your warehouse name, description, and capacity.
         </p>
       </div>
-      <Separator />
+      <Separator className="max-w-2xl" />
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 max-w-2xl">
           <FormField
             control={form.control}
             name="name"

@@ -10,6 +10,10 @@ const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
 
 const DropdownMenuGroup = DropdownMenuPrimitive.Group;
 
+const DropdownMenuSub = DropdownMenuPrimitive.Sub;
+
+const DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup;
+
 const DropdownMenuSubTrigger = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.SubTrigger>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubTrigger> & {
@@ -169,17 +173,23 @@ const DropdownMenuShortcut = ({ className, ...props }: React.HTMLAttributes<HTML
 
 DropdownMenuShortcut.displayName = "DropdownMenuShortcut";
 
+type DropdownItemSub = {
+  groupValue: string;
+  onValueChange?: (value: string) => void;
+  radios: { value: string; label: string; disabled?: boolean }[];
+};
+
 type DropdownItem = {
   label: string | React.ReactNode;
-  shortcut?: string;
   onClick?: () => void;
+  sub?: DropdownItemSub;
 };
 
 type DropdownItemGroup = DropdownItem[];
 
 interface DropdownProps {
   trigger: React.ReactNode | string;
-  label: React.ReactNode;
+  label?: React.ReactNode;
   itemGroups: DropdownItemGroup[];
   align?: React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content>["align"];
 }
@@ -201,11 +211,34 @@ const Dropdown = React.forwardRef<
         {itemGroups.map((itemGroup, index) => (
           <React.Fragment key={index}>
             <DropdownMenuGroup>
-              {itemGroup.map(({ label, shortcut, onClick }, index) => (
-                <DropdownMenuItem key={index} onClick={onClick}>
-                  {label}
-                  {shortcut && <DropdownMenuShortcut>{shortcut}</DropdownMenuShortcut>}
-                </DropdownMenuItem>
+              {itemGroup.map(({ label, onClick, sub }, index) => (
+                <>
+                  {sub ? (
+                    <DropdownMenuSub>
+                      <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
+                      <DropdownMenuSubContent>
+                        <DropdownMenuRadioGroup
+                          onValueChange={sub.onValueChange}
+                          value={sub.groupValue}
+                        >
+                          {sub.radios.map((label) => (
+                            <DropdownMenuRadioItem
+                              key={label.value}
+                              value={label.value}
+                              disabled={label.disabled}
+                            >
+                              {label.label}
+                            </DropdownMenuRadioItem>
+                          ))}
+                        </DropdownMenuRadioGroup>
+                      </DropdownMenuSubContent>
+                    </DropdownMenuSub>
+                  ) : (
+                    <DropdownMenuItem key={index} onClick={onClick}>
+                      {label}
+                    </DropdownMenuItem>
+                  )}
+                </>
               ))}
             </DropdownMenuGroup>
             {index < itemGroups.length - 1 && <DropdownMenuSeparator />}
