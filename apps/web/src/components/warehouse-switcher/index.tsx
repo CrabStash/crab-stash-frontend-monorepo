@@ -1,10 +1,13 @@
 import { CaretSortIcon, PlusCircledIcon } from "@radix-ui/react-icons";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { useRouter } from "next/router";
 
+import { getWarehouseId } from "../navigation/main-navigation";
+
 import { URLS } from "@app/constants/urls";
 import useWarehousesQuery from "@app/hooks/queries/use-warehouses-query";
+import { formatIdToQuery } from "@app/utils/queryIds";
 import type { CommandGroupType, CommandItemType } from "@crab-stash/ui";
 import { Avatar, Button, Command, Dialog, Input, Label, Popover } from "@crab-stash/ui";
 
@@ -12,23 +15,25 @@ function WarehouseSwitcher() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [showNewWarehouseDialog, setShowNewWarehouseDialog] = useState(false);
-  const { data } = useWarehousesQuery();
+  const { data, dataUpdatedAt } = useWarehousesQuery();
+  const { query } = useRouter();
+  const warehouseId = getWarehouseId(query);
 
   const handleWarehouseSelect = (item: CommandItemType) => {
     setSelectedWarehouse(item);
     setOpen(false);
 
-    const warehouseId = item.label.toLowerCase().split(" ").join("-");
+    if (!item.value) return;
 
-    router.push(URLS.warehouseDashboard(warehouseId));
+    router.push(URLS.warehouseDashboard(formatIdToQuery(item.value)));
   };
 
   const warehousesAsCommandItems: CommandItemType[] = useMemo(() => {
-    if (!data) return [];
+    if (!data || !data.response.data.list) return [];
 
-    return data.response.data.list.map((warehouse) => ({
-      label: warehouse.warehouse.name,
-      value: warehouse.warehouse.name,
+    return data.response.data.list.map(({ warehouse }) => ({
+      label: warehouse.name,
+      value: warehouse.id,
     }));
   }, [data]);
 
@@ -40,9 +45,8 @@ function WarehouseSwitcher() {
     },
     {
       onSelect: () => {
-        setOpen(false);
-
         router.push(URLS.createWarehouse);
+        setOpen(false);
       },
       items: [
         {
@@ -53,7 +57,17 @@ function WarehouseSwitcher() {
     },
   ];
 
-  const [selectedWarehouse, setSelectedWarehouse] = useState<CommandItemType>(groups[0].items[0]);
+  const [selectedWarehouse, setSelectedWarehouse] = useState<CommandItemType | null>(
+    warehousesAsCommandItems.find((item) => item.value === warehouseId) ?? null,
+  );
+
+  useEffect(() => {
+    setSelectedWarehouse(
+      warehousesAsCommandItems.find((item) => item.value === warehouseId) ?? null,
+    );
+  }, [dataUpdatedAt]);
+
+  if (!selectedWarehouse) return null;
 
   return (
     <>
@@ -101,7 +115,7 @@ function WarehouseSwitcher() {
             </div>
           </div>
         }
-      ></Dialog>
+      />
     </>
   );
 }

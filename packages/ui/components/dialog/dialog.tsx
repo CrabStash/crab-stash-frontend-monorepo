@@ -93,7 +93,7 @@ const DialogDescription = React.forwardRef<
 DialogDescription.displayName = DialogPrimitive.Description.displayName;
 
 export interface DialogProps {
-  content: React.ReactNode;
+  content?: React.ReactNode;
   title: string;
   description: string;
   footer?: React.ReactNode;

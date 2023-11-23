@@ -4,9 +4,12 @@ import type { NextPage } from "next";
 import Head from "next/head";
 
 import { Layout } from "@app/components";
-import useWarehousesQuery from "@app/hooks/queries/use-warehouses-query";
+import { URLS } from "@app/constants/urls";
+import type { WarehousesQueryResponse } from "@app/hooks/queries/use-warehouses-query";
+import useWarehousesQuery, { warehousesQueryKey } from "@app/hooks/queries/use-warehouses-query";
 import Dashboard from "@app/screens/dashboard";
 import WarehouseCreator from "@app/screens/warehouse-creator";
+import { formatIdToQuery } from "@app/utils/queryIds";
 import { withAuth } from "lib/withAuth";
 import { getRequiredPageData } from "lib/withRequiredPageData";
 
@@ -32,9 +35,22 @@ const Page: NextPage = () => {
 };
 
 export const getServerSideProps = withAuth(async (_, queryClient) => {
-  await getRequiredPageData(queryClient, {
+  await getRequiredPageData(_, queryClient, {
     withWarehouses: true,
   });
+
+  const warehousesData = queryClient.getQueryData<WarehousesQueryResponse>([warehousesQueryKey]);
+
+  const warehousesList = warehousesData?.response.data.list;
+
+  if (warehousesList && warehousesList[0]) {
+    return {
+      redirect: {
+        destination: URLS.warehouseDashboard(formatIdToQuery(warehousesList[0].warehouse.id)),
+        permanent: false,
+      },
+    };
+  }
 
   return {
     props: {

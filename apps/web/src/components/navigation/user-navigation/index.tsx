@@ -1,3 +1,6 @@
+import { useRouter } from "next/router";
+
+import { URLS } from "@app/constants/urls";
 import { useLogoutMutation } from "@app/hooks/mutations/use-logout-mutation";
 import { Avatar, Button, Dropdown } from "@crab-stash/ui";
 import type { User } from "types";
@@ -16,6 +19,7 @@ interface UserNavigationProps {
 
 function UserNavigation({ user }: UserNavigationProps) {
   const { mutate } = useLogoutMutation();
+  const router = useRouter();
 
   const fullName = createFullName(user);
 
@@ -42,7 +46,8 @@ function UserNavigation({ user }: UserNavigationProps) {
             label: "Settings",
           },
           {
-            label: "New Warehouse",
+            label: "Create Warehouse",
+            onClick: () => router.push(URLS.createWarehouse),
           },
         ],
         [
