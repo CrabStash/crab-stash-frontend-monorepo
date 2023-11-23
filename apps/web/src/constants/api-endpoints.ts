@@ -15,5 +15,9 @@ export const API_ENDPOINTS = {
     update: (id: string) => `/warehouse/update/${id}`,
     users: (id: string) => `/warehouse/users/${id}`,
     delete: (id: string) => `/warehouse/delete/${id}`,
+    addUser: "/warehouse/users/add",
+    removeUser: (warehouseId: string, userId: string) =>
+      `/warehouse/users/delete/${warehouseId}/${userId}`,
+    changeUserRole: "/warehouse/users/role",
   },
 };

@@ -215,7 +215,7 @@ const Dropdown = React.forwardRef<
                 <>
                   {sub ? (
                     <DropdownMenuSub>
-                      <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
+                      <DropdownMenuSubTrigger>{label}</DropdownMenuSubTrigger>
                       <DropdownMenuSubContent>
                         <DropdownMenuRadioGroup
                           onValueChange={sub.onValueChange}

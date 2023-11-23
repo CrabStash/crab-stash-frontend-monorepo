@@ -26,7 +26,7 @@ export const useWarehouseDeleteMutation = (params: UseWarehouseDeleteMutationPar
       onSuccess: () => {
         queryClient.invalidateQueries({
           queryKey: [API_ENDPOINTS.warehouse.warehouses],
-          predicate: (query) => query.queryKey[1] !== params.id,
+          predicate: (query) => query.queryKey[1] === params.id || query.queryKey[1] === undefined,
         });
 
         router.push(URLS.dashboard);

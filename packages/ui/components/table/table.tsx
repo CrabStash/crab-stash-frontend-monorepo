@@ -1,4 +1,4 @@
-import type { ColumnDef, Row } from "@tanstack/react-table";
+import type { ColumnDef, OnChangeFn, PaginationState, Row } from "@tanstack/react-table";
 import {
   flexRender,
   getCoreRowModel,
@@ -115,6 +115,8 @@ export interface TableProps<TData, TValue> extends React.HTMLAttributes<HTMLDivE
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   pageCount?: number;
+  onPaginationChange?: OnChangeFn<PaginationState>;
+  pagination: PaginationState;
 }
 
 function Table<TData, TValue>({
@@ -122,6 +124,8 @@ function Table<TData, TValue>({
   data,
   pageCount,
   className,
+  onPaginationChange,
+  pagination,
   ...rest
 }: TableProps<TData, TValue>) {
   const table = useReactTable({
@@ -134,7 +138,11 @@ function Table<TData, TValue>({
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
     pageCount,
+    onPaginationChange,
     manualPagination: true,
+    state: {
+      pagination,
+    },
   });
 
   return (
@@ -183,4 +191,4 @@ function Table<TData, TValue>({
 }
 
 export { Table };
-export type { ColumnDef, Row };
+export type { ColumnDef, Row, PaginationState };

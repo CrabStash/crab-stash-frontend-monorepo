@@ -19,12 +19,14 @@ type WarehouseUser = {
 
 export type WarehouseUsersQueryResponse = Response<Paginated<WarehouseUser>>;
 
-export const warehouseUsersFetcher = async (id: string | null) => {
+export const warehouseUsersFetcher = async (id: string | null, page = 1) => {
   if (!id) {
     throw new Error("No id");
   }
 
-  const { data } = await api.get<WarehouseUsersQueryResponse>(API_ENDPOINTS.warehouse.users(id));
+  const { data } = await api.get<WarehouseUsersQueryResponse>(
+    `${API_ENDPOINTS.warehouse.users(id)}?page=${page}`,
+  );
 
   return data;
 };
@@ -33,11 +35,12 @@ export const warehouseUsersKey = "/warehouse/users/";
 
 interface UseWarehouseUsersQueryParams {
   id: string | null;
+  page?: number;
 }
 
 export default function useWarehouseUsersQuery(params: UseWarehouseUsersQueryParams) {
-  const query = useQuery([warehouseUsersKey, params.id], {
-    queryFn: () => warehouseUsersFetcher(params.id),
+  const query = useQuery([warehouseUsersKey, params.id, params.page], {
+    queryFn: () => warehouseUsersFetcher(params.id, params.page),
   });
 
   return query;

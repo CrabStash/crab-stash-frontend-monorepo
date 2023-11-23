@@ -8,8 +8,10 @@ import type { WarehouseListItem } from "types/warehouse";
 
 export type WarehousesQueryResponse = Response<Paginated<WarehouseListItem>>;
 
-export const warehousesFetcher = async () => {
-  const { data } = await api.get<WarehousesQueryResponse>(API_ENDPOINTS.warehouse.warehouses);
+export const warehousesFetcher = async (page = 1) => {
+  const { data } = await api.get<WarehousesQueryResponse>(
+    `${API_ENDPOINTS.warehouse.warehouses}?page=${page}`,
+  );
 
   return data;
 };

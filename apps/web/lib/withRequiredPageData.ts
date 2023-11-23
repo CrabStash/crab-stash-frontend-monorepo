@@ -24,7 +24,8 @@ export async function getRequiredPageData(
   const warehouseId = getWarehouseId(context.query);
 
   await Promise.all([
-    options?.withWarehouses && queryClient.prefetchQuery([warehousesQueryKey], warehousesFetcher),
+    options?.withWarehouses &&
+      queryClient.prefetchQuery([warehousesQueryKey], () => warehousesFetcher()),
     options?.withCurrentWarehouse &&
       warehouseId &&
       queryClient.prefetchQuery([warehousesQueryKey, warehouseId], () =>

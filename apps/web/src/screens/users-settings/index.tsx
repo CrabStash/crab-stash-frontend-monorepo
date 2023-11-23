@@ -1,3 +1,4 @@
+import AddUser from "./components/add-user";
 import UsersTable from "./components/users-table";
 
 import { Separator } from "@crab-stash/ui";
@@ -13,7 +14,10 @@ function UsersSettings() {
         </p>
       </div>
       <Separator className="max-w-2xl" />
-      <UsersTable />
+      <div className="space-y-6 max-w-4xl">
+        <AddUser />
+        <UsersTable />
+      </div>
     </div>
   );
 }

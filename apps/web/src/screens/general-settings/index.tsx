@@ -83,7 +83,7 @@ function GeneralSettings() {
           Update your general settings. Set your warehouse name, description, and capacity.
         </p>
       </div>
-      <Separator className="max-w-2xl" />
+      <Separator />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 max-w-2xl">
           <FormField

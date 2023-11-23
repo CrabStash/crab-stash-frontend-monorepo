@@ -36,9 +36,9 @@ export const useUpdateWarehouseMutation = (params: UseUpdateWarehouseMutationPar
       onSuccess: () => {
         queryClient.invalidateQueries({
           queryKey: [API_ENDPOINTS.warehouse.warehouses],
-        });
-        queryClient.invalidateQueries({
-          queryKey: [API_ENDPOINTS.warehouse.warehouses, params.id],
+          predicate: (query) => {
+            return query.queryKey[1] === params.id || query.queryKey[1] === undefined;
+          },
         });
       },
     },
