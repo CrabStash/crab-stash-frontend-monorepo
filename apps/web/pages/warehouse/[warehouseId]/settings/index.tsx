@@ -6,6 +6,7 @@ import Head from "next/head";
 import { Layout } from "@app/components";
 import WarehouseSettingLayout from "@app/components/warehouse-settings-layout";
 import GeneralSettings from "@app/screens/general-settings";
+import { createPageTitle } from "@app/utils/createPageTitle";
 import { withAuth } from "lib/withAuth";
 import { getRequiredPageData } from "lib/withRequiredPageData";
 
@@ -13,9 +14,7 @@ const Page: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Settings</title>
-        <meta name="description" content="Turborepo Starter: Web" />
-        <link rel="icon" href="/favicon.ico" />
+        <title>{createPageTitle("General settings")}</title>
       </Head>
       <Layout>
         <WarehouseSettingLayout>

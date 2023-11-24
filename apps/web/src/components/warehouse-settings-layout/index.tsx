@@ -3,7 +3,7 @@ import { useMemo } from "react";
 
 import { useRouter } from "next/router";
 
-import SidebarNav from "./components/sidebar-nav";
+import SidebarNav from "../sidebar-nav";
 
 import { getWarehouseId } from "@app/components/navigation/main-navigation";
 import { Separator } from "@crab-stash/ui";

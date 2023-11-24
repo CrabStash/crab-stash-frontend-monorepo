@@ -40,7 +40,10 @@ function MainNavigation({ className, ...props }: HTMLAttributes<HTMLElement>) {
       href: "/test",
       label: "Categories",
     },
-
+    {
+      href: "/test",
+      label: "Fields",
+    },
     {
       href: "/test1",
       label: "Products",

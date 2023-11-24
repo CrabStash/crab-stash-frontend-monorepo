@@ -3,12 +3,13 @@ import Head from "next/head";
 
 import { Layout } from "@app/components";
 import LoginScreen from "@app/screens/login";
+import { createPageTitle } from "@app/utils/createPageTitle";
 
 const Page: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Login to Crabstash</title>
+        <title>{createPageTitle("Login")}</title>
         <meta name="description" content="Login to Crabstash to start managing your shop stash." />
         <link rel="icon" href="/favicon.ico" />
       </Head>

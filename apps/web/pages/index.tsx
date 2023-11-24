@@ -9,6 +9,7 @@ import type { WarehousesQueryResponse } from "@app/hooks/queries/use-warehouses-
 import useWarehousesQuery, { warehousesQueryKey } from "@app/hooks/queries/use-warehouses-query";
 import Dashboard from "@app/screens/dashboard";
 import WarehouseCreator from "@app/screens/warehouse-creator";
+import { createPageTitle } from "@app/utils/createPageTitle";
 import { formatIdToQuery } from "@app/utils/queryIds";
 import { withAuth } from "lib/withAuth";
 import { getRequiredPageData } from "lib/withRequiredPageData";
@@ -19,7 +20,7 @@ const Page: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Turborepo Starter: Web</title>
+        <title>{createPageTitle("Dashboard")}</title>
         <meta name="description" content="Turborepo Starter: Web" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
