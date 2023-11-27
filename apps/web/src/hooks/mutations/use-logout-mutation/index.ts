@@ -6,10 +6,12 @@ import { api } from "@app/api";
 import { API_ENDPOINTS } from "@app/constants/api-endpoints";
 import { URLS } from "@app/constants/urls";
 import { destroyAuthTokens } from "@app/utils/tokens";
+import { useToast } from "@crab-stash/ui";
 
 export const useLogoutMutation = () => {
   const { push } = useRouter();
   const queryClient = useQueryClient();
+  const { toast } = useToast();
 
   const mutation = useMutation(
     () =>
@@ -22,6 +24,10 @@ export const useLogoutMutation = () => {
 
         destroyAuthTokens(null);
 
+        toast({
+          title: "Logged out",
+          description: "You have been logged out",
+        });
         push(URLS.login);
       },
     },

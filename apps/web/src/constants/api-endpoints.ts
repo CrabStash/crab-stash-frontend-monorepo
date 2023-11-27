@@ -8,6 +8,7 @@ export const API_ENDPOINTS = {
   user: {
     me: "/user/me",
     update: "/user/update",
+    info: (id: string) => `/user/${id}`,
   },
   warehouse: {
     warehouses: "/warehouse",

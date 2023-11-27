@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 
 import { URLS } from "@app/constants/urls";
 import { useLogoutMutation } from "@app/hooks/mutations/use-logout-mutation";
+import useMeQuery from "@app/hooks/queries/use-me-query";
 import { Avatar, Button, Dropdown } from "@crab-stash/ui";
 import type { User } from "types";
 
@@ -18,6 +19,7 @@ interface UserNavigationProps {
 }
 
 function UserNavigation({ user }: UserNavigationProps) {
+  const { data } = useMeQuery();
   const { mutate } = useLogoutMutation();
   const router = useRouter();
 
@@ -41,6 +43,11 @@ function UserNavigation({ user }: UserNavigationProps) {
         [
           {
             label: "Profile",
+            onClick: () => {
+              if (!data?.response.data.id) return;
+
+              router.push(URLS.profile(data?.response.data.id));
+            },
           },
           {
             label: "Settings",
