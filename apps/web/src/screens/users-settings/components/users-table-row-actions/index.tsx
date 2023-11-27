@@ -7,6 +7,7 @@ import { useChangeRoleMutation } from "./use-change-role-mutation";
 import { useRemoveUserMutation } from "./use-remove-user-mutation";
 
 import { getWarehouseId } from "@app/components/navigation/main-navigation";
+import { URLS } from "@app/constants/urls";
 import useMeQuery from "@app/hooks/queries/use-me-query";
 import type { Row } from "@crab-stash/ui";
 import { useToast } from "@crab-stash/ui";
@@ -29,7 +30,7 @@ interface UserTableRowActionsProps {
 }
 
 function UsersTableRowActions({ row, page }: UserTableRowActionsProps) {
-  const { query } = useRouter();
+  const { query, push } = useRouter();
   const warehouseId = getWarehouseId(query);
   const user = row.original;
 
@@ -92,6 +93,7 @@ function UsersTableRowActions({ row, page }: UserTableRowActionsProps) {
           [
             {
               label: "Go to profile",
+              onClick: () => push(URLS.profile(user.id)),
             },
             {
               label: "Role",
