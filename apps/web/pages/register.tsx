@@ -3,12 +3,13 @@ import Head from "next/head";
 
 import { Layout } from "@app/components";
 import RegisterScreen from "@app/screens/register";
+import { createPageTitle } from "@app/utils/createPageTitle";
 
 const Page: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Register to Crabstash</title>
+        <title>{createPageTitle("Register")}</title>
         <meta
           name="description"
           content="Register to Crabstash to start managing your shop stash."

@@ -4,8 +4,8 @@ import type { NextPage } from "next";
 import Head from "next/head";
 
 import { Layout } from "@app/components";
-import WarehouseSettingLayout from "@app/components/warehouse-settings-layout";
-import UsersSettings from "@app/screens/users-settings";
+import ProfileSettingsLayout from "@app/components/profile-settings-layout";
+import ProfileInfoSettings from "@app/screens/profile-info-settings";
 import { createPageTitle } from "@app/utils/createPageTitle";
 import { withAuth } from "lib/withAuth";
 import { getRequiredPageData } from "lib/withRequiredPageData";
@@ -14,12 +14,12 @@ const Page: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{createPageTitle("Users settings")}</title>
+        <title>{createPageTitle("Profile settings")}</title>
       </Head>
       <Layout>
-        <WarehouseSettingLayout>
-          <UsersSettings />
-        </WarehouseSettingLayout>
+        <ProfileSettingsLayout>
+          <ProfileInfoSettings />
+        </ProfileSettingsLayout>
       </Layout>
     </>
   );
@@ -28,8 +28,6 @@ const Page: NextPage = () => {
 export const getServerSideProps = withAuth(async (_, queryClient) => {
   await getRequiredPageData(_, queryClient, {
     withWarehouses: true,
-    withCurrentWarehouse: true,
-    withWarehouseUsers: true,
   });
 
   return {

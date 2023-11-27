@@ -7,6 +7,7 @@ import { basicInformationSchema } from "../warehouse-creator/steps/basic-informa
 import WarehouseDelete from "./warehouse-delete";
 
 import { getWarehouseId } from "@app/components/navigation/main-navigation";
+import SettingsTab from "@app/components/settings-tab";
 import { useUpdateWarehouseMutation } from "@app/hooks/mutations/use-update-warehouse-mutation";
 import useWarehouseInfoQuery from "@app/hooks/queries/use-warehouse-info-query";
 import {
@@ -14,7 +15,6 @@ import {
   Form,
   FormField,
   InputField,
-  Separator,
   SwitchField,
   TextareaField,
   useToast,
@@ -76,14 +76,10 @@ function GeneralSettings() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="max-w-2xl">
-        <h3 className="text-lg font-medium">General</h3>
-        <p className="text-sm text-muted-foreground">
-          Update your general settings. Set your warehouse name, description, and capacity.
-        </p>
-      </div>
-      <Separator />
+    <SettingsTab
+      title="General"
+      description="Update your general settings. Set your warehouse name, description, and capacity."
+    >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 max-w-2xl">
           <FormField
@@ -144,7 +140,7 @@ function GeneralSettings() {
           </div>
         </form>
       </Form>
-    </div>
+    </SettingsTab>
   );
 }
 

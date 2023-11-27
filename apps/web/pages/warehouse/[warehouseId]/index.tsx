@@ -5,6 +5,7 @@ import Head from "next/head";
 
 import { Layout } from "@app/components";
 import Dashboard from "@app/screens/dashboard";
+import { createPageTitle } from "@app/utils/createPageTitle";
 import { withAuth } from "lib/withAuth";
 import { getRequiredPageData } from "lib/withRequiredPageData";
 
@@ -12,9 +13,7 @@ const Page: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Warehouse</title>
-        <meta name="description" content="Turborepo Starter: Web" />
-        <link rel="icon" href="/favicon.ico" />
+        <title>{createPageTitle("Dashboard")}</title>
       </Head>
       <Layout>
         <Dashboard />

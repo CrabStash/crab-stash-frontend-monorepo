@@ -44,6 +44,7 @@ function UserNavigation({ user }: UserNavigationProps) {
           },
           {
             label: "Settings",
+            onClick: () => router.push(URLS.profileSettings),
           },
           {
             label: "Create Warehouse",
