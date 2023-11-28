@@ -8,4 +8,8 @@ export const URLS = {
   createWarehouse: "/warehouse/create",
   warehouseDashboard: (id: string) => `/warehouse/${id}`,
   warehouseSettings: (id: string) => `/warehouse/${id}/settings`,
+  fields: (id: string) => `/warehouse/${id}/fields`,
+  categories: (id: string) => `/warehouse/${id}/categories`,
+  products: (id: string) => `/warehouse/${id}/products`,
+  createField: (id: string) => `/warehouse/${id}/fields/create`,
 };

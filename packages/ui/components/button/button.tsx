@@ -1,4 +1,3 @@
-import { Slot } from "@radix-ui/react-slot";
 import type { LucideIcon } from "lucide-react";
 import { Loader2 } from "lucide-react";
 import * as React from "react";
@@ -75,7 +74,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref,
   ) => {
     const Icon = icon;
-    const Comp = asChild ? Slot : "button";
+    const Comp = (asChild ? "div" : "button") as "button";
 
     return (
       <Comp

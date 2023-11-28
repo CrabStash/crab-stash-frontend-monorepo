@@ -8,18 +8,27 @@ export const API_ENDPOINTS = {
   user: {
     me: "/user/me",
     update: "/user/update",
-    info: (id: string) => `/user/${id}`,
+    info: (warehouseId: string) => `/user/${warehouseId}`,
   },
   warehouse: {
     warehouses: "/warehouse",
     createWarehouse: "/warehouse/create",
-    info: (id: string) => `/warehouse/info/${id}`,
-    update: (id: string) => `/warehouse/update/${id}`,
-    users: (id: string) => `/warehouse/users/${id}`,
-    delete: (id: string) => `/warehouse/delete/${id}`,
+    info: (warehouseId: string) => `/warehouse/info/${warehouseId}`,
+    update: (warehouseId: string) => `/warehouse/update/${warehouseId}`,
+    users: (warehouseId: string) => `/warehouse/users/${warehouseId}`,
+    delete: (warehouseId: string) => `/warehouse/delete/${warehouseId}`,
     addUser: "/warehouse/users/add",
     removeUser: (warehouseId: string, userId: string) =>
       `/warehouse/users/delete/${warehouseId}/${userId}`,
     changeUserRole: "/warehouse/users/role",
+  },
+  schema: {
+    field: "core/schemas/field",
+  },
+  core: {
+    fields: {
+      create: (warehouseId: string) => `/core/field/${warehouseId}`,
+      list: (warehouseId: string) => `/core/field/warehouse/${warehouseId}`,
+    },
   },
 };
