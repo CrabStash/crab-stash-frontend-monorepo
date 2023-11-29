@@ -3,6 +3,7 @@ import { Check, ChevronDown } from "lucide-react";
 import * as React from "react";
 
 import { cn } from "../../lib/utils";
+import { Label } from "../label";
 
 const SelectWrapper = SelectPrimitive.Root;
 
@@ -120,26 +121,60 @@ export interface SelectProps extends React.ComponentPropsWithoutRef<typeof Selec
   items: SelectItem[];
   label?: string;
   placeholder?: string;
+  error?: string;
+  message?: string;
+  onValueChange?: (value: string) => void;
+  defaultValue?: string;
 }
 
 export const Select = React.forwardRef<React.ElementRef<typeof SelectWrapper>, SelectProps>(
-  ({ className, items, placeholder, label, ...props }, ref) => {
+  (
+    { className, onValueChange, items, error, defaultValue, message, placeholder, label, ...props },
+    ref,
+  ) => {
+    const [value, setValue] = React.useState<string | undefined>(defaultValue);
+
     return (
-      <SelectWrapper>
-        <SelectTrigger ref={ref} className={cn("w-full", className)} {...props}>
-          <SelectValue placeholder={placeholder} />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            {label && <SelectLabel>{label}</SelectLabel>}
-            {items.map((item) => (
-              <SelectItem key={item.value} value={item.value}>
-                {item.label}
-              </SelectItem>
-            ))}
-          </SelectGroup>
-        </SelectContent>
-      </SelectWrapper>
+      <div className={cn("grid w-full max-w-full items-center gap-1.5", className)}>
+        {label && <Label>{label}</Label>}
+        <SelectWrapper
+          value={value}
+          onValueChange={(val) => {
+            if (val === undefined) return;
+
+            onValueChange?.(val);
+            setValue(val);
+          }}
+        >
+          <SelectTrigger
+            ref={ref}
+            className={cn("w-full", className, !value && "text-muted-foreground")}
+            {...props}
+          >
+            <SelectValue placeholder={placeholder} />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              {label && <SelectLabel>{label}</SelectLabel>}
+              {items.map((item) => (
+                <SelectItem key={item.value} value={item.value}>
+                  {item.label}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </SelectWrapper>
+        {(error || message) && (
+          <p
+            className={cn(
+              "text-sm text-muted-foreground",
+              error && "text-sm font-medium text-destructive",
+            )}
+          >
+            {error || message}
+          </p>
+        )}
+      </div>
     );
   },
 );

@@ -10,6 +10,7 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   asField?: boolean;
   button?: React.ReactNode;
   buttonPosition?: "left" | "right";
+  error?: string;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -23,6 +24,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       message,
       buttonPosition = "left",
       asField = false,
+      error,
       ...props
     },
     ref,
@@ -44,7 +46,16 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           />
           {buttonPosition === "right" && button}
         </div>
-        {!asField && <p className="text-sm text-muted-foreground">{message}</p>}
+        {!asField && (
+          <p
+            className={cn(
+              "text-sm text-muted-foreground",
+              error && "text-sm font-medium text-destructive",
+            )}
+          >
+            {error || message}
+          </p>
+        )}
         {asField && <FormMessage>{message}</FormMessage>}
       </div>
     );

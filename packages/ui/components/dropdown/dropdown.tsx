@@ -212,7 +212,7 @@ const Dropdown = React.forwardRef<
           <React.Fragment key={index}>
             <DropdownMenuGroup>
               {itemGroup.map(({ label, onClick, sub }, index) => (
-                <>
+                <React.Fragment key={index}>
                   {sub ? (
                     <DropdownMenuSub>
                       <DropdownMenuSubTrigger>{label}</DropdownMenuSubTrigger>
@@ -238,7 +238,7 @@ const Dropdown = React.forwardRef<
                       {label}
                     </DropdownMenuItem>
                   )}
-                </>
+                </React.Fragment>
               ))}
             </DropdownMenuGroup>
             {index < itemGroups.length - 1 && <DropdownMenuSeparator />}

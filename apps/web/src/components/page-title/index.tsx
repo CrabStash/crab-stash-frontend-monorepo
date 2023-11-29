@@ -1,13 +1,15 @@
-import type { ReactNode } from "react";
+import type { HTMLAttributes, ReactNode } from "react";
 
-interface PageTitleProps {
+import { cn } from "@crab-stash/ui";
+
+interface PageTitleProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
 }
 
-function PageTitle({ children }: PageTitleProps) {
+function PageTitle({ children, className, ...props }: PageTitleProps) {
   return (
-    <div className="flex items-center justify-between space-y-2 mb-4">
-      <h1 className="text-3xl font-bold tracking-tight">{children}</h1>
+    <div className={cn("flex items-center justify-between mb-4", className)} {...props}>
+      <h1 className="w-full text-3xl font-bold tracking-tight">{children}</h1>
     </div>
   );
 }
