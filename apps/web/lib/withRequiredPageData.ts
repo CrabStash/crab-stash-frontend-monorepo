@@ -3,6 +3,7 @@ import type { QueryClient } from "@tanstack/react-query";
 import type { GetServerSidePropsContext } from "next";
 
 import { getWarehouseId } from "@app/components/navigation/main-navigation";
+import { fieldsFetcher, fieldsQueryKey } from "@app/hooks/queries/use-fields-query";
 import { warehouseInfoFetcher } from "@app/hooks/queries/use-warehouse-info-query";
 import {
   warehouseUsersFetcher,
@@ -14,6 +15,7 @@ type Options = {
   withWarehouses?: boolean;
   withCurrentWarehouse?: boolean;
   withWarehouseUsers?: boolean;
+  withWarehouseFields?: boolean;
 };
 
 export async function getRequiredPageData(
@@ -33,8 +35,11 @@ export async function getRequiredPageData(
       ),
     options?.withWarehouseUsers &&
       warehouseId &&
-      queryClient.prefetchQuery([warehouseUsersKey, warehouseId], () =>
+      queryClient.prefetchQuery([warehouseUsersKey, warehouseId, 1], () =>
         warehouseUsersFetcher(warehouseId),
       ),
+    options?.withWarehouseFields &&
+      warehouseId &&
+      queryClient.prefetchQuery([fieldsQueryKey, warehouseId, 1], () => fieldsFetcher(warehouseId)),
   ]);
 }

@@ -8,7 +8,13 @@ import { API_ENDPOINTS } from "@app/constants/api-endpoints";
 import type { Response } from "types";
 import type { Paginated } from "types/paginated";
 
-export type FieldsQueryResponse = Response<Paginated<any>>;
+export type FieldsQueryResponse = Response<
+  Paginated<{
+    id: string;
+    title: string;
+    type: string;
+  }>
+>;
 
 export const fieldsFetcher = async (id: string | null, page = 1) => {
   if (!id) {
@@ -22,13 +28,18 @@ export const fieldsFetcher = async (id: string | null, page = 1) => {
   return data;
 };
 
-export const warehousesQueryKey = "/fields";
+export const fieldsQueryKey = "/fields";
 
-export default function useFieldsQuery() {
+interface UseFieldsQueryParams {
+  page?: number;
+}
+
+export default function useFieldsQuery(props?: UseFieldsQueryParams) {
+  const page = props?.page || 1;
   const router = useRouter();
   const warehouseId = getWarehouseId(router.query);
 
-  const query = useQuery([warehousesQueryKey], {
+  const query = useQuery([fieldsQueryKey, warehouseId, page], {
     queryFn: () => fieldsFetcher(warehouseId),
   });
 

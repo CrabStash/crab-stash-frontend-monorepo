@@ -28,7 +28,13 @@ export const API_ENDPOINTS = {
   core: {
     fields: {
       create: (warehouseId: string) => `/core/field/${warehouseId}`,
+      edit: (warehouseId: string, fieldId: string) =>
+        `/core/field/${fieldId}/warehouse/${warehouseId}`,
+      remove: (warehouseId: string, fieldId: string) =>
+        `/core/field/${fieldId}/warehouse/${warehouseId}`,
       list: (warehouseId: string) => `/core/field/warehouse/${warehouseId}`,
+      fieldById: (warehouseId: string, fieldId: string) =>
+        `/core/field/${fieldId}/warehouse/${warehouseId}`,
     },
   },
 };

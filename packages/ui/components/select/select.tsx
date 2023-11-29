@@ -124,11 +124,15 @@ export interface SelectProps extends React.ComponentPropsWithoutRef<typeof Selec
   error?: string;
   message?: string;
   onValueChange?: (value: string) => void;
+  defaultValue?: string;
 }
 
 export const Select = React.forwardRef<React.ElementRef<typeof SelectWrapper>, SelectProps>(
-  ({ className, onValueChange, items, error, message, placeholder, label, ...props }, ref) => {
-    const [value, setValue] = React.useState<string>();
+  (
+    { className, onValueChange, items, error, defaultValue, message, placeholder, label, ...props },
+    ref,
+  ) => {
+    const [value, setValue] = React.useState<string | undefined>(defaultValue);
 
     return (
       <div className={cn("grid w-full max-w-full items-center gap-1.5", className)}>

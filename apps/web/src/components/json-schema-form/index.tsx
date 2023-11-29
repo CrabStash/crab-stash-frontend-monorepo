@@ -1,4 +1,4 @@
-import type { ChangeEvent, FocusEvent } from "react";
+import type { ChangeEvent, FocusEvent, ReactElement } from "react";
 
 import type { SelectItem } from "@crab-stash/ui";
 import { Button, Card, Input, Select } from "@crab-stash/ui";
@@ -70,7 +70,7 @@ function FieldTemplate(props: FieldTemplateProps) {
   const { classNames, style, children } = props;
 
   if ((props?.schema?.enum?.length || 0) > 0) {
-    const { rawErrors, schema, label, uiSchema, onChange, ...selectProps } = props;
+    const { rawErrors, schema, formData, label, uiSchema, onChange, ...selectProps } = props;
 
     const enumNames = schema.enumNames as string[];
     const enumValues = schema.enum as string[];
@@ -87,6 +87,7 @@ function FieldTemplate(props: FieldTemplateProps) {
         onValueChange={onChange}
         label={label}
         placeholder={uiSchema?.["ui:placeholder"] as string}
+        defaultValue={formData}
         {...selectProps}
       />
     );
@@ -99,7 +100,28 @@ function FieldTemplate(props: FieldTemplateProps) {
   );
 }
 
-function ObjectFieldTemplate(props: ObjectFieldTemplateProps) {
+function ObjectFieldTemplate(
+  props: ObjectFieldTemplateProps & { inModal?: boolean; footer?: ReactElement },
+) {
+  const fields = (
+    <div className="flex flex-col space-y-3">
+      {props.properties.map((element) => (
+        <div className="property-wrapper" key={element.name}>
+          {element.content}
+        </div>
+      ))}
+    </div>
+  );
+
+  if (props.inModal) {
+    return (
+      <div className="space-y-6">
+        {fields}
+        {props.footer}
+      </div>
+    );
+  }
+
   return (
     <Card
       title={props.title}
@@ -110,36 +132,43 @@ function ObjectFieldTemplate(props: ObjectFieldTemplateProps) {
         </Button>
       }
     >
-      <div className="flex flex-col space-y-3">
-        {props.properties.map((element) => (
-          <div className="property-wrapper" key={element.name}>
-            {element.content}
-          </div>
-        ))}
-      </div>
+      {fields}
     </Card>
   );
 }
 
 interface JsonSchemaFormProps {
   schema: RJSFSchema;
+  formData?: Record<string, unknown> | null;
   uiSchema?: UiSchema;
   onSubmit?: FormProps["onSubmit"];
+  inModal?: boolean;
+  footer?: ReactElement;
 }
 
-function JsonSchemaForm({ schema, uiSchema, onSubmit }: JsonSchemaFormProps) {
+function JsonSchemaForm({
+  schema,
+  uiSchema,
+  onSubmit,
+  inModal,
+  footer,
+  formData,
+}: JsonSchemaFormProps) {
   return (
     <Form
       schema={schema}
       uiSchema={uiSchema}
       validator={validator}
+      formData={formData}
       templates={{
         ButtonTemplates: {
           SubmitButton,
         },
         BaseInputTemplate,
         FieldTemplate,
-        ObjectFieldTemplate,
+        ObjectFieldTemplate: (props) => (
+          <ObjectFieldTemplate {...props} inModal={inModal} footer={footer} />
+        ),
       }}
       onSubmit={onSubmit}
     />

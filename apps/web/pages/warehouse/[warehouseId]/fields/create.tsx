@@ -4,6 +4,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 
 import { Layout } from "@app/components";
+import FieldsLayout from "@app/components/fields-layout";
 import FieldCreator from "@app/screens/field-creator";
 import { createPageTitle } from "@app/utils/createPageTitle";
 import { withAuth } from "lib/withAuth";
@@ -16,7 +17,9 @@ const Page: NextPage = () => {
         <title>{createPageTitle("Create field")}</title>
       </Head>
       <Layout>
-        <FieldCreator />
+        <FieldsLayout>
+          <FieldCreator />
+        </FieldsLayout>
       </Layout>
     </>
   );
@@ -25,6 +28,7 @@ const Page: NextPage = () => {
 export const getServerSideProps = withAuth(async (ctx, queryClient) => {
   await getRequiredPageData(ctx, queryClient, {
     withWarehouses: true,
+    withCurrentWarehouse: true,
   });
 
   return {

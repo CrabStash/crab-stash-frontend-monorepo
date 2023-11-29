@@ -95,7 +95,7 @@ DialogDescription.displayName = DialogPrimitive.Description.displayName;
 export interface DialogProps {
   content?: React.ReactNode;
   title: string;
-  description: string;
+  description?: string;
   footer?: React.ReactNode;
   trigger?: React.ReactNode;
   contentClassName?: string;
@@ -116,7 +116,7 @@ export function Dialog({
       <DialogContent className={cn("sm:max-w-[425px]", contentClassName)}>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
-          <DialogDescription>{description}</DialogDescription>
+          {description && <DialogDescription>{description}</DialogDescription>}
         </DialogHeader>
         {content}
         {footer && <DialogFooter>{footer}</DialogFooter>}
