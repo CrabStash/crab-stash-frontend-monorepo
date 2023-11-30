@@ -16,10 +16,10 @@ export const fieldSchemaFetcher = async () => {
   return data;
 };
 
-export const userQueryKey = "/user";
+export const fieldSchemaQueryKey = API_ENDPOINTS.schema.field;
 
 export default function useFieldSchemaQuery() {
-  const query = useQuery([userQueryKey], {
+  const query = useQuery([fieldSchemaQueryKey], {
     queryFn: () => fieldSchemaFetcher(),
   });
 

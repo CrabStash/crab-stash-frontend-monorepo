@@ -4,6 +4,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 
 import { Layout } from "@app/components";
+import CategoriesLayout from "@app/components/categories-layout";
 import Categories from "@app/screens/categories";
 import { createPageTitle } from "@app/utils/createPageTitle";
 import { withAuth } from "lib/withAuth";
@@ -16,7 +17,9 @@ const Page: NextPage = () => {
         <title>{createPageTitle("Categories")}</title>
       </Head>
       <Layout>
-        <Categories />
+        <CategoriesLayout>
+          <Categories />
+        </CategoriesLayout>
       </Layout>
     </>
   );
@@ -25,6 +28,7 @@ const Page: NextPage = () => {
 export const getServerSideProps = withAuth(async (ctx, queryClient) => {
   await getRequiredPageData(ctx, queryClient, {
     withWarehouses: true,
+    withCurrentWarehouse: true,
   });
 
   return {

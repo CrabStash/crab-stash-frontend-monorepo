@@ -71,7 +71,7 @@ function Fields() {
 
   const formattedData: TableField[] = useMemo(() => {
     return (
-      data?.response.data.list.map((field) => ({
+      data?.response.data.list?.map((field) => ({
         id: field.id,
         title: field.title,
         type: field.type,
