@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
 import { useRouter } from "next/router";
 
@@ -7,18 +7,16 @@ import UsersTableRowActions from "../users-table-row-actions";
 
 import { getWarehouseId } from "@app/components/navigation/main-navigation";
 import useWarehouseUsersQuery from "@app/hooks/queries/use-warehouse-users-query";
+import usePaginatedTable from "@app/hooks/use-paginated-table";
 import { formatRole } from "@app/utils/formatRole";
-import type { ColumnDef, PaginationState } from "@crab-stash/ui";
+import type { ColumnDef } from "@crab-stash/ui";
 import { Avatar, Table } from "@crab-stash/ui";
 import type { WarehouseRole } from "types/warehouse-role";
 
 function UsersTable() {
   const { query } = useRouter();
   const warehouseId = getWarehouseId(query);
-  const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
-    pageIndex: 0,
-    pageSize: 10,
-  });
+  const { pageIndex, pagination, setPagination } = usePaginatedTable();
 
   const { data } = useWarehouseUsersQuery({
     id: warehouseId,
@@ -68,14 +66,6 @@ function UsersTable() {
       })) ?? []
     );
   }, [data]);
-
-  const pagination = useMemo(
-    () => ({
-      pageIndex,
-      pageSize,
-    }),
-    [pageIndex, pageSize],
-  );
 
   if (!data?.response) return null;
 

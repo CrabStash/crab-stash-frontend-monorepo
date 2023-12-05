@@ -41,12 +41,19 @@ const loaderVariants = cva("animate-spin mr-2", {
   },
 });
 
-const iconVariants = cva("mr-2", {
+const iconVariants = cva("", {
   variants: {
     size: {
       default: "h-4 w-4",
       sm: "h-4 w-4",
       lg: "h-5 w-5",
+    },
+    position: {
+      left: "mr-2",
+      right: "ml-2",
+    },
+    withoutChildren: {
+      true: "mr-0 ml-0",
     },
   },
 });
@@ -57,6 +64,7 @@ export interface ButtonProps
   asChild?: boolean;
   loading?: boolean;
   icon?: LucideIcon;
+  iconPosition?: "left" | "right";
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -67,6 +75,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       size = "default",
       asChild = false,
       loading = false,
+      iconPosition = "left",
       children,
       icon,
       ...props
@@ -75,6 +84,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ) => {
     const Icon = icon;
     const Comp = (asChild ? "div" : "button") as "button";
+    const iconComponent = Icon && (
+      <Icon
+        className={cn(iconVariants({ size, position: iconPosition, withoutChildren: !children }))}
+      />
+    );
 
     return (
       <Comp
@@ -83,9 +97,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...props}
       >
-        {!loading && Icon && <Icon className={cn(iconVariants({ size }))} />}
+        {!loading && iconPosition === "left" && iconComponent}
         {loading && <Loader2 className={cn(loaderVariants({ size }))} />}
         {children}
+        {!loading && iconPosition === "right" && iconComponent}
       </Comp>
     );
   },

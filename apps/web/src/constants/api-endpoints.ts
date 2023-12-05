@@ -24,6 +24,7 @@ export const API_ENDPOINTS = {
   },
   schema: {
     field: "core/schemas/field",
+    category: "core/schemas/category",
   },
   core: {
     fields: {
@@ -35,6 +36,14 @@ export const API_ENDPOINTS = {
       list: (warehouseId: string) => `/core/field/warehouse/${warehouseId}`,
       fieldById: (warehouseId: string, fieldId: string) =>
         `/core/field/${fieldId}/warehouse/${warehouseId}`,
+    },
+    categories: {
+      list: (warehouseId: string) => `/core/category/warehouse/${warehouseId}`,
+      categoryById: (warehouseId: string, categoryId: string) =>
+        `/core/category/${categoryId}/warehouse/${warehouseId}`,
+      categoryInheritanceById: (warehouseId: string, categoryId: string) =>
+        `/core/schemas/${categoryId}/warehouse/${warehouseId}/inheritance`,
+      create: (warehouseId: string) => `/core/category/${warehouseId}`,
     },
   },
 };

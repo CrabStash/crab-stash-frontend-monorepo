@@ -37,12 +37,12 @@ function MainNavigation({ className, ...props }: HTMLAttributes<HTMLElement>) {
       label: "Dashboard",
     },
     {
-      href: URLS.categories(warehouseId as string),
-      label: "Categories",
-    },
-    {
       href: URLS.fields(warehouseId as string),
       label: "Fields",
+    },
+    {
+      href: URLS.categories(warehouseId as string),
+      label: "Categories",
     },
     {
       href: URLS.products(warehouseId as string),

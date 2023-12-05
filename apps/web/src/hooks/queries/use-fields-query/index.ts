@@ -40,7 +40,7 @@ export default function useFieldsQuery(props?: UseFieldsQueryParams) {
   const warehouseId = getWarehouseId(router.query);
 
   const query = useQuery([fieldsQueryKey, warehouseId, page], {
-    queryFn: () => fieldsFetcher(warehouseId),
+    queryFn: () => fieldsFetcher(warehouseId, page),
   });
 
   return query;

@@ -38,11 +38,7 @@ const Checkbox = React.forwardRef<React.ElementRef<typeof CheckboxPrimitive.Root
         >
           {label}
         </Label>
-        {message && (
-          <p className="text-sm text-muted-foreground">
-            You agree to our Terms of Service and Privacy Policy.
-          </p>
-        )}
+        {message && <p className="text-sm text-muted-foreground">{message}</p>}
       </div>
     </div>
   ),
