@@ -7,6 +7,7 @@ import SidebarNav from "../sidebar-nav";
 
 import { URLS } from "@app/constants/urls";
 import useWarehouseInfoQuery from "@app/hooks/queries/use-warehouse-info-query";
+import { getCategoryId } from "@app/utils/categoryId";
 import { Separator } from "@crab-stash/ui";
 
 interface CategoriesLayoutProps {
@@ -14,8 +15,9 @@ interface CategoriesLayoutProps {
 }
 
 function CategoriesLayout({ children }: CategoriesLayoutProps) {
-  const { query } = useRouter();
+  const { query, asPath } = useRouter();
   const warehouseId = getWarehouseId(query);
+  const categoryId = getCategoryId(query);
   const { data } = useWarehouseInfoQuery({
     id: warehouseId,
   });
@@ -27,6 +29,26 @@ function CategoriesLayout({ children }: CategoriesLayoutProps) {
       title: "Categories tree",
       href: URLS.categories(warehouseId),
     },
+    {
+      title: "Create category",
+      href: URLS.createCategory(warehouseId),
+    },
+    ...(categoryId && asPath === URLS.categoryById(warehouseId, categoryId)
+      ? [
+          {
+            title: "Category Info",
+            href: URLS.categoryById(warehouseId, categoryId),
+          },
+        ]
+      : []),
+    ...(categoryId && decodeURIComponent(asPath) === URLS.editCategory(warehouseId, categoryId)
+      ? [
+          {
+            title: "Edit category",
+            href: URLS.editCategory(warehouseId, categoryId),
+          },
+        ]
+      : []),
   ];
 
   return (

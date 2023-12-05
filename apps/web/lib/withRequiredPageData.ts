@@ -3,6 +3,10 @@ import type { QueryClient } from "@tanstack/react-query";
 import type { GetServerSidePropsContext } from "next";
 
 import { getWarehouseId } from "@app/components/navigation/main-navigation";
+import {
+  categoryByIdFetcher,
+  categoryByIdQueryKey,
+} from "@app/hooks/queries/use-category-by-id-query";
 import { fieldsFetcher, fieldsQueryKey } from "@app/hooks/queries/use-fields-query";
 import { warehouseInfoFetcher } from "@app/hooks/queries/use-warehouse-info-query";
 import {
@@ -10,12 +14,14 @@ import {
   warehouseUsersKey,
 } from "@app/hooks/queries/use-warehouse-users-query";
 import { warehousesFetcher, warehousesQueryKey } from "@app/hooks/queries/use-warehouses-query";
+import { getCategoryId } from "@app/utils/categoryId";
 
 type Options = {
   withWarehouses?: boolean;
   withCurrentWarehouse?: boolean;
   withWarehouseUsers?: boolean;
   withWarehouseFields?: boolean;
+  withCurrentCategory?: boolean;
 };
 
 export async function getRequiredPageData(
@@ -24,6 +30,7 @@ export async function getRequiredPageData(
   options?: Options,
 ) {
   const warehouseId = getWarehouseId(context.query);
+  const categoryId = getCategoryId(context.query);
 
   await Promise.all([
     options?.withWarehouses &&
@@ -41,5 +48,11 @@ export async function getRequiredPageData(
     options?.withWarehouseFields &&
       warehouseId &&
       queryClient.prefetchQuery([fieldsQueryKey, warehouseId, 1], () => fieldsFetcher(warehouseId)),
+    options?.withCurrentCategory &&
+      warehouseId &&
+      categoryId &&
+      queryClient.prefetchQuery([categoryByIdQueryKey, warehouseId, categoryId], () =>
+        categoryByIdFetcher(warehouseId, categoryId),
+      ),
   ]);
 }

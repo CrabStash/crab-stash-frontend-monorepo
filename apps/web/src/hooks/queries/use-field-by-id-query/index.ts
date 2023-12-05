@@ -7,8 +7,14 @@ import { getWarehouseId } from "@app/components/navigation/main-navigation";
 import { API_ENDPOINTS } from "@app/constants/api-endpoints";
 import type { Response } from "types";
 
+type Field = {
+  id: string;
+  title: string;
+  type: string;
+};
+
 export type FieldByIdQueryResponse = Response<{
-  formData: Record<string, unknown>;
+  formData: Field;
 }>;
 
 export const fieldByIdFetcher = async (fieldId: string, warehouseId: string | null) => {

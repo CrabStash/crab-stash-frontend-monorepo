@@ -1,5 +1,8 @@
 import type { ChangeEvent, FocusEvent, ReactElement } from "react";
 
+import FieldsWidget from "./widgets/fields-widget";
+import ParentsWidget from "./widgets/parents-widget";
+
 import type { SelectItem } from "@crab-stash/ui";
 import { Button, Card, Input, Select } from "@crab-stash/ui";
 import type { FormProps } from "@rjsf/core";
@@ -169,6 +172,10 @@ function JsonSchemaForm({
         ObjectFieldTemplate: (props) => (
           <ObjectFieldTemplate {...props} inModal={inModal} footer={footer} />
         ),
+      }}
+      widgets={{
+        parentsWidget: (props) => <ParentsWidget {...props} />,
+        fieldsWidget: (props) => <FieldsWidget {...props} />,
       }}
       onSubmit={onSubmit}
     />

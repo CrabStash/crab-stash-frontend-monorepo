@@ -27,6 +27,7 @@
     "react": "latest",
     "react-dom": "latest",
     "react-hook-form": "^7.45.4",
+    "react-infinite-scroll-component": "^6.1.0",
     "zod": "^3.22.2",
     "zustand": "^4.4.5"
   },

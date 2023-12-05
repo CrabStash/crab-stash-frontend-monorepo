@@ -1,5 +1,5 @@
 import { Copy } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
 import { useRouter } from "next/router";
 
@@ -9,7 +9,8 @@ import FieldsTableRowActions from "./fields-table-row-actions";
 import { getWarehouseId } from "@app/components/navigation/main-navigation";
 import PageTitle from "@app/components/page-title";
 import useFieldsQuery from "@app/hooks/queries/use-fields-query";
-import type { ColumnDef, PaginationState } from "@crab-stash/ui";
+import usePaginatedTable from "@app/hooks/use-paginated-table";
+import type { ColumnDef } from "@crab-stash/ui";
 import { useToast } from "@crab-stash/ui";
 import { Table } from "@crab-stash/ui";
 import { Button } from "@crab-stash/ui";
@@ -17,12 +18,11 @@ import { Button } from "@crab-stash/ui";
 function Fields() {
   const { query } = useRouter();
   const warehouseId = getWarehouseId(query);
-  const { data } = useFieldsQuery();
-  const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
-    pageIndex: 0,
-    pageSize: 10,
-  });
+  const { pageIndex, pagination, setPagination } = usePaginatedTable();
   const { toast } = useToast();
+  const { data } = useFieldsQuery({
+    page: pageIndex + 1,
+  });
 
   const columns: ColumnDef<TableField>[] = useMemo(
     () => [
@@ -78,14 +78,6 @@ function Fields() {
       })) ?? []
     );
   }, [data]);
-
-  const pagination = useMemo(
-    () => ({
-      pageIndex,
-      pageSize,
-    }),
-    [pageIndex, pageSize],
-  );
 
   if (!warehouseId) return null;
 
