@@ -76,7 +76,7 @@ export const useChangeRoleMutation = ({ page, warehouseId }: ChangeRoleMutations
         queryClient.setQueryData(queryKey, context.previousWarehouses);
       },
       onSettled: () => {
-        queryClient.invalidateQueries({ queryKey: queryKey });
+        queryClient.invalidateQueries({ queryKey: [warehouseUsersKey, warehouseId] });
       },
     },
   );

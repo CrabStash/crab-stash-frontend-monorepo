@@ -8,6 +8,7 @@ import { getWarehouseId } from "../navigation/main-navigation";
 
 import { URLS } from "@app/constants/urls";
 import useCategoryByIdQuery from "@app/hooks/queries/use-category-query";
+import { getCategoryId } from "@app/utils/categoryId";
 import { Button, cn, Tooltip } from "@crab-stash/ui";
 import type { Category } from "types/category";
 
@@ -39,8 +40,13 @@ function CategoryTreeButton({
   selectedPath,
   highlightOnlyPath = false,
 }: CategoryTreeButtonProps) {
+  const { query } = useRouter();
+  const categoryId = getCategoryId(query);
+
   if (asButton) {
     const isInSelectedPath = selectedPath?.includes(id);
+
+    const disabled = categoryId === id;
 
     return (
       <Button
@@ -54,6 +60,7 @@ function CategoryTreeButton({
           id === ROOT_CATEGORY_ID && selectedPath?.length === 0 && "text-primary",
         )}
         onClick={() => onClick?.(id === ROOT_CATEGORY_ID ? [] : path)}
+        disabled={disabled}
       >
         {title}
       </Button>

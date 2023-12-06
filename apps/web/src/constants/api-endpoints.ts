@@ -44,6 +44,8 @@ export const API_ENDPOINTS = {
       categoryInheritanceById: (warehouseId: string, categoryId: string) =>
         `/core/schemas/${categoryId}/warehouse/${warehouseId}/inheritance`,
       create: (warehouseId: string) => `/core/category/${warehouseId}`,
+      edit: (warehouseId: string, categoryId: string) =>
+        `/core/category/${categoryId}/warehouse/${warehouseId}`,
     },
   },
 };

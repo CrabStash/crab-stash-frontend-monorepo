@@ -22,7 +22,6 @@ const Page: NextPage = () => {
       <Head>
         <title>{createPageTitle("Dashboard")}</title>
         <meta name="description" content="Turborepo Starter: Web" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
         {data?.response.data.list && data.response.data.list.length > 0 ? (
