@@ -1,18 +1,21 @@
 import { useState } from "react";
 
-import { useWarehouseDeleteMutation } from "./use-warehouse-delete-mutation";
+import { useRouter } from "next/router";
+
+import { useCategoryDeleteMutation } from "./use-category-delete-mutation";
 
 import useUserRole from "@app/hooks/use-user-role";
-import useWarehouseId from "@app/hooks/use-warehouse-id";
+import { getCategoryId } from "@app/utils/categoryId";
 import { Button, Dialog, useToast } from "@crab-stash/ui";
 
-function WarehouseDelete() {
+function CategoryDelete() {
   const [open, setOpen] = useState(false);
-  const warehouseId = useWarehouseId();
+  const { query } = useRouter();
+  const categoryId = getCategoryId(query);
   const { toast } = useToast();
 
-  const { mutateAsync, isLoading } = useWarehouseDeleteMutation({
-    id: warehouseId,
+  const { mutateAsync, isLoading } = useCategoryDeleteMutation({
+    categoryId,
   });
 
   const { isOwner } = useUserRole();
@@ -23,7 +26,7 @@ function WarehouseDelete() {
 
       toast({
         title: "Success",
-        description: "Warehouse deleted successfully.",
+        description: "Category deleted successfully.",
       });
     } catch (error) {
       toast({
@@ -39,11 +42,11 @@ function WarehouseDelete() {
   return (
     <>
       <Button onClick={() => setOpen(true)} variant="destructive">
-        Delete warehouse
+        Delete category
       </Button>
       <Dialog
         title="Delete"
-        description="Are you sure you want to delete this warehouse? This action cannot be undone."
+        description="Are you sure you want to delete this category? This action cannot be undone."
         open={open}
         onOpenChange={(open) => setOpen(open)}
         footer={
@@ -61,4 +64,4 @@ function WarehouseDelete() {
   );
 }
 
-export default WarehouseDelete;
+export default CategoryDelete;

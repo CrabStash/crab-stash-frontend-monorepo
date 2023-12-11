@@ -4,4 +4,5 @@ export type User = {
   email: string;
   avatar?: string;
   id: string;
+  default_warehouse: string;
 };

@@ -37,7 +37,7 @@ export const useChangeRoleMutation = ({ page, warehouseId }: ChangeRoleMutations
         const previousWarehouses = queryClient.getQueryData(queryKey);
 
         queryClient.setQueryData(queryKey, (old: WarehouseUsersQueryResponse) => {
-          const users = old.response.data.list.map((user) => {
+          const users = old.response.data.list?.map((user) => {
             if (user.user.id === targetUserID) {
               return {
                 ...user,

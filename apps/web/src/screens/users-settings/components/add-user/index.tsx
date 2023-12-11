@@ -1,10 +1,8 @@
 import { useForm } from "react-hook-form";
 
-import { useRouter } from "next/router";
-
 import { useAddWarehouseUserMutation } from "./use-add-warehouse-user-mutation";
 
-import { getWarehouseId } from "@app/components/navigation/main-navigation";
+import useWarehouseId from "@app/hooks/use-warehouse-id";
 import { Button, Form, FormField, InputField, useToast } from "@crab-stash/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -18,8 +16,7 @@ export const addUserSchema = z.object({
 type AddUserForm = z.infer<typeof addUserSchema>;
 
 function AddUser() {
-  const { query } = useRouter();
-  const warehouseId = getWarehouseId(query);
+  const warehouseId = useWarehouseId();
   const { mutateAsync } = useAddWarehouseUserMutation();
   const { toast } = useToast();
   const form = useForm<AddUserForm>({

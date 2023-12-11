@@ -5,8 +5,9 @@ import Head from "next/head";
 
 import { Layout } from "@app/components";
 import { URLS } from "@app/constants/urls";
-import type { WarehousesQueryResponse } from "@app/hooks/queries/use-warehouses-query";
-import useWarehousesQuery, { warehousesQueryKey } from "@app/hooks/queries/use-warehouses-query";
+import type { MeQueryResponse } from "@app/hooks/queries/use-me-query";
+import { meFetcher, meQueryKey } from "@app/hooks/queries/use-me-query";
+import useWarehousesQuery from "@app/hooks/queries/use-warehouses-query";
 import Dashboard from "@app/screens/dashboard";
 import WarehouseCreator from "@app/screens/warehouse-creator";
 import { createPageTitle } from "@app/utils/createPageTitle";
@@ -34,19 +35,20 @@ const Page: NextPage = () => {
   );
 };
 
-export const getServerSideProps = withAuth(async (_, queryClient) => {
-  await getRequiredPageData(_, queryClient, {
+export const getServerSideProps = withAuth(async (context, queryClient) => {
+  await getRequiredPageData(context, queryClient, {
     withWarehouses: true,
   });
 
-  const warehousesData = queryClient.getQueryData<WarehousesQueryResponse>([warehousesQueryKey]);
+  await queryClient.prefetchQuery([meQueryKey], () => meFetcher(context));
 
-  const warehousesList = warehousesData?.response.data.list;
+  const me = queryClient.getQueryData<MeQueryResponse>([meQueryKey]);
+  const defaultWarehouseId = me?.response.data.default_warehouse;
 
-  if (warehousesList && warehousesList[0]) {
+  if (defaultWarehouseId) {
     return {
       redirect: {
-        destination: URLS.warehouseDashboard(formatIdToQuery(warehousesList[0].warehouse.id)),
+        destination: URLS.warehouseDashboard(formatIdToQuery(defaultWarehouseId)),
         permanent: false,
       },
     };

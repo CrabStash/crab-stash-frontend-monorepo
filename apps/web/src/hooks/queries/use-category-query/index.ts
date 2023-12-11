@@ -1,10 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { useRouter } from "next/router";
-
 import { api } from "@app/api";
-import { getWarehouseId } from "@app/components/navigation/main-navigation";
 import { API_ENDPOINTS } from "@app/constants/api-endpoints";
+import useWarehouseId from "@app/hooks/use-warehouse-id";
 import type { Response } from "types";
 import type { Category } from "types/category";
 
@@ -32,8 +30,7 @@ interface UseCategoriesQueryParams {
 }
 
 export default function useCategoriesQuery(props?: UseCategoriesQueryParams) {
-  const router = useRouter();
-  const warehouseId = getWarehouseId(router.query);
+  const warehouseId = useWarehouseId();
   const parentId = props?.parentId;
 
   const query = useQuery([categoriesQueryKey, warehouseId, parentId], {

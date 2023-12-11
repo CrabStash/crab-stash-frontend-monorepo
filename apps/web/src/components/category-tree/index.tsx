@@ -4,10 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { getWarehouseId } from "../navigation/main-navigation";
-
 import { URLS } from "@app/constants/urls";
 import useCategoryByIdQuery from "@app/hooks/queries/use-category-query";
+import useWarehouseId from "@app/hooks/use-warehouse-id";
 import { getCategoryId } from "@app/utils/categoryId";
 import { Button, cn, Tooltip } from "@crab-stash/ui";
 import type { Category } from "types/category";
@@ -105,8 +104,7 @@ function CategoryTreeItem({
   hasChildren = true,
 }: CategoryTreeItemProps) {
   const isCategoryExpanded = isExpanded(id);
-  const { query } = useRouter();
-  const warehouseId = getWarehouseId(query);
+  const warehouseId = useWarehouseId();
 
   const { data } = useCategoryByIdQuery({
     parentId: id,

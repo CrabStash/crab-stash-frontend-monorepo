@@ -1,15 +1,13 @@
 import { useForm } from "react-hook-form";
 
-import { useRouter } from "next/router";
-
 import { additionalInformationSchema } from "../warehouse-creator/steps/additional-information";
 import { basicInformationSchema } from "../warehouse-creator/steps/basic-information";
 import WarehouseDelete from "./warehouse-delete";
 
-import { getWarehouseId } from "@app/components/navigation/main-navigation";
 import SettingsTab from "@app/components/settings-tab";
 import { useUpdateWarehouseMutation } from "@app/hooks/mutations/use-update-warehouse-mutation";
 import useWarehouseInfoQuery from "@app/hooks/queries/use-warehouse-info-query";
+import useWarehouseId from "@app/hooks/use-warehouse-id";
 import {
   Button,
   Form,
@@ -27,8 +25,7 @@ const generalSettingsSchema = basicInformationSchema.merge(additionalInformation
 type GeneralSettingsForm = z.infer<typeof generalSettingsSchema>;
 
 function GeneralSettings() {
-  const { query } = useRouter();
-  const warehouseId = getWarehouseId(query);
+  const warehouseId = useWarehouseId();
   const { toast } = useToast();
 
   const { data } = useWarehouseInfoQuery({ id: warehouseId });

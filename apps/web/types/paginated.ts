@@ -5,6 +5,6 @@ export type Pagination = {
 };
 
 export type Paginated<Data> = {
-  list: Data[];
+  list?: Data[];
   pagination: Pagination;
 };

@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@app/api";
 import { API_ENDPOINTS } from "@app/constants/api-endpoints";
 import type { MeQueryResponse } from "@app/hooks/queries/use-me-query";
-import { meQueryKey } from "@app/hooks/queries/use-me-query";
+import useMeQuery, { meQueryKey } from "@app/hooks/queries/use-me-query";
 import { useToast } from "@crab-stash/ui";
 import type { Response } from "types";
 
@@ -20,6 +20,7 @@ type UpdateProfileMutationResponse = Response<string>;
 
 export const useUpdateProfileMutation = () => {
   const queryClient = useQueryClient();
+  const { data } = useMeQuery();
   const queryKey = [meQueryKey];
   const { toast } = useToast();
 
@@ -29,7 +30,12 @@ export const useUpdateProfileMutation = () => {
     UpdateProfileMutationVariables
   >(
     (options) => {
-      return api.put(API_ENDPOINTS.user.update, options);
+      return api.put(API_ENDPOINTS.user.update, {
+        data: {
+          ...options.data,
+          default_warehouse: data?.response.data.default_warehouse,
+        },
+      });
     },
     {
       onMutate: async ({ data: userInfo }) => {

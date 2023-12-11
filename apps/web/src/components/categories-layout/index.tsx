@@ -2,11 +2,11 @@ import type { ReactNode } from "react";
 
 import { useRouter } from "next/router";
 
-import { getWarehouseId } from "../navigation/main-navigation";
 import SidebarNav from "../sidebar-nav";
 
 import { URLS } from "@app/constants/urls";
 import useWarehouseInfoQuery from "@app/hooks/queries/use-warehouse-info-query";
+import useWarehouseId from "@app/hooks/use-warehouse-id";
 import { getCategoryId } from "@app/utils/categoryId";
 import { Separator } from "@crab-stash/ui";
 
@@ -16,7 +16,7 @@ interface CategoriesLayoutProps {
 
 function CategoriesLayout({ children }: CategoriesLayoutProps) {
   const { query, asPath } = useRouter();
-  const warehouseId = getWarehouseId(query);
+  const warehouseId = useWarehouseId();
   const categoryId = getCategoryId(query);
   const { data } = useWarehouseInfoQuery({
     id: warehouseId,

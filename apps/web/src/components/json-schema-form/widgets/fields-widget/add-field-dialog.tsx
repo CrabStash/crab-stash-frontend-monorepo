@@ -3,8 +3,8 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 import { useRouter } from "next/router";
 
-import { getWarehouseId } from "@app/components/navigation/main-navigation";
 import { fieldsFetcher } from "@app/hooks/queries/use-fields-query";
+import useWarehouseId from "@app/hooks/use-warehouse-id";
 import { Button, Checkbox, Dialog } from "@crab-stash/ui";
 
 interface AddFieldDialogProps {
@@ -21,11 +21,12 @@ function AddFieldDialog({
   onChange,
 }: AddFieldDialogProps) {
   const router = useRouter();
-  const warehouseId = getWarehouseId(router.query);
+  const warehouseId = useWarehouseId();
+  const parentCategory = router.query.parentCategory as string;
 
   const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
-    queryKey: ["infinte-fields"],
-    queryFn: ({ pageParam = 1 }) => fieldsFetcher(warehouseId, pageParam),
+    queryKey: ["infinte-fields", warehouseId, parentCategory],
+    queryFn: ({ pageParam = 1 }) => fieldsFetcher(warehouseId, pageParam, parentCategory),
     getNextPageParam: (lastPage: Awaited<ReturnType<typeof fieldsFetcher>>) => {
       if (lastPage?.response.data.pagination.page >= lastPage?.response.data.pagination.total) {
         return undefined;
@@ -59,14 +60,17 @@ function AddFieldDialog({
       content={
         <div className="flex flex-col gap-4">
           <InfiniteScroll
-            dataLength={data.pages.reduce((acc, page) => acc + page.response.data.list.length, 0)}
+            dataLength={data.pages.reduce(
+              (acc, page) => acc + (page.response.data.list?.length || 0),
+              0,
+            )}
             loader={<h4>Loading...</h4>}
             next={() => fetchNextPage()}
             height={350}
             hasMore={!!hasNextPage}
           >
             {data.pages.map((page) =>
-              page.response.data.list.map((field) => (
+              page.response.data.list?.map((field) => (
                 <div key={field.id} className="py-2">
                   <Checkbox
                     onCheckedChange={() => handleCheckboxChange(field.id)}

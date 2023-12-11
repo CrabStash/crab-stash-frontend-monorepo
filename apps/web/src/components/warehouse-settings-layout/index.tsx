@@ -1,11 +1,9 @@
 import type { ReactNode } from "react";
 import { useMemo } from "react";
 
-import { useRouter } from "next/router";
-
 import SidebarNav from "../sidebar-nav";
 
-import { getWarehouseId } from "@app/components/navigation/main-navigation";
+import useWarehouseId from "@app/hooks/use-warehouse-id";
 import { Separator } from "@crab-stash/ui";
 
 interface WarehouseSettingLayoutProps {
@@ -13,8 +11,7 @@ interface WarehouseSettingLayoutProps {
 }
 
 function WarehouseSettingLayout({ children }: WarehouseSettingLayoutProps) {
-  const { query } = useRouter();
-  const warehouseId = getWarehouseId(query);
+  const warehouseId = useWarehouseId();
 
   const sidebarNavItems = useMemo(
     () => [

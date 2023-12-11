@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import { URLS } from "@app/constants/urls";
+import useWarehouseId from "@app/hooks/use-warehouse-id";
 import { cn } from "@crab-stash/ui/lib/utils";
 import type { ParsedUrlQuery } from "querystring";
 
@@ -29,7 +30,7 @@ export const getWarehouseId = (query: ParsedUrlQuery) => {
 function MainNavigation({ className, ...props }: HTMLAttributes<HTMLElement>) {
   const router = useRouter();
 
-  const warehouseId = getWarehouseId(router.query);
+  const warehouseId = useWarehouseId();
 
   const mainNavigationLinks: Link[] = [
     {

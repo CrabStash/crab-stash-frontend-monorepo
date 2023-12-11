@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { isServer, useQuery } from "@tanstack/react-query";
 
 import type { GetServerSidePropsContext } from "next";
 
@@ -17,7 +17,16 @@ export const meFetcher = async (context?: GetServerSidePropsContext) => {
     return undefined;
   }
 
-  const { data } = await api.get<MeQueryResponse>(API_ENDPOINTS.user.me);
+  const { data } = await api.get<MeQueryResponse>(
+    API_ENDPOINTS.user.me,
+    isServer
+      ? {
+          headers: {
+            Cookie: `${COOKIES_AUTH_TOKEN_KEY}=${cookies[COOKIES_AUTH_TOKEN_KEY]}`,
+          },
+        }
+      : {},
+  );
 
   return data;
 };

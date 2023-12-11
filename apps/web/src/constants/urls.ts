@@ -17,4 +17,5 @@ export const URLS = {
     `/warehouse/${warehouseId}/categories/${categoryId}/edit`,
   products: (warehouseId: string) => `/warehouse/${warehouseId}/products`,
   createField: (warehouseId: string) => `/warehouse/${warehouseId}/fields/create`,
+  addProduct: (warehouseId: string) => `/warehouse/${warehouseId}/products/add`,
 };

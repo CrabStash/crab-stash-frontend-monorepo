@@ -1,10 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { useRouter } from "next/router";
-
 import { api } from "@app/api";
-import { getWarehouseId } from "@app/components/navigation/main-navigation";
 import { API_ENDPOINTS } from "@app/constants/api-endpoints";
+import useWarehouseId from "@app/hooks/use-warehouse-id";
 import type { Response } from "types";
 
 type Field = {
@@ -37,8 +35,7 @@ interface UseFieldsQueryParams {
 }
 
 export default function useFieldByIdQuery(params: UseFieldsQueryParams) {
-  const router = useRouter();
-  const warehouseId = getWarehouseId(router.query);
+  const warehouseId = useWarehouseId();
 
   const query = useQuery([fieldByIdQueryKey, warehouseId, params.fieldId], {
     queryFn: () => fieldByIdFetcher(params.fieldId, warehouseId),
