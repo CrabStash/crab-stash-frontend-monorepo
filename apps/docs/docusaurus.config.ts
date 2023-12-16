@@ -77,6 +77,7 @@ const config: Config = {
           sidebarId: "tutorialSidebar",
           position: "left",
           label: "Docs",
+          to: "/docs/intro",
         },
         {
           href: process.env.WEB_APP_URL,
