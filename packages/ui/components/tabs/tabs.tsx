@@ -64,6 +64,7 @@ export interface Tab<TValue extends string> {
   label: string;
   value: TValue;
   content: ReactElement;
+  onClick?: (value: TValue) => void;
 }
 
 export interface TabsProps<TValue extends string>
@@ -87,8 +88,13 @@ function TabsInner<TValue extends string>(
   return (
     <TabsWrapper defaultValue={defaultValue} {...props} ref={ref}>
       <TabsList className={tabsClassName}>
-        {tabs.map(({ label, value }) => (
-          <TabsTrigger value={value} key={value} readonly={readonly}>
+        {tabs.map(({ label, value, onClick }) => (
+          <TabsTrigger
+            onClick={() => onClick?.(value)}
+            value={value}
+            key={value}
+            readonly={readonly}
+          >
             {label}
           </TabsTrigger>
         ))}

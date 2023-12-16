@@ -9,8 +9,8 @@ import type { Paginated } from "types/paginated";
 export type ProductsQueryResponse = Response<
   Paginated<{
     id: string;
-    title: string;
-    type: string;
+    name: string;
+    description: string;
   }>
 >;
 
