@@ -33,9 +33,6 @@ importers:
 
   apps/docs:
     dependencies:
-      '@crab-stash/ui':
-        specifier: workspace:*
-        version: link:../../packages/ui
       '@crab-stash/utils':
         specifier: workspace:*
         version: link:../../packages/utils
