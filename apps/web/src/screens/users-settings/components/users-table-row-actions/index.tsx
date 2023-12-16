@@ -6,9 +6,9 @@ import { useRouter } from "next/router";
 import { useChangeRoleMutation } from "./use-change-role-mutation";
 import { useRemoveUserMutation } from "./use-remove-user-mutation";
 
-import { getWarehouseId } from "@app/components/navigation/main-navigation";
 import { URLS } from "@app/constants/urls";
 import useMeQuery from "@app/hooks/queries/use-me-query";
+import useWarehouseId from "@app/hooks/use-warehouse-id";
 import type { Row } from "@crab-stash/ui";
 import { useToast } from "@crab-stash/ui";
 import { Dialog } from "@crab-stash/ui";
@@ -30,10 +30,10 @@ interface UserTableRowActionsProps {
 }
 
 function UsersTableRowActions({ row, page }: UserTableRowActionsProps) {
-  const { query, push } = useRouter();
-  const warehouseId = getWarehouseId(query);
+  const warehouseId = useWarehouseId();
   const user = row.original;
 
+  const { push } = useRouter();
   const { data } = useMeQuery();
   const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
   const { isLoading, mutateAsync } = useRemoveUserMutation();

@@ -31,14 +31,7 @@ api.interceptors.request.use((config) => {
   let token: string | null = null;
 
   if (!isServer) {
-    const cookies = document.cookie;
-    const cookie = cookies
-      .split(";")
-      .find((cookie) => cookie.trim().startsWith(`${COOKIES_AUTH_TOKEN_KEY}=`));
-
-    if (!cookie) return config;
-
-    token = cookie?.split("=")[1];
+    token = localStorage.getItem(TOKEN_KEY);
   } else {
     const cookies = nookies.get(context);
 
@@ -47,6 +40,7 @@ api.interceptors.request.use((config) => {
 
   if (token) {
     config.headers["Authorization"] = "Bearer " + token;
+    config.headers["Cookie"] = `${COOKIES_AUTH_TOKEN_KEY}=${token}`;
   }
 
   return config;

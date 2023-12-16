@@ -37,7 +37,7 @@ export const useChangeRoleMutation = ({ page, warehouseId }: ChangeRoleMutations
         const previousWarehouses = queryClient.getQueryData(queryKey);
 
         queryClient.setQueryData(queryKey, (old: WarehouseUsersQueryResponse) => {
-          const users = old.response.data.list.map((user) => {
+          const users = old.response.data.list?.map((user) => {
             if (user.user.id === targetUserID) {
               return {
                 ...user,
@@ -76,7 +76,7 @@ export const useChangeRoleMutation = ({ page, warehouseId }: ChangeRoleMutations
         queryClient.setQueryData(queryKey, context.previousWarehouses);
       },
       onSettled: () => {
-        queryClient.invalidateQueries({ queryKey: queryKey });
+        queryClient.invalidateQueries({ queryKey: [warehouseUsersKey, warehouseId] });
       },
     },
   );

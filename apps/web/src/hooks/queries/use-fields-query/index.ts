@@ -1,10 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { useRouter } from "next/router";
-
 import { api } from "@app/api";
-import { getWarehouseId } from "@app/components/navigation/main-navigation";
 import { API_ENDPOINTS } from "@app/constants/api-endpoints";
+import useWarehouseId from "@app/hooks/use-warehouse-id";
 import type { Response } from "types";
 import type { Paginated } from "types/paginated";
 
@@ -16,13 +14,15 @@ export type FieldsQueryResponse = Response<
   }>
 >;
 
-export const fieldsFetcher = async (id: string | null, page = 1) => {
+export const fieldsFetcher = async (id: string | null, page = 1, parentCategory?: string) => {
   if (!id) {
     throw new Error("No id");
   }
 
   const { data } = await api.get<FieldsQueryResponse>(
-    `${API_ENDPOINTS.core.fields.list(id)}?page=${page}`,
+    `${API_ENDPOINTS.core.fields.list(id)}?page=${page}${
+      parentCategory ? `&parentCategory=${parentCategory}` : ""
+    }`,
   );
 
   return data;
@@ -36,8 +36,7 @@ interface UseFieldsQueryParams {
 
 export default function useFieldsQuery(props?: UseFieldsQueryParams) {
   const page = props?.page || 1;
-  const router = useRouter();
-  const warehouseId = getWarehouseId(router.query);
+  const warehouseId = useWarehouseId();
 
   const query = useQuery([fieldsQueryKey, warehouseId, page], {
     queryFn: () => fieldsFetcher(warehouseId, page),

@@ -1,11 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { useRouter } from "next/router";
-
 import { api } from "@app/api";
-import { getWarehouseId } from "@app/components/navigation/main-navigation";
 import { API_ENDPOINTS } from "@app/constants/api-endpoints";
 import { fieldsQueryKey } from "@app/hooks/queries/use-fields-query";
+import useWarehouseId from "@app/hooks/use-warehouse-id";
 import { useToast } from "@crab-stash/ui";
 import type { RJSFSchema } from "@rjsf/utils";
 import type { Response } from "types";
@@ -22,8 +20,7 @@ interface UseEditFieldMutationParams {
 }
 
 export const useEditFieldMutation = ({ fieldId, onSuccess }: UseEditFieldMutationParams) => {
-  const router = useRouter();
-  const warehouseId = getWarehouseId(router.query);
+  const warehouseId = useWarehouseId();
   const { toast } = useToast();
   const queryClient = useQueryClient();
 

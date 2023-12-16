@@ -1,8 +1,6 @@
-import { useRouter } from "next/router";
-
 import useWarehouseInfoQuery from "./queries/use-warehouse-info-query";
+import useWarehouseId from "./use-warehouse-id";
 
-import { getWarehouseId } from "@app/components/navigation/main-navigation";
 import { WarehouseRole } from "types/warehouse-role";
 
 function checkUserRole(userRole?: WarehouseRole, role?: WarehouseRole) {
@@ -12,8 +10,7 @@ function checkUserRole(userRole?: WarehouseRole, role?: WarehouseRole) {
 }
 
 function useUserRole() {
-  const { query } = useRouter();
-  const warehouseId = getWarehouseId(query);
+  const warehouseId = useWarehouseId();
   const { data } = useWarehouseInfoQuery({
     id: warehouseId,
   });

@@ -1,11 +1,12 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { useRouter } from "next/router";
 
 import { api } from "@app/api";
-import { getWarehouseId } from "@app/components/navigation/main-navigation";
 import { API_ENDPOINTS } from "@app/constants/api-endpoints";
 import { URLS } from "@app/constants/urls";
+import { fieldsQueryKey } from "@app/hooks/queries/use-fields-query";
+import useWarehouseId from "@app/hooks/use-warehouse-id";
 import type { RJSFSchema } from "@rjsf/utils";
 import type { Response } from "types";
 
@@ -17,7 +18,8 @@ type CreateFieldMutationResponse = Response<{ id: string }>;
 
 export const useCreateFieldMutation = () => {
   const router = useRouter();
-  const warehouseId = getWarehouseId(router.query);
+  const queryClient = useQueryClient();
+  const warehouseId = useWarehouseId();
 
   const mutation = useMutation<CreateFieldMutationResponse, unknown, CreateFieldMutationVariables>(
     async (options) => {
@@ -35,6 +37,10 @@ export const useCreateFieldMutation = () => {
     {
       onSuccess: () => {
         if (!warehouseId) return;
+
+        queryClient.invalidateQueries({
+          queryKey: [fieldsQueryKey, warehouseId],
+        });
 
         router.push(URLS.fields(warehouseId));
       },

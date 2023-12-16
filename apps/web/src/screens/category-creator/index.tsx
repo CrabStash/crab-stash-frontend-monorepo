@@ -1,4 +1,5 @@
 import { useCreateCategoryMutation } from "./use-create-category-mutation";
+import { useEditCategoryMutation } from "./use-edit-category-mutation";
 
 import JsonSchemaForm from "@app/components/json-schema-form";
 import type { CategoryFormData } from "@app/hooks/queries/use-category-by-id-query";
@@ -11,6 +12,7 @@ interface CategoryCreatorProps {
 function CategoryCreator({ formData }: CategoryCreatorProps) {
   const { data } = useCategorySchemaQuery();
   const { mutate } = useCreateCategoryMutation();
+  const { mutate: editMutate } = useEditCategoryMutation();
 
   if (!data?.response.data) return null;
 
@@ -21,9 +23,13 @@ function CategoryCreator({ formData }: CategoryCreatorProps) {
         uiSchema={data.response.data.uiSchema}
         formData={formData}
         onSubmit={(data) =>
-          mutate({
-            formData: data.formData,
-          })
+          formData
+            ? editMutate({
+                formData: data.formData,
+              })
+            : mutate({
+                formData: data.formData,
+              })
         }
       />
     </div>

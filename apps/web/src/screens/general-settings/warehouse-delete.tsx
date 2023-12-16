@@ -1,17 +1,14 @@
 import { useState } from "react";
 
-import { useRouter } from "next/router";
-
 import { useWarehouseDeleteMutation } from "./use-warehouse-delete-mutation";
 
-import { getWarehouseId } from "@app/components/navigation/main-navigation";
 import useUserRole from "@app/hooks/use-user-role";
+import useWarehouseId from "@app/hooks/use-warehouse-id";
 import { Button, Dialog, useToast } from "@crab-stash/ui";
 
 function WarehouseDelete() {
   const [open, setOpen] = useState(false);
-  const { query } = useRouter();
-  const warehouseId = getWarehouseId(query);
+  const warehouseId = useWarehouseId();
   const { toast } = useToast();
 
   const { mutateAsync, isLoading } = useWarehouseDeleteMutation({

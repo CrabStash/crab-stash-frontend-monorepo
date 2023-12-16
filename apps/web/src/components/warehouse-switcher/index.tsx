@@ -3,10 +3,9 @@ import { useEffect, useMemo, useState } from "react";
 
 import { useRouter } from "next/router";
 
-import { getWarehouseId } from "../navigation/main-navigation";
-
 import { URLS } from "@app/constants/urls";
 import useWarehousesQuery from "@app/hooks/queries/use-warehouses-query";
+import useWarehouseId from "@app/hooks/use-warehouse-id";
 import { formatIdToQuery } from "@app/utils/queryIds";
 import type { CommandGroupType, CommandItemType } from "@crab-stash/ui";
 import { Avatar, Button, Command, Dialog, Input, Label, Popover } from "@crab-stash/ui";
@@ -16,8 +15,7 @@ function WarehouseSwitcher() {
   const [open, setOpen] = useState(false);
   const [showNewWarehouseDialog, setShowNewWarehouseDialog] = useState(false);
   const { data, dataUpdatedAt } = useWarehousesQuery();
-  const { query } = useRouter();
-  const warehouseId = getWarehouseId(query);
+  const warehouseId = useWarehouseId();
 
   const handleWarehouseSelect = (item: CommandItemType) => {
     setSelectedWarehouse(item);
@@ -80,7 +78,11 @@ function WarehouseSwitcher() {
             aria-label="Select a team"
             className={"w-[200px] justify-between"}
           >
-            <Avatar className="mr-2 h-5 w-5" src={undefined} fullName={selectedWarehouse.label} />
+            <Avatar
+              className="mr-1 h-6 w-6"
+              src={undefined}
+              fullName={selectedWarehouse.label.split(" ")?.[0]}
+            />
             <span className="truncate" title={selectedWarehouse.label}>
               {selectedWarehouse.label}
             </span>

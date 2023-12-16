@@ -29,7 +29,7 @@ const tabs: Tab<TabValue>[] = [
 
 export const Default: Story = {
   args: {
-    tabs,
+    tabs: tabs as Tab<string>[],
     defaultValue: "register",
   },
 };

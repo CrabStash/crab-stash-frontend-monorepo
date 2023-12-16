@@ -63,7 +63,7 @@ function Overview() {
           );
         })}
       </div>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7 max-w-full overflow-x-auto">
         <Card title="Overview" className="col-span-4">
           <BarGraph data={data} tickFormatter={(value) => formatPrice(value)} />
         </Card>

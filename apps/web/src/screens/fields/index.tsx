@@ -1,23 +1,20 @@
 import { Copy } from "lucide-react";
 import { useMemo } from "react";
 
-import { useRouter } from "next/router";
-
 import type { TableField } from "./fields-table-row-actions";
 import FieldsTableRowActions from "./fields-table-row-actions";
 
-import { getWarehouseId } from "@app/components/navigation/main-navigation";
 import PageTitle from "@app/components/page-title";
 import useFieldsQuery from "@app/hooks/queries/use-fields-query";
 import usePaginatedTable from "@app/hooks/use-paginated-table";
+import useWarehouseId from "@app/hooks/use-warehouse-id";
 import type { ColumnDef } from "@crab-stash/ui";
 import { useToast } from "@crab-stash/ui";
 import { Table } from "@crab-stash/ui";
 import { Button } from "@crab-stash/ui";
 
 function Fields() {
-  const { query } = useRouter();
-  const warehouseId = getWarehouseId(query);
+  const warehouseId = useWarehouseId();
   const { pageIndex, pagination, setPagination } = usePaginatedTable();
   const { toast } = useToast();
   const { data } = useFieldsQuery({

@@ -3,8 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 
 import { api } from "@app/api";
-import { getWarehouseId } from "@app/components/navigation/main-navigation";
 import { API_ENDPOINTS } from "@app/constants/api-endpoints";
+import useWarehouseId from "@app/hooks/use-warehouse-id";
 import type { Response } from "types";
 
 export type CategoryFormData = {
@@ -41,7 +41,7 @@ interface CategoryByIdQueryParams {
 
 export default function useCategoryByIdQuery(params?: CategoryByIdQueryParams) {
   const router = useRouter();
-  const warehouseId = getWarehouseId(router.query);
+  const warehouseId = useWarehouseId();
   const categoryId = params?.categoryId || (router.query.categoryId as string);
 
   const query = useQuery([categoryByIdQueryKey, warehouseId, categoryId], {
