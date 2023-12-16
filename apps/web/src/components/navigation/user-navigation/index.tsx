@@ -57,6 +57,10 @@ function UserNavigation({ user }: UserNavigationProps) {
             label: "Create Warehouse",
             onClick: () => router.push(URLS.createWarehouse),
           },
+          {
+            label: "Help",
+            onClick: () => window.open(URLS.docs, "_blank"),
+          },
         ],
         [
           {

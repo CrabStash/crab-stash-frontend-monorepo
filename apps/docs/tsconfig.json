@@ -1,5 +1,10 @@
 {
-  "extends": "@crab-stash/tsconfig/nextjs.json",
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  // This file is not used in compilation. It is here just for a nice editor experience.
+  "extends": "@docusaurus/tsconfig",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "exactOptionalPropertyTypes": false,
+    "skipLibCheck": true
+  },
+  "exclude": ["node_modules/@docusaurus/theme-classic"]
 }

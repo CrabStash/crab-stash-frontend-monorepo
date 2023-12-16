@@ -1,3 +1,5 @@
+const docUrl = process.env.NEXT_PUBLIC_DOCS_URL as string;
+
 export const URLS = {
   dashboard: "/",
   login: "/login",
@@ -18,4 +20,5 @@ export const URLS = {
   products: (warehouseId: string) => `/warehouse/${warehouseId}/products`,
   createField: (warehouseId: string) => `/warehouse/${warehouseId}/fields/create`,
   addProduct: (warehouseId: string) => `/warehouse/${warehouseId}/products/add`,
+  docs: docUrl,
 };

@@ -5,7 +5,7 @@ import Head from "next/head";
 
 import { Layout } from "@app/components";
 import WarehouseCreator from "@app/screens/warehouse-creator";
-import { createPageTitle } from "@app/utils/createPageTitle";
+import { createPageTitle } from "@crab-stash/utils";
 import { withAuth } from "lib/withAuth";
 import { getRequiredPageData } from "lib/withRequiredPageData";
 

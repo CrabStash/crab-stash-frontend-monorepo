@@ -10,8 +10,8 @@ import { meFetcher, meQueryKey } from "@app/hooks/queries/use-me-query";
 import useWarehousesQuery from "@app/hooks/queries/use-warehouses-query";
 import Dashboard from "@app/screens/dashboard";
 import WarehouseCreator from "@app/screens/warehouse-creator";
-import { createPageTitle } from "@app/utils/createPageTitle";
 import { formatIdToQuery } from "@app/utils/queryIds";
+import { createPageTitle } from "@crab-stash/utils";
 import { withAuth } from "lib/withAuth";
 import { getRequiredPageData } from "lib/withRequiredPageData";
 

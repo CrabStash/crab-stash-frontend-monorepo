@@ -10,6 +10,7 @@
   "scripts": {
     "build": "dotenv -- turbo run build",
     "dev": "dotenv -- turbo run dev",
+    "dev:app": "dotenv -- turbo run dev --filter=web --filter=docs",
     "eslint:check": "turbo run eslint:check",
     "eslint:fix": "turbo run eslint:fix",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
@@ -23,8 +24,9 @@
   "devDependencies": {
     "@crab-stash/linting": "workspace:*",
     "@crab-stash/tsconfig": "workspace:*",
+    "@crab-stash/utils": "workspace:*",
     "eslint": "7.32.0",
-    "prettier": "^2.5.1",
+    "prettier": "^2.8.1",
     "turbo": "^1.10.16"
   },
   "engines": {
