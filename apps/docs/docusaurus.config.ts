@@ -6,6 +6,8 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 
+const webAppUrl = process.env.WEB_APP_URL || "localhost:3000";
+
 const config: Config = {
   title: "Documentation",
   tagline:
@@ -18,7 +20,7 @@ const config: Config = {
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: "/",
   customFields: {
-    WEB_APP_URL: process.env.WEB_APP_URL,
+    WEB_APP_URL: webAppUrl,
   },
 
   // GitHub pages deployment config.
@@ -80,7 +82,7 @@ const config: Config = {
           to: "/docs/intro",
         },
         {
-          href: process.env.WEB_APP_URL,
+          to: webAppUrl,
           label: "App",
           position: "right",
         },
