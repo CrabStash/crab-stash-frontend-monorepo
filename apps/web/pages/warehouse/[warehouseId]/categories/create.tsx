@@ -6,7 +6,7 @@ import Head from "next/head";
 import { Layout } from "@app/components";
 import CategoriesLayout from "@app/components/categories-layout";
 import CategoryCreator from "@app/screens/category-creator";
-import { createPageTitle } from "@app/utils/createPageTitle";
+import { createPageTitle } from "@crab-stash/utils";
 import { withAuth } from "lib/withAuth";
 import { getRequiredPageData } from "lib/withRequiredPageData";
 

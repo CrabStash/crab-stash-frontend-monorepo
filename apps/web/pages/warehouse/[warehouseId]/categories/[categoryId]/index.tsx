@@ -8,7 +8,7 @@ import CategoriesLayout from "@app/components/categories-layout";
 import PageTitle from "@app/components/page-title";
 import useCategoryByIdQuery from "@app/hooks/queries/use-category-by-id-query";
 import Category from "@app/screens/category";
-import { createPageTitle } from "@app/utils/createPageTitle";
+import { createPageTitle } from "@crab-stash/utils";
 import { withAuth } from "lib/withAuth";
 import { getRequiredPageData } from "lib/withRequiredPageData";
 

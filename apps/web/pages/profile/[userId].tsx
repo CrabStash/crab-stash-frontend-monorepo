@@ -6,7 +6,7 @@ import Head from "next/head";
 import { Layout } from "@app/components";
 import useUserQuery, { userFetcher, userQueryKey } from "@app/hooks/queries/use-user-query";
 import Profile from "@app/screens/profile";
-import { createPageTitle } from "@app/utils/createPageTitle";
+import { createPageTitle } from "@crab-stash/utils";
 import { withAuth } from "lib/withAuth";
 import { getRequiredPageData } from "lib/withRequiredPageData";
 

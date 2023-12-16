@@ -3,7 +3,7 @@ import Head from "next/head";
 
 import { Layout } from "@app/components";
 import RegisterScreen from "@app/screens/register";
-import { createPageTitle } from "@app/utils/createPageTitle";
+import { createPageTitle } from "@crab-stash/utils";
 
 const Page: NextPage = () => {
   return (
