@@ -2,8 +2,9 @@ import { themes as prismThemes } from "prism-react-renderer";
 
 import type * as Preset from "@docusaurus/preset-classic";
 import type { Config } from "@docusaurus/types";
+import * as dotenv from "dotenv";
 
-const webAppUrl = process.env.WEB_APP_URL;
+dotenv.config();
 
 const config: Config = {
   title: "Documentation",
@@ -12,10 +13,13 @@ const config: Config = {
   favicon: "img/favicon.ico",
 
   // Set the production url of your site here
-  url: webAppUrl,
+  url: "https://crabstash.github.io",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: "/",
+  customFields: {
+    WEB_APP_URL: process.env.WEB_APP_URL,
+  },
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -75,6 +79,11 @@ const config: Config = {
           label: "Docs",
         },
         {
+          href: process.env.WEB_APP_URL,
+          label: "App",
+          position: "right",
+        },
+        {
           href: "https://github.com/CrabStash",
           label: "GitHub",
           position: "right",
@@ -83,48 +92,27 @@ const config: Config = {
     },
     footer: {
       style: "dark",
-      links: [
-        {
-          title: "Docs",
-          items: [
-            {
-              label: "Tutorial",
-              to: "/docs/intro",
-            },
-          ],
-        },
-        {
-          title: "Community",
-          items: [
-            {
-              label: "Stack Overflow",
-              href: "https://stackoverflow.com/questions/tagged/docusaurus",
-            },
-            {
-              label: "Discord",
-              href: "https://discordapp.com/invite/docusaurus",
-            },
-            {
-              label: "Twitter",
-              href: "https://twitter.com/docusaurus",
-            },
-          ],
-        },
-        {
-          title: "More",
-          items: [
-            {
-              label: "Blog",
-              to: "/blog",
-            },
-            {
-              label: "GitHub",
-              href: "https://github.com/facebook/docusaurus",
-            },
-          ],
-        },
-      ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      // links: [
+      //   {
+      //     title: "Docs",
+      //     items: [
+      //       {
+      //         label: "Tutorial",
+      //         to: "/docs/intro",
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     title: "More",
+      //     items: [
+      //       {
+      //         label: "GitHub",
+      //         href: "https://github.com/facebook/docusaurus",
+      //       },
+      //     ],
+      //   },
+      // ],
+      copyright: `Copyright © ${new Date().getFullYear()} Crab Stash. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,

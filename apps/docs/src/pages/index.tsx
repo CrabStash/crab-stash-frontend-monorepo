@@ -20,7 +20,14 @@ function HomepageHeader() {
         <p className="hero__subtitle">{siteConfig.tagline}</p>
         <div className={styles.buttons}>
           <Link className="button button--secondary button--lg" to="/docs/intro">
-            Docusaurus Tutorial - 5min ⏱️
+            Explore the docs 📚
+          </Link>
+          <Link
+            className="button button--secondary button--lg"
+            to={siteConfig.customFields.WEB_APP_URL as string}
+            target="_blank"
+          >
+            Start using an app 🚀
           </Link>
         </div>
       </div>
