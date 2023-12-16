@@ -19,6 +19,7 @@ function ProductTableRowActions({ row }: ProductTableRowActionsProps) {
   const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
   const product = row.original;
   const { mutate, isLoading: isRemoving } = useRemoveFieldMutation({
+    // @ts-ignore
     fieldId: product.id,
     onSuccess: () => setIsRemoveModalOpen(false),
   });
@@ -46,7 +47,7 @@ function ProductTableRowActions({ row }: ProductTableRowActionsProps) {
       />
       <Dialog
         title={`Remove ${product.name}`}
-        description={`Are you sure you want to remove ${product.title} product from this warehouse?`}
+        description={`Are you sure you want to remove ${product.name} product from this warehouse?`}
         open={isRemoveModalOpen}
         onOpenChange={(open) => setIsRemoveModalOpen(open)}
         footer={

@@ -64,6 +64,7 @@ function BaseInputTemplate(props: BaseInputTemplateProps) {
       onFocus={onTextFocus}
       error={props?.rawErrors?.[0]}
       required={required}
+      message={props?.schema?.help}
       {...inputProps}
     />
   );
