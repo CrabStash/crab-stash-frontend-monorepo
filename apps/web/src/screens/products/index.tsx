@@ -23,18 +23,20 @@ function Products() {
         header: () => <>Name</>,
       },
       {
-        accessorKey: "description",
-        header: () => <>Type</>,
+        accessorKey: "category",
+        header: () => <>Category</>,
       },
       {
-        accessorKey: "stock",
+        accessorKey: "description",
+        header: () => <>Description</>,
+      },
+      {
+        accessorKey: "quantity",
         header: () => <>Stock</>,
-        cell: () => <>5</>,
       },
       {
         accessorKey: "price",
         header: () => <>Price</>,
-        cell: () => <>5$</>,
       },
       {
         id: "actions",
@@ -53,6 +55,11 @@ function Products() {
       data?.response.data.list?.map((product) => ({
         name: product.name,
         description: product.description,
+        quantity: product.quantity,
+        price: product.price,
+        category: product.category_title,
+        categoryId: product.category_id,
+        id: product.id,
       })) ?? []
     );
   }, [data]);

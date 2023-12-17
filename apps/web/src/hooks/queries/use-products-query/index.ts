@@ -11,6 +11,10 @@ export type ProductsQueryResponse = Response<
     id: string;
     name: string;
     description: string;
+    price: number;
+    quantity: number;
+    category_title: string;
+    category_id: string;
   }>
 >;
 
@@ -40,6 +44,8 @@ export default function useProductsQuery(props?: UseProductsQueryParams) {
   const query = useQuery([productsQueryKey, warehouseId, props?.categoryId, page], {
     queryFn: () => productsFetcher(warehouseId, page),
   });
+
+  console.log(query.data);
 
   return query;
 }
