@@ -2,7 +2,6 @@ import type { QueryClient } from "@tanstack/react-query";
 
 import type { GetServerSidePropsContext } from "next";
 
-import { getWarehouseId } from "@app/components/navigation/main-navigation";
 import {
   categoryByIdFetcher,
   categoryByIdQueryKey,
@@ -14,7 +13,7 @@ import {
   warehouseUsersKey,
 } from "@app/hooks/queries/use-warehouse-users-query";
 import { warehousesFetcher, warehousesQueryKey } from "@app/hooks/queries/use-warehouses-query";
-import { getCategoryId } from "@app/utils/categoryId";
+import { getCategoryId, getWarehouseId } from "@app/utils/param-ids";
 
 type Options = {
   withWarehouses?: boolean;
@@ -22,6 +21,7 @@ type Options = {
   withWarehouseUsers?: boolean;
   withWarehouseFields?: boolean;
   withCurrentCategory?: boolean;
+  withCurrentProduct?: boolean;
 };
 
 export async function getRequiredPageData(

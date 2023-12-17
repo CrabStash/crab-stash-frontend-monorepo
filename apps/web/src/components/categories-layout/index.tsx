@@ -7,7 +7,7 @@ import SidebarNav from "../sidebar-nav";
 import { URLS } from "@app/constants/urls";
 import useWarehouseInfoQuery from "@app/hooks/queries/use-warehouse-info-query";
 import useWarehouseId from "@app/hooks/use-warehouse-id";
-import { getCategoryId } from "@app/utils/categoryId";
+import { getCategoryId } from "@app/utils/param-ids";
 import { Separator } from "@crab-stash/ui";
 
 interface CategoriesLayoutProps {

@@ -11,6 +11,10 @@ export type ProductsQueryResponse = Response<
     id: string;
     name: string;
     description: string;
+    price: number;
+    quantity: number;
+    category_title: string;
+    category_id: string;
   }>
 >;
 

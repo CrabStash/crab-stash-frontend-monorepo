@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { URLS } from "@app/constants/urls";
 import useCategoryByIdQuery from "@app/hooks/queries/use-category-query";
 import useWarehouseId from "@app/hooks/use-warehouse-id";
-import { getCategoryId } from "@app/utils/categoryId";
+import { getCategoryId } from "@app/utils/param-ids";
 import { Button, cn, Tooltip } from "@crab-stash/ui";
 import type { Category } from "types/category";
 

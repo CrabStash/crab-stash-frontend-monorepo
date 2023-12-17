@@ -1,14 +1,23 @@
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
 
-import { useRemoveFieldMutation } from "../fields/use-remove-field-mutation";
+import { useRouter } from "next/router";
 
+import { useRemoveProductMutation } from "./use-remove-product-mutation";
+
+import { URLS } from "@app/constants/urls";
+import useWarehouseId from "@app/hooks/use-warehouse-id";
 import type { Row } from "@crab-stash/ui";
 import { Button, Dialog, Dropdown } from "@crab-stash/ui";
 
 export type TableProduct = {
   name: string;
   description: string;
+  quantity: number;
+  price: number;
+  category: string;
+  categoryId: string;
+  id: string;
 };
 
 interface ProductTableRowActionsProps {
@@ -17,12 +26,16 @@ interface ProductTableRowActionsProps {
 
 function ProductTableRowActions({ row }: ProductTableRowActionsProps) {
   const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
+  const warehouseId = useWarehouseId();
   const product = row.original;
-  const { mutate, isLoading: isRemoving } = useRemoveFieldMutation({
-    // @ts-ignore
-    fieldId: product.id,
+  const router = useRouter();
+  const { mutate, isLoading: isRemoving } = useRemoveProductMutation({
+    productId: product.id,
+    categoryId: product.categoryId,
     onSuccess: () => setIsRemoveModalOpen(false),
   });
+
+  if (!warehouseId) return null;
 
   return (
     <>
@@ -37,6 +50,8 @@ function ProductTableRowActions({ row }: ProductTableRowActionsProps) {
           [
             {
               label: "Edit",
+              onClick: () =>
+                router.push(URLS.editProduct(warehouseId, product.categoryId, product.id)),
             },
             {
               label: "Remove",

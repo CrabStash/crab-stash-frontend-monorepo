@@ -1,18 +1,30 @@
 import { useMemo, useState } from "react";
 
+import { useRouter } from "next/router";
+
 import FormStep from "./form-step";
 
 import CategoryTree from "@app/components/category-tree";
+import type { ProductFormData } from "@app/hooks/queries/use-product-by-id-query";
+import { getCategoryId } from "@app/utils/param-ids";
 import type { Tab } from "@crab-stash/ui";
 import { useToast } from "@crab-stash/ui";
 import { Button, Tabs } from "@crab-stash/ui";
 
 export type ProductCreatorStep = "category" | "form";
 
-function ProductCreator() {
-  const [currentStep, setCurrentStep] = useState<ProductCreatorStep>("category");
+interface ProductCreatorProps {
+  formData?: ProductFormData;
+}
+
+function ProductCreator({ formData }: ProductCreatorProps) {
+  const [currentStep, setCurrentStep] = useState<ProductCreatorStep>(
+    formData ? "form" : "category",
+  );
   const [selectedPath, setSelectedPath] = useState<string[]>([]);
   const { toast } = useToast();
+  const { query } = useRouter();
+  const queryCategoryId = getCategoryId(query) as string;
 
   const changeStep = (step: ProductCreatorStep) => {
     if (step === "form" && selectedPath.length === 0) {
@@ -58,8 +70,14 @@ function ProductCreator() {
       {
         label: "Fill out product information",
         onClick: (value) => changeStep(value),
+
         value: "form",
-        content: <FormStep categoryId={selectedPath[selectedPath.length - 1]} />,
+        content: (
+          <FormStep
+            formData={formData}
+            categoryId={formData ? queryCategoryId : selectedPath[selectedPath.length - 1]}
+          />
+        ),
       },
     ],
     [selectedPath, setSelectedPath, setCurrentStep],
@@ -72,6 +90,7 @@ function ProductCreator() {
       value={currentStep}
       className="flex flex-col"
       tabsClassName="w-fit align-center mx-auto flex-wrap h-fit"
+      readonly={!!formData}
     />
   );
 }

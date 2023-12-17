@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 
 import useMeQuery from "./queries/use-me-query";
 
-import { getWarehouseId } from "@app/components/navigation/main-navigation";
+import { getWarehouseId } from "@app/utils/param-ids";
 
 function useWarehouseId(): string | null {
   const router = useRouter();
