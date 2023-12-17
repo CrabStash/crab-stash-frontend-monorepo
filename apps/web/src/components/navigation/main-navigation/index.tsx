@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 import { URLS } from "@app/constants/urls";
 import useWarehouseId from "@app/hooks/use-warehouse-id";
 import { cn } from "@crab-stash/ui/lib/utils";
-import type { ParsedUrlQuery } from "querystring";
 
 type Link = {
   href: string;
@@ -15,16 +14,6 @@ type Link = {
 
 const isLinkActive = (currentPath: string, path: string) => {
   return currentPath === path;
-};
-
-export const getWarehouseId = (query: ParsedUrlQuery) => {
-  const warehouseId = query.warehouseId;
-
-  if (warehouseId && typeof warehouseId === "string") {
-    return decodeURIComponent(warehouseId);
-  }
-
-  return null;
 };
 
 function MainNavigation({ className, ...props }: HTMLAttributes<HTMLElement>) {

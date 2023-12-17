@@ -58,6 +58,10 @@ export const API_ENDPOINTS = {
         `/core/entity/${categoryId}/warehouse/${warehouseId}`,
       remove: (warehouseId: string, productId: string, categoryId: string) =>
         `/core/entity/${productId}/category/${categoryId}/warehouse/${warehouseId}`,
+      productById: (warehouseId: string, productId: string, categoryId: string) =>
+        `/core/entity/${productId}/category/${categoryId}/warehouse/${warehouseId}`,
+      edit: (warehouseId: string, productId: string, categoryId: string) =>
+        `/core/entity/${productId}/category/${categoryId}/warehouse/${warehouseId}`,
     },
   },
 };

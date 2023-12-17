@@ -7,7 +7,7 @@ import { API_ENDPOINTS } from "@app/constants/api-endpoints";
 import { URLS } from "@app/constants/urls";
 import { categoriesQueryKey } from "@app/hooks/queries/use-category-query";
 import useWarehouseId from "@app/hooks/use-warehouse-id";
-import { getCategoryId } from "@app/utils/categoryId";
+import { getCategoryId } from "@app/utils/param-ids";
 import type { RJSFSchema } from "@rjsf/utils";
 import type { Response } from "types";
 

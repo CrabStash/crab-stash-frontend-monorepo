@@ -5,7 +5,7 @@ import CategoryDelete from "./components/category-delete";
 
 import { URLS } from "@app/constants/urls";
 import useWarehouseId from "@app/hooks/use-warehouse-id";
-import { getCategoryId } from "@app/utils/categoryId";
+import { getCategoryId } from "@app/utils/param-ids";
 import { Button } from "@crab-stash/ui";
 
 function Category() {

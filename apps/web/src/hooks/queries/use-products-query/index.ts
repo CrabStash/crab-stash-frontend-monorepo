@@ -45,7 +45,5 @@ export default function useProductsQuery(props?: UseProductsQueryParams) {
     queryFn: () => productsFetcher(warehouseId, page),
   });
 
-  console.log(query.data);
-
   return query;
 }

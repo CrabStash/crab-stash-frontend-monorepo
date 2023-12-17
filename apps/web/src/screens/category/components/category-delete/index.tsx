@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useCategoryDeleteMutation } from "./use-category-delete-mutation";
 
 import useUserRole from "@app/hooks/use-user-role";
-import { getCategoryId } from "@app/utils/categoryId";
+import { getCategoryId } from "@app/utils/param-ids";
 import { Button, Dialog, useToast } from "@crab-stash/ui";
 
 function CategoryDelete() {
