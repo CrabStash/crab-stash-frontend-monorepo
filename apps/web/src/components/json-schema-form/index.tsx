@@ -4,7 +4,9 @@ import FieldsWidget from "./widgets/fields-widget";
 import ParentsWidget from "./widgets/parents-widget";
 
 import type { SelectItem } from "@crab-stash/ui";
+import { DatePicker } from "@crab-stash/ui";
 import { Button, Card, Input, Select } from "@crab-stash/ui";
+import { parseAbsoluteToLocal } from "@internationalized/date";
 import type { FormProps } from "@rjsf/core";
 import Form from "@rjsf/core";
 import type {
@@ -14,6 +16,7 @@ import type {
   RJSFSchema,
   UiSchema,
 } from "@rjsf/utils";
+import { parseDateString, toDateString } from "@rjsf/utils";
 import { getInputProps } from "@rjsf/utils";
 import validator from "@rjsf/validator-ajv8";
 
@@ -70,8 +73,51 @@ function BaseInputTemplate(props: BaseInputTemplateProps) {
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const getDateValue = (formData: any) => {
+  if (formData) {
+    const value = parseAbsoluteToLocal(toDateString(formData, true));
+
+    return value;
+  }
+
+  return null;
+};
+
 function FieldTemplate(props: FieldTemplateProps) {
   const { classNames, style, children } = props;
+
+  if (props.schema.type === ("date" as FormProps["schema"]["type"])) {
+    const { rawErrors, schema, label, onChange } = props;
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+    return (
+      <DatePicker
+        onChange={(date) => onChange(parseDateString(date.toDate(tz).toISOString(), false))}
+        label={label}
+        granularity={"day"}
+        value={getDateValue(props.formData)}
+        message={schema.help}
+        error={rawErrors?.[0]}
+      />
+    );
+  }
+
+  if (props.schema.type === ("datetime" as FormProps["schema"]["type"])) {
+    const { rawErrors, label, schema, onChange } = props;
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+    return (
+      <DatePicker
+        onChange={(date) => onChange(parseDateString(date.toDate(tz).toISOString(), true))}
+        granularity={"minute"}
+        value={getDateValue(props.formData)}
+        label={label}
+        message={schema.help}
+        error={rawErrors?.[0]}
+      />
+    );
+  }
 
   if ((props?.schema?.enum?.length || 0) > 0) {
     const { rawErrors, schema, formData, label, uiSchema, onChange, ...selectProps } = props;
