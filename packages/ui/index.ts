@@ -23,4 +23,5 @@ export * from "./components/textarea-field";
 export * from "./components/separator";
 export * from "./components/table";
 export * from "./components/tooltip";
+export * from "./components/date-picker";
 export * from "./lib/utils";
