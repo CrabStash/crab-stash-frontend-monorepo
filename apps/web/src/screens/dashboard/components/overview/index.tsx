@@ -1,7 +1,9 @@
 import type { LucideIcon } from "lucide-react";
-import { CreditCard, DollarSign, ShoppingCart, Users } from "lucide-react";
+import { ShoppingBag } from "lucide-react";
+import { DollarSign, ShoppingCart, Users } from "lucide-react";
 
-import { data, products } from "./data";
+import { graphData } from "./data";
+import useDashboardQuery from "./use-dashboard-query";
 
 import { formatNumber } from "@app/utils/formatNumber";
 import { formatPrice } from "@app/utils/formatPrice";
@@ -10,38 +12,41 @@ import { Avatar, BarGraph, Card } from "@crab-stash/ui";
 type OverviewQuickStats = {
   label: string;
   value: string;
-  difference: string;
+  description: string;
   icon: LucideIcon;
 };
 
-const quickStats: OverviewQuickStats[] = [
-  {
-    label: "Total Revenue",
-    value: formatPrice(45231.89),
-    difference: "+12.4% from last month",
-    icon: DollarSign,
-  },
-  {
-    label: "Total products",
-    value: `+${formatNumber(2350)}`,
-    difference: "+2.4% from last month",
-    icon: ShoppingCart,
-  },
-  {
-    label: "Sales",
-    value: `+${formatNumber(12234)}`,
-    difference: "+12.4% from last month",
-    icon: CreditCard,
-  },
-  {
-    label: "Total customers",
-    value: `+${formatNumber(573)}`,
-    difference: "+12.4% from last month",
-    icon: Users,
-  },
-];
-
 function Overview() {
+  const query = useDashboardQuery();
+  const data = query.data?.response?.data;
+
+  const quickStats: OverviewQuickStats[] = [
+    {
+      label: "Total warehouse value",
+      value: formatPrice(data?.warehouseValue),
+      description: "Represents the total value of all products in the warehouse.",
+      icon: DollarSign,
+    },
+    {
+      label: "Total products",
+      value: `${formatNumber(data?.entitiesCount.all)}`,
+      description: "Number of all products in the warehouse.",
+      icon: ShoppingCart,
+    },
+    {
+      label: "Unique products",
+      value: `${formatNumber(data?.entitiesCount.unique)}`,
+      description: "Number of unique products in the warehouse.",
+      icon: ShoppingBag,
+    },
+    {
+      label: "Employee count",
+      value: `${formatNumber(data?.employees)}`,
+      description: "Count of all employees in the warehouse.",
+      icon: Users,
+    },
+  ];
+
   return (
     <div className="space-y-8 mt-8">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -57,7 +62,7 @@ function Overview() {
             >
               <>
                 <div className="text-2xl font-bold">{quickStat.value}</div>
-                <p className="text-xs text-muted-foreground">{quickStat.difference}</p>
+                <p className="text-xs text-muted-foreground">{quickStat.description}</p>
               </>
             </Card>
           );
@@ -65,22 +70,26 @@ function Overview() {
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7 max-w-full overflow-x-auto">
         <Card title="Overview" className="col-span-4">
-          <BarGraph data={data} tickFormatter={(value) => formatPrice(value)} />
+          <BarGraph data={graphData} tickFormatter={(value) => formatPrice(value)} />
         </Card>
         <Card
           title="Recently added products"
-          description="Warehouse stock has been expanded with 34 new products."
+          description={
+            data?.newestEntities.length
+              ? `Warehouse stock has been expanded with ${data?.newestEntities.length}new products.`
+              : "No new products have been added to the warehouse."
+          }
           className="col-span-3"
         >
           <div className="space-y-8">
-            {products.map((product) => (
+            {data?.newestEntities?.map((product) => (
               <div className="flex items-center" key={product.name}>
-                <Avatar src={product.image} fullName={product.name} className="h-9 w-9" />
+                <Avatar fullName={product.name} className="h-9 w-9" />
                 <div className="ml-4 space-y-1">
                   <p className="text-sm font-medium leading-none">{product.name}</p>
-                  <p className="text-sm text-muted-foreground">{product.category}</p>
+                  <p className="text-sm text-muted-foreground">{product.description}</p>
                 </div>
-                <div className="ml-auto font-medium">{formatPrice(product.price)}</div>
+                <div className="ml-auto font-medium">{formatPrice(666.66)}</div>
               </div>
             ))}
           </div>
