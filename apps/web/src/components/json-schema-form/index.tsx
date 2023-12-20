@@ -87,7 +87,7 @@ const getDateValue = (formData: any) => {
 function FieldTemplate(props: FieldTemplateProps) {
   const { classNames, style, children } = props;
 
-  if (props.schema.type === ("date" as FormProps["schema"]["type"])) {
+  if (props.schema.type === "string" && props.schema.format === "date") {
     const { rawErrors, schema, label, onChange } = props;
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -103,7 +103,7 @@ function FieldTemplate(props: FieldTemplateProps) {
     );
   }
 
-  if (props.schema.type === ("datetime" as FormProps["schema"]["type"])) {
+  if (props.schema.type === "string" && props.schema.format === "date-time") {
     const { rawErrors, label, schema, onChange } = props;
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 

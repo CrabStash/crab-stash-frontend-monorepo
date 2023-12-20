@@ -1,4 +1,4 @@
-export const data = [
+export const graphData = [
   {
     name: "Jan",
     total: Math.floor(Math.random() * 5000) + 1000,

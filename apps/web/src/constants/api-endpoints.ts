@@ -21,6 +21,7 @@ export const API_ENDPOINTS = {
     removeUser: (warehouseId: string, userId: string) =>
       `/warehouse/users/delete/${warehouseId}/${userId}`,
     changeUserRole: "/warehouse/users/role",
+    dashboard: (warehouseId: string) => `/warehouse/dashboard/${warehouseId}`,
   },
   schema: {
     field: "core/schemas/field",
