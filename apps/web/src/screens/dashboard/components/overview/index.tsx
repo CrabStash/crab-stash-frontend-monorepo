@@ -75,7 +75,7 @@ function Overview() {
         <Card
           title="Recently added products"
           description={
-            data?.newestEntities.length
+            data?.newestEntities?.length
               ? `Warehouse stock has been expanded with ${data?.newestEntities.length}new products.`
               : "No new products have been added to the warehouse."
           }
