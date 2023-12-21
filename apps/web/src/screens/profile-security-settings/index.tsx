@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 
 import SettingsTab from "@app/components/settings-tab";
+import { useChangePasswordMutation } from "@app/hooks/mutations/use-change-password-mutation";
 import { Button, Form, FormField, InputField, Typography } from "@crab-stash/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -34,9 +35,14 @@ function ProfileSecuritySettings() {
     },
   });
 
+  const { mutateAsync } = useChangePasswordMutation();
+
   const handleSubmit = async (formData: PasswordChangeForm) => {
-    // eslint-disable-next-line no-console
-    console.log(formData);
+    await mutateAsync({
+      newPassword: formData.newPassword,
+      oldPassword: formData.oldPassword,
+    });
+    form.reset();
   };
 
   return (
@@ -52,7 +58,7 @@ function ProfileSecuritySettings() {
             render={({ field }) => (
               <InputField
                 type="password"
-                label="Password"
+                label="Old password"
                 placeholder="Enter your old password"
                 {...field}
               />
@@ -76,7 +82,7 @@ function ProfileSecuritySettings() {
             render={({ field }) => (
               <InputField
                 type="password"
-                label="Confirm Password"
+                label="Confirm password"
                 placeholder="Confirm your new password"
                 {...field}
               />
