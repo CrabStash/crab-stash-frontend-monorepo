@@ -12,7 +12,7 @@ export type DashboardQueryResponse = Response<{
     unique: number;
   };
   warehouseValue: number;
-  newestEntities: {
+  newestEntities?: {
     name: string;
     description: string;
     category_id: string;

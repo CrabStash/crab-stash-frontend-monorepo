@@ -73,10 +73,9 @@ function BaseInputTemplate(props: BaseInputTemplateProps) {
   );
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const getDateValue = (formData: any) => {
+const getDateValue = (formData: string) => {
   if (formData) {
-    const value = parseAbsoluteToLocal(toDateString(formData, true));
+    const value = parseAbsoluteToLocal(new Date(formData).toISOString());
 
     return value;
   }
@@ -93,7 +92,9 @@ function FieldTemplate(props: FieldTemplateProps) {
 
     return (
       <DatePicker
-        onChange={(date) => onChange(parseDateString(date.toDate(tz).toISOString(), false))}
+        onChange={(date) =>
+          onChange(toDateString(parseDateString(date.toDate(tz).toISOString(), true)).split("T")[0])
+        }
         label={label}
         granularity={"day"}
         value={getDateValue(props.formData)}
@@ -109,7 +110,9 @@ function FieldTemplate(props: FieldTemplateProps) {
 
     return (
       <DatePicker
-        onChange={(date) => onChange(parseDateString(date.toDate(tz).toISOString(), true))}
+        onChange={(date) =>
+          onChange(toDateString(parseDateString(date.toDate(tz).toISOString(), true)))
+        }
         granularity={"minute"}
         value={getDateValue(props.formData)}
         label={label}
