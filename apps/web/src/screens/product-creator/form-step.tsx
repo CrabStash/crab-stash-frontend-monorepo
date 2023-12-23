@@ -8,9 +8,10 @@ import type { ProductFormData } from "@app/hooks/queries/use-product-by-id-query
 interface FormStepProps {
   categoryId: string;
   formData?: ProductFormData;
+  readonly?: boolean;
 }
 
-function FormStep({ categoryId, formData }: FormStepProps) {
+function FormStep({ categoryId, formData, readonly = false }: FormStepProps) {
   const { data } = useProductSchemaQuery({
     categoryId,
   });
@@ -36,6 +37,7 @@ function FormStep({ categoryId, formData }: FormStepProps) {
       onSubmit={(e) =>
         formData ? mutateEdit({ formData: e.formData }) : mutate({ formData: e.formData })
       }
+      readonly={readonly}
     />
   );
 }

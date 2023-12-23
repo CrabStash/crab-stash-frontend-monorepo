@@ -5,7 +5,7 @@ import { FormLabel, FormMessage } from "../form";
 import { Label } from "../label";
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
+  label?: string | React.ReactNode;
   message?: string;
   asField?: boolean;
   button?: React.ReactNode;
@@ -25,6 +25,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       buttonPosition = "left",
       asField = false,
       error,
+      readOnly,
       ...props
     },
     ref,
@@ -42,6 +43,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             )}
             id={id}
             ref={ref}
+            readOnly={readOnly}
+            tabIndex={readOnly ? -1 : 0}
             {...props}
           />
           {buttonPosition === "right" && button}

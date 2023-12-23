@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { api } from "@app/api";
 import { API_ENDPOINTS } from "@app/constants/api-endpoints";
 import { URLS } from "@app/constants/urls";
+import { productByIdQueryKey } from "@app/hooks/queries/use-product-by-id-query";
 import { productsQueryKey } from "@app/hooks/queries/use-products-query";
 import useWarehouseId from "@app/hooks/use-warehouse-id";
 import { getProductId } from "@app/utils/param-ids";
@@ -47,6 +48,8 @@ export const useEditProductMutation = ({ categoryId }: UseEditProductMutationPar
         router.push(URLS.products(warehouseId));
 
         queryClient.invalidateQueries([productsQueryKey, warehouseId]);
+
+        queryClient.invalidateQueries([productByIdQueryKey, warehouseId, categoryId, productId]);
       },
     },
   );

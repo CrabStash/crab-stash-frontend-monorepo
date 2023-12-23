@@ -23,4 +23,6 @@ export const URLS = {
   editProduct: (warehouseId: string, categoryId: string, productId: string) =>
     `/warehouse/${warehouseId}/products/${categoryId}/${productId}/edit`,
   docs: docUrl,
+  productById: (warehouseId: string, categoryId: string, productId: string) =>
+    `/warehouse/${warehouseId}/products/${categoryId}/${productId}`,
 };

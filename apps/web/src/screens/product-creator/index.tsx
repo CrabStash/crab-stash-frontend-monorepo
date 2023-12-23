@@ -15,9 +15,10 @@ export type ProductCreatorStep = "category" | "form";
 
 interface ProductCreatorProps {
   formData?: ProductFormData;
+  readonly?: boolean;
 }
 
-function ProductCreator({ formData }: ProductCreatorProps) {
+function ProductCreator({ formData, readonly }: ProductCreatorProps) {
   const [currentStep, setCurrentStep] = useState<ProductCreatorStep>(
     formData ? "form" : "category",
   );
@@ -76,6 +77,7 @@ function ProductCreator({ formData }: ProductCreatorProps) {
           <FormStep
             formData={formData}
             categoryId={formData ? queryCategoryId : selectedPath[selectedPath.length - 1]}
+            readonly={readonly}
           />
         ),
       },

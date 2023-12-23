@@ -1,10 +1,11 @@
+import { Info } from "lucide-react";
 import type { ChangeEvent, FocusEvent, ReactElement } from "react";
 
 import FieldsWidget from "./widgets/fields-widget";
 import ParentsWidget from "./widgets/parents-widget";
 
 import type { SelectItem } from "@crab-stash/ui";
-import { DatePicker } from "@crab-stash/ui";
+import { DatePicker, Tooltip } from "@crab-stash/ui";
 import { Button, Card, Input, Select } from "@crab-stash/ui";
 import { parseAbsoluteToLocal } from "@internationalized/date";
 import type { FormProps } from "@rjsf/core";
@@ -20,9 +21,36 @@ import { parseDateString, toDateString } from "@rjsf/utils";
 import { getInputProps } from "@rjsf/utils";
 import validator from "@rjsf/validator-ajv8";
 
+const formatDate = (date?: string, withTime = false) => {
+  if (!date) return "";
+
+  return new Intl.DateTimeFormat("en-US", {
+    dateStyle: "medium",
+    timeStyle: withTime ? "short" : undefined,
+  }).format(new Date(date));
+};
+
 function SubmitButton() {
   return null;
 }
+
+interface LabelWithTooltipProps {
+  label: string;
+  message?: string;
+}
+
+const LabelWithTooltip = ({ label, message }: LabelWithTooltipProps) => {
+  return (
+    <div className="flex items-center gap-1">
+      <span>{label}</span>
+      {message && (
+        <Tooltip content={message}>
+          <Info size={16} className="font-primary" />
+        </Tooltip>
+      )}
+    </div>
+  );
+};
 
 function BaseInputTemplate(props: BaseInputTemplateProps) {
   const {
@@ -51,23 +79,28 @@ function BaseInputTemplate(props: BaseInputTemplateProps) {
   const onTextFocus = ({ target: { value: val } }: FocusEvent<HTMLInputElement>) =>
     onFocus(id, val);
 
-  const inputProps = { ...rest, ...getInputProps(schema, type, options) };
+  const formReadonly = props.formContext?.readonly ?? false;
+
+  const isDate = schema.format === "date" || schema.format === "date-time";
+  const inputProps = { ...rest, ...getInputProps(schema, isDate ? "string" : type, options) };
 
   return (
     <Input
       id={id}
-      label={label}
-      value={value}
+      label={
+        formReadonly ? <LabelWithTooltip label={label} message={props?.schema?.help} /> : label
+      }
+      value={isDate && formReadonly ? formatDate(value, schema.format === "date-time") : value}
       placeholder={placeholder}
       disabled={disabled}
-      readOnly={readonly}
+      readOnly={readonly || formReadonly}
       autoFocus={autofocus}
       onChange={onChangeOverride || onTextChange}
       onBlur={onTextBlur}
       onFocus={onTextFocus}
       error={props?.rawErrors?.[0]}
       required={required}
-      message={props?.schema?.help}
+      message={!formReadonly && props?.schema?.help}
       {...inputProps}
     />
   );
@@ -85,8 +118,9 @@ const getDateValue = (formData: string) => {
 
 function FieldTemplate(props: FieldTemplateProps) {
   const { classNames, style, children } = props;
+  const readonlyForm = props.formContext?.readonly ?? false;
 
-  if (props.schema.type === "string" && props.schema.format === "date") {
+  if (props.schema.type === "string" && props.schema.format === "date" && !readonlyForm) {
     const { rawErrors, schema, label, onChange } = props;
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -104,7 +138,7 @@ function FieldTemplate(props: FieldTemplateProps) {
     );
   }
 
-  if (props.schema.type === "string" && props.schema.format === "date-time") {
+  if (props.schema.type === "string" && props.schema.format === "date-time" && !readonlyForm) {
     const { rawErrors, label, schema, onChange } = props;
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -156,6 +190,7 @@ function FieldTemplate(props: FieldTemplateProps) {
 function ObjectFieldTemplate(
   props: ObjectFieldTemplateProps & { inModal?: boolean; footer?: ReactElement },
 ) {
+  const readonly: boolean = props.formContext?.readonly ?? false;
   const fields = (
     <div className="flex flex-col space-y-3">
       {props.properties.map((element) => (
@@ -180,9 +215,11 @@ function ObjectFieldTemplate(
       title={props.title}
       description={props.description}
       footerContent={
-        <Button type="submit" loading={props.uiSchema?.["ui:options"]?.disabled ?? false}>
-          Submit
-        </Button>
+        readonly ? null : (
+          <Button type="submit" loading={props.uiSchema?.["ui:options"]?.disabled ?? false}>
+            Submit
+          </Button>
+        )
       }
     >
       {fields}
@@ -197,6 +234,7 @@ interface JsonSchemaFormProps {
   onSubmit?: FormProps["onSubmit"];
   inModal?: boolean;
   footer?: ReactElement;
+  readonly?: boolean;
 }
 
 function JsonSchemaForm({
@@ -206,6 +244,7 @@ function JsonSchemaForm({
   inModal,
   footer,
   formData,
+  readonly = false,
 }: JsonSchemaFormProps) {
   return (
     <Form
@@ -213,6 +252,9 @@ function JsonSchemaForm({
       uiSchema={uiSchema}
       validator={validator}
       formData={formData}
+      formContext={{
+        readonly,
+      }}
       templates={{
         ButtonTemplates: {
           SubmitButton,

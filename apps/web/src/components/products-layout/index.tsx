@@ -36,6 +36,16 @@ function ProductsLayout({ children }: ProductsLayoutProps) {
     },
     ...(categoryId &&
     productId &&
+    decodeURIComponent(asPath) === URLS.productById(warehouseId, categoryId, productId)
+      ? [
+          {
+            title: "Product info",
+            href: URLS.productById(warehouseId, categoryId, productId),
+          },
+        ]
+      : []),
+    ...(categoryId &&
+    productId &&
     decodeURIComponent(asPath) === URLS.editProduct(warehouseId, categoryId, productId)
       ? [
           {

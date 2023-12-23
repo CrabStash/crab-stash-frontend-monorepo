@@ -162,6 +162,7 @@ function CategoryTreeItem({
               path={[...path, id]}
               selectedPath={selectedPath}
               highlightOnlyPath={highlightOnlyPath}
+              hasChildren={!category.isChildless}
             />
           ))}
         </div>
@@ -209,6 +210,7 @@ function CategoryTree({
                 id: ROOT_CATEGORY_ID,
                 title: "ROOT",
                 description: "",
+                isChildless: true,
               },
             ]
           : []),
@@ -225,7 +227,7 @@ function CategoryTree({
           path={[]}
           selectedPath={selectedPath}
           highlightOnlyPath={highlightOnlyPath}
-          hasChildren={category.id !== "ROOT"}
+          hasChildren={!category.isChildless}
         />
       ))}
     </div>
