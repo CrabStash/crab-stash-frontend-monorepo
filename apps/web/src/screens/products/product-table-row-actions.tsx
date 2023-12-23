@@ -49,6 +49,11 @@ function ProductTableRowActions({ row }: ProductTableRowActionsProps) {
         itemGroups={[
           [
             {
+              label: "Show",
+              onClick: () =>
+                router.push(URLS.productById(warehouseId, product.categoryId, product.id)),
+            },
+            {
               label: "Edit",
               onClick: () =>
                 router.push(URLS.editProduct(warehouseId, product.categoryId, product.id)),
