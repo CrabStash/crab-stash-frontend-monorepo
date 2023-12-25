@@ -6,14 +6,23 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**", "storybook-static/**"]
     },
+    "start": {
+      "cache": false,
+      "dependsOn": ["build"],
+      "persistent": true,
+      "dotEnv": [".env.development.local", ".env.local", ".env.development", ".env"]
+    },
     "eslint:check": {
-      "dependsOn": ["build"]
+      "outputs": []
     },
-    "test": {
-      "dependsOn": ["build"]
+    "eslint:fix": {
+      "outputs": []
     },
-    "ts:check": {
-      "cache": false
-    }
+    "ts:check": {},
+    "dev": {
+      "cache": false,
+      "dotEnv": [".env.development.local", ".env.local", ".env.development", ".env"]
+    },
+    "test": {}
   }
 }
