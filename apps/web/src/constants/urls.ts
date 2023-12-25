@@ -1,6 +1,4 @@
-import { config } from "../../config";
-
-const docUrl = config.DOCS_URL;
+const docUrl = process.env.NEXT_PUBLIC_DOCS_URL;
 
 export const URLS = {
   dashboard: "/",

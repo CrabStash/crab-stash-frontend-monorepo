@@ -1,7 +1,5 @@
 import type { GetServerSidePropsContext } from "next";
 
-import { config } from "../../config";
-
 import { API_ENDPOINTS } from "@app/constants/api-endpoints";
 import { COOKIES_AUTH_TOKEN_KEY } from "@app/constants/tokens";
 import { storeAuthTokens } from "@app/utils/tokens";
@@ -9,7 +7,7 @@ import axios from "axios";
 import createAuthRefreshInterceptor from "axios-auth-refresh";
 import nookies from "nookies";
 
-const BASE_URL = config.API_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080/";
 
 let context: GetServerSidePropsContext | null = null;
 

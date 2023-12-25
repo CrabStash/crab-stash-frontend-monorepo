@@ -10,6 +10,7 @@ RUN corepack enable && corepack prepare pnpm@${PNPM_VERSION} --activate
 WORKDIR /app
 RUN pnpm add turbo --global
 COPY . .
+COPY .env .env
 RUN turbo prune @crab-stash/web --docker
  
 # Add lockfile and package.json's of isolated subworkspace
@@ -29,6 +30,7 @@ RUN pnpm install
  
 # Build the project
 COPY --from=builder /app/out/full/ .
+COPY --from=builder /app/.env ./.env
 RUN pnpm run prettier:fix
 RUN pnpm turbo run build --filter=web
  
