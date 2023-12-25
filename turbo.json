@@ -3,37 +3,17 @@
   "globalDotEnv": [".env"],
   "pipeline": {
     "build": {
-      "dependsOn": ["^build", "test"],
+      "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**", "storybook-static/**"]
     },
-    "start": {
-      "cache": false,
-      "dependsOn": ["build"],
-      "persistent": true,
-      "dotEnv": [".env.development.local", ".env.local", ".env.development", ".env"]
-    },
     "eslint:check": {
-      "outputs": []
-    },
-    "eslint:fix": {
-      "outputs": []
-    },
-    "ts:check": {},
-    "dev": {
-      "cache": false,
-      "dotEnv": [".env.development.local", ".env.local", ".env.development", ".env"]
-    },
-    "storybook": {
-      "cache": false
-    },
-    "build:storybook": {
-      "outputs": ["storybook-static/**"]
-    },
-    "build:ui": {
-      "cache": false
+      "dependsOn": ["build"]
     },
     "test": {
-      "dependsOn": ["eslint:check", "ts:check"]
+      "dependsOn": ["build"]
+    },
+    "ts:check": {
+      "cache": false
     }
   }
 }

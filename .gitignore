@@ -50,3 +50,5 @@ dist
 
 # tsconfig build
 tsconfig.tsbuildinfo
+
+config.ts

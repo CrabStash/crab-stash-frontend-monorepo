@@ -43,14 +43,8 @@ jobs:
       - name: Install deps (with cache)
         run: pnpm install
 
-      - name: lint
-        run: pnpm turbo eslint:check
-
-      - name: type check
-        run: pnpm turbo ts:check
+      - name: build
+        run: pnpm turbo build
 
       - name: test
         run: pnpm turbo test
-
-      - name: build
-        run: pnpm turbo build

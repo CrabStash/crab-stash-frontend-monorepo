@@ -12,7 +12,7 @@ import nookies from "nookies";
 
 const redirectToLogin = {
   redirect: {
-    destination: URLS.login,
+    destination: URLS.register,
     permanent: false,
   },
 } as const;
