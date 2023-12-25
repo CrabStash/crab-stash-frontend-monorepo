@@ -43,8 +43,8 @@ jobs:
       - name: Install deps (with cache)
         run: pnpm install
 
-      # - name: build
-      #   run: pnpm turbo build
-      #
-      # - name: test
-      #   run: pnpm turbo test
+      - name: build
+        run: pnpm turbo build
+
+      - name: test
+        run: pnpm turbo test
