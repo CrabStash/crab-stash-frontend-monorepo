@@ -7,7 +7,7 @@ import axios from "axios";
 import createAuthRefreshInterceptor from "axios-auth-refresh";
 import nookies from "nookies";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL as string;
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080/";
 
 let context: GetServerSidePropsContext | null = null;
 

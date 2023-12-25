@@ -1,5 +1,5 @@
 {
-  "name": "docs",
+  "name": "@crab-stash/docs",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -9,7 +9,7 @@
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
-    "start": "docusaurus serve",
+    "start": "docusaurus serve --port 3001",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
     "eslint:check": "eslint . --ext .cjs,.ts,.tsx,.astro",

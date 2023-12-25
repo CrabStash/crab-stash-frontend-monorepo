@@ -15,12 +15,10 @@
     "eslint:check": "turbo run eslint:check",
     "eslint:fix": "turbo run eslint:fix",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "storybook": "turbo run storybook",
-    "build:storybook": "turbo run build:storybook",
-    "build:ui": "turbo run build:ui",
     "ts:check": "turbo run ts:check",
     "test": "dotenv -- turbo run test",
-    "start": "dotenv -- turbo run start"
+    "start": "dotenv -- turbo run start",
+    "prettier:fix": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
     "@crab-stash/linting": "workspace:*",

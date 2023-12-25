@@ -1,4 +1,4 @@
-const docUrl = process.env.NEXT_PUBLIC_DOCS_URL as string;
+const docUrl = process.env.NEXT_PUBLIC_DOCS_URL;
 
 export const URLS = {
   dashboard: "/",

@@ -2,11 +2,11 @@ import { themes as prismThemes } from "prism-react-renderer";
 
 import type * as Preset from "@docusaurus/preset-classic";
 import type { Config } from "@docusaurus/types";
-import * as dotenv from "dotenv";
+import dotenv from "dotenv";
 
 dotenv.config();
 
-const webAppUrl = process.env.WEB_APP_URL || "localhost:3000";
+const webAppUrl = process.env.WEB_APP_URL || "localhost:3000/";
 
 const config: Config = {
   title: "Documentation",
