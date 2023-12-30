@@ -10,7 +10,11 @@ import { Tabs } from "@crab-stash/ui";
 
 type DashboardTabValue = "overview" | "analytics" | "notifications";
 
-const ComingSoon = () => {
+interface ComingSoonProps {
+  featureName: string;
+}
+
+const ComingSoon = ({ featureName }: ComingSoonProps) => {
   const { theme } = useTheme();
 
   return (
@@ -22,7 +26,7 @@ const ComingSoon = () => {
         height="320"
       />
       <Typography as="h3" variant="h3" className="mt-4">
-        This feature is coming soon! Stay tuned! 🚀
+        {featureName} feature is coming soon! Stay tuned! 🚀
       </Typography>
     </div>
   );
@@ -38,12 +42,12 @@ function Dashboard() {
     {
       label: "Notifications",
       value: "notifications",
-      content: <ComingSoon />,
+      content: <ComingSoon featureName="Notifications" />,
     },
     {
       label: "Analytics",
       value: "analytics",
-      content: <ComingSoon />,
+      content: <ComingSoon featureName="Analytics" />,
     },
   ];
 
