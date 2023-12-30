@@ -65,6 +65,7 @@ export interface Tab<TValue extends string> {
   value: TValue;
   content: ReactElement;
   onClick?: (value: TValue) => void;
+  disabled?: boolean;
 }
 
 export interface TabsProps<TValue extends string>
@@ -88,12 +89,13 @@ function TabsInner<TValue extends string>(
   return (
     <TabsWrapper defaultValue={defaultValue} {...props} ref={ref}>
       <TabsList className={tabsClassName}>
-        {tabs.map(({ label, value, onClick }) => (
+        {tabs.map(({ label, value, onClick, disabled }) => (
           <TabsTrigger
             onClick={() => onClick?.(value)}
             value={value}
             key={value}
             readonly={readonly}
+            disabled={disabled}
           >
             {label}
           </TabsTrigger>

@@ -7,13 +7,18 @@ import { URLS } from "@app/constants/urls";
 import useWarehouseId from "@app/hooks/use-warehouse-id";
 import { cn } from "@crab-stash/ui/lib/utils";
 
-type Link = {
+type MainNavigationLink = {
   href: string;
   label: string;
+  matchAllPaths?: boolean;
 };
 
-const isLinkActive = (currentPath: string, path: string) => {
-  return currentPath === path;
+const isLinkActive = (currentPath: string, path: string, matchAllPaths = false) => {
+  if (matchAllPaths) {
+    return decodeURIComponent(currentPath).startsWith(path);
+  }
+
+  return decodeURIComponent(currentPath) === path;
 };
 
 function MainNavigation({ className, ...props }: HTMLAttributes<HTMLElement>) {
@@ -21,7 +26,7 @@ function MainNavigation({ className, ...props }: HTMLAttributes<HTMLElement>) {
 
   const warehouseId = useWarehouseId();
 
-  const mainNavigationLinks: Link[] = [
+  const mainNavigationLinks: MainNavigationLink[] = [
     {
       href: warehouseId ? URLS.warehouseDashboard(warehouseId) : URLS.dashboard,
       label: "Dashboard",
@@ -29,13 +34,16 @@ function MainNavigation({ className, ...props }: HTMLAttributes<HTMLElement>) {
     {
       href: URLS.fields(warehouseId as string),
       label: "Fields",
+      matchAllPaths: true,
     },
     {
       href: URLS.categories(warehouseId as string),
+      matchAllPaths: true,
       label: "Categories",
     },
     {
       href: URLS.products(warehouseId as string),
+      matchAllPaths: true,
       label: "Products",
     },
     ...(warehouseId
@@ -43,6 +51,7 @@ function MainNavigation({ className, ...props }: HTMLAttributes<HTMLElement>) {
           {
             href: URLS.warehouseSettings(warehouseId),
             label: "Settings",
+            matchAllPaths: true,
           },
         ]
       : []),
@@ -55,8 +64,8 @@ function MainNavigation({ className, ...props }: HTMLAttributes<HTMLElement>) {
           key={link.href}
           href={link.href}
           className={cn("text-sm font-medium transition-colors hover:text-primary", {
-            "text-primary": isLinkActive(router.pathname, link.href),
-            "text-muted-foreground": !isLinkActive(router.pathname, link.href),
+            "text-primary": isLinkActive(router.asPath, link.href, link.matchAllPaths),
+            "text-muted-foreground": !isLinkActive(router.asPath, link.href, link.matchAllPaths),
           })}
         >
           {link.label}

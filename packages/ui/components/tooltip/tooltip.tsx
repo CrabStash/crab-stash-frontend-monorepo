@@ -34,7 +34,7 @@ export interface TooltipProps extends React.ComponentPropsWithoutRef<typeof Tool
 
 export function Tooltip({ children, content, ...props }: TooltipProps) {
   return (
-    <TooltipProvider>
+    <TooltipProvider delayDuration={0}>
       <TooltipRoot {...props}>
         <TooltipTrigger asChild>{children}</TooltipTrigger>
         <TooltipContent className={cn("bg-foreground text-accent text-sm")}>
