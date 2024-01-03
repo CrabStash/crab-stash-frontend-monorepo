@@ -2,6 +2,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { useRouter } from "next/router";
 
+import { dashboardQueryKey } from "../dashboard/components/overview/use-dashboard-query";
+
 import { api } from "@app/api";
 import { API_ENDPOINTS } from "@app/constants/api-endpoints";
 import { URLS } from "@app/constants/urls";
@@ -48,6 +50,8 @@ export const useCreateProductMutation = (params?: UseCreateProductMutationParams
         if (!warehouseId) return;
 
         queryClient.invalidateQueries([productsQueryKey, warehouseId]);
+
+        queryClient.invalidateQueries([dashboardQueryKey, warehouseId]);
 
         router.push(URLS.products(warehouseId));
       },

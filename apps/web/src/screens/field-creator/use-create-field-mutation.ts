@@ -42,6 +42,10 @@ export const useCreateFieldMutation = () => {
           queryKey: [fieldsQueryKey, warehouseId],
         });
 
+        queryClient.invalidateQueries({
+          queryKey: ["infinte-fields", warehouseId],
+        });
+
         router.push(URLS.fields(warehouseId));
       },
     },

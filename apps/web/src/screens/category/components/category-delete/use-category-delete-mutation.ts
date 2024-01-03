@@ -7,7 +7,9 @@ import { API_ENDPOINTS } from "@app/constants/api-endpoints";
 import { URLS } from "@app/constants/urls";
 import { categoryByIdQueryKey } from "@app/hooks/queries/use-category-by-id-query";
 import { categoriesQueryKey } from "@app/hooks/queries/use-category-query";
+import { productsQueryKey } from "@app/hooks/queries/use-products-query";
 import useWarehouseId from "@app/hooks/use-warehouse-id";
+import { dashboardQueryKey } from "@app/screens/dashboard/components/overview/use-dashboard-query";
 
 interface UseCategoryDeleteMutationParams {
   categoryId: string | null;
@@ -41,6 +43,10 @@ export const useCategoryDeleteMutation = (params: UseCategoryDeleteMutationParam
           predicate: (query) =>
             query.queryKey[2] === params.categoryId || query.queryKey[2] === undefined,
         });
+
+        queryClient.invalidateQueries([dashboardQueryKey, warehouseId]);
+
+        queryClient.invalidateQueries([productsQueryKey, warehouseId]);
 
         router.push(URLS.categories(warehouseId));
       },

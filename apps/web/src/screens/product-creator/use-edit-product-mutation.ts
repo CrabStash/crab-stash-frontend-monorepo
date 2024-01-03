@@ -2,6 +2,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { useRouter } from "next/router";
 
+import { dashboardQueryKey } from "../dashboard/components/overview/use-dashboard-query";
+
 import { api } from "@app/api";
 import { API_ENDPOINTS } from "@app/constants/api-endpoints";
 import { URLS } from "@app/constants/urls";
@@ -50,6 +52,8 @@ export const useEditProductMutation = ({ categoryId }: UseEditProductMutationPar
         queryClient.invalidateQueries([productsQueryKey, warehouseId]);
 
         queryClient.invalidateQueries([productByIdQueryKey, warehouseId, categoryId, productId]);
+
+        queryClient.invalidateQueries([dashboardQueryKey, warehouseId]);
       },
     },
   );
