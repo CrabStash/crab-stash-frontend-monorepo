@@ -80,6 +80,7 @@ function FieldsTableRowActions({ row }: FieldsTableRowActionsProps) {
         title={`Edit ${field.title}`}
         open={isEditModalOpen}
         onOpenChange={(open) => setIsEditModalOpen(open)}
+        contentClassName="w-full max-w-2xl"
         content={
           <>
             {isLoading ? (
