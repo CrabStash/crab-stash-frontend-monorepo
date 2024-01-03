@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@app/api";
 import { API_ENDPOINTS } from "@app/constants/api-endpoints";
 import { warehouseUsersKey } from "@app/hooks/queries/use-warehouse-users-query";
+import { dashboardQueryKey } from "@app/screens/dashboard/components/overview/use-dashboard-query";
 import type { Response } from "types";
 
 type RemoveUserMutationVariables = {
@@ -24,6 +25,8 @@ export const useRemoveUserMutation = () => {
         queryClient.invalidateQueries({
           queryKey: [warehouseUsersKey, variables.warehouseId],
         });
+
+        queryClient.invalidateQueries([dashboardQueryKey, variables.warehouseId]);
       },
     },
   );

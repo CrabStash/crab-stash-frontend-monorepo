@@ -58,18 +58,22 @@ function Category() {
           <Typography as="h3" className="text-sm font-medium">
             Parent categories (from top to bottom):
           </Typography>
-          {data?.response.data.formData.parents.map((parent) => (
-            <Parent key={parent} parent={parent} />
-          ))}
+          <div>
+            {data?.response.data.formData.parents.map((parent) => (
+              <Parent key={parent} parent={parent} />
+            ))}
+          </div>
         </div>
       )}
       <div className="flex flex-col space-y-2 w-full">
         <Typography as="h3" className="text-sm font-medium">
           Fields:
         </Typography>
-        {data?.response.data.formData.properties.map((property) => (
-          <Property key={property} property={property} />
-        ))}
+        <div>
+          {data?.response.data.formData.properties.map((property) => (
+            <Property key={property} property={property} />
+          ))}
+        </div>
       </div>
       <div className="flex space-x-4">
         <Link href={URLS?.editCategory(warehouseId, categoryId)} passHref>

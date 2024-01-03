@@ -49,6 +49,10 @@ export const useEditFieldMutation = ({ fieldId, onSuccess }: UseEditFieldMutatio
         queryClient.invalidateQueries({
           queryKey: [fieldsQueryKey, warehouseId],
         });
+
+        queryClient.invalidateQueries({
+          queryKey: ["infinte-fields", warehouseId],
+        });
       },
     },
   );
