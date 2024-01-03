@@ -89,7 +89,7 @@ function Overview() {
                   <p className="text-sm font-medium leading-none">{product.name}</p>
                   <p className="text-sm text-muted-foreground">{product.description}</p>
                 </div>
-                <div className="ml-auto font-medium">{formatPrice(666.66)}</div>
+                <div className="ml-auto font-medium">{formatPrice(product.price)}</div>
               </div>
             ))}
           </div>

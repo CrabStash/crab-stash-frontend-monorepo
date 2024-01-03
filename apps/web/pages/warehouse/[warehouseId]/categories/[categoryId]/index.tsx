@@ -5,7 +5,6 @@ import Head from "next/head";
 
 import { Layout } from "@app/components";
 import CategoriesLayout from "@app/components/categories-layout";
-import PageTitle from "@app/components/page-title";
 import useCategoryByIdQuery from "@app/hooks/queries/use-category-by-id-query";
 import Category from "@app/screens/category";
 import { createPageTitle } from "@crab-stash/utils";
@@ -22,7 +21,6 @@ const Page: NextPage = () => {
       </Head>
       <Layout>
         <CategoriesLayout>
-          <PageTitle>{data?.response.data.formData.title} category</PageTitle>
           <Category />
         </CategoriesLayout>
       </Layout>

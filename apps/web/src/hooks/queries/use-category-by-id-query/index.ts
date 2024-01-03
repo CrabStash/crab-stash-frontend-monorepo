@@ -10,7 +10,7 @@ import type { Response } from "types";
 export type CategoryFormData = {
   title: string;
   description: string;
-  parents: string[];
+  parents?: string[];
   properties: string[];
 };
 
