@@ -29,7 +29,7 @@ function UserNavigation({ user }: UserNavigationProps) {
     <Dropdown
       className="w-56"
       trigger={
-        <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+        <Button variant="ghost" className="relative h-8 w-8 rounded-full" aria-label="User menu">
           <Avatar className="h-8 w-8" fullName={fullName} src={undefined} />
         </Button>
       }

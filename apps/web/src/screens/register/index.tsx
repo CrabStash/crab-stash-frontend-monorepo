@@ -28,7 +28,7 @@ const registerSchema = loginSchema
     path: ["confirmPassword"],
   });
 
-type RegisterForm = z.infer<typeof registerSchema>;
+export type RegisterForm = z.infer<typeof registerSchema>;
 
 function Register() {
   const { push } = useRouter();
@@ -81,7 +81,7 @@ function Register() {
                 Cancel
               </Button>
               <Button type="submit" loading={isLoading}>
-                Reigster
+                Register
               </Button>
             </div>
           }

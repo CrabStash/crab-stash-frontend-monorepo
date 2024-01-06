@@ -52,3 +52,5 @@ dist
 tsconfig.tsbuildinfo
 
 config.ts
+
+reset-db.sh

@@ -8,7 +8,9 @@
     "start": "next start",
     "eslint:check": "eslint . --ext .cjs,.ts,.tsx,.astro",
     "eslint:fix": "eslint . --ext .cjs,.ts,.tsx,.astro --fix",
-    "ts:check": "tsc --jsx preserve --skipLibCheck"
+    "ts:check": "tsc --jsx preserve --skipLibCheck",
+    "e2e": "playwright test",
+    "db:reset": "./reset-db.sh"
   },
   "dependencies": {
     "@crab-stash/ui": "workspace:*",
@@ -33,6 +35,7 @@
     "zustand": "^4.4.5"
   },
   "devDependencies": {
+    "@playwright/test": "^1.40.1",
     "@types/node": "18.16.3",
     "@types/react": "18.2.20",
     "autoprefixer": "^10.4.13",
