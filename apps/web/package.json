@@ -9,7 +9,7 @@
     "eslint:check": "eslint . --ext .cjs,.ts,.tsx,.astro",
     "eslint:fix": "eslint . --ext .cjs,.ts,.tsx,.astro --fix",
     "ts:check": "tsc --jsx preserve --skipLibCheck",
-    "e2e": "playwright test",
+    "e2e": "pnpm db:reset && playwright test",
     "db:reset": "./reset-db.sh"
   },
   "dependencies": {

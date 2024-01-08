@@ -7,7 +7,7 @@ import axios from "axios";
 import createAuthRefreshInterceptor from "axios-auth-refresh";
 import nookies from "nookies";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080/";
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080/";
 
 let context: GetServerSidePropsContext | null = null;
 
@@ -18,7 +18,7 @@ export const setContext = (_context: GetServerSidePropsContext) => {
 export const TOKEN_KEY = "token";
 
 export const api = axios.create({
-  baseURL: BASE_URL,
+  baseURL: API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
