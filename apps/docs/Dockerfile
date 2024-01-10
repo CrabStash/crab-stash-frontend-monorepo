@@ -32,7 +32,6 @@ WORKDIR /app
 
 # Copy only the production files from the builder stage
 COPY --from=builder /app/build/ ./build/
-COPY --from=builder /app/node_modules/ ./node_modules/
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/config.ts ./config.ts
 COPY --from=builder /app/docusaurus.config.ts ./docusaurus.config.ts
