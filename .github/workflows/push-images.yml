@@ -13,9 +13,10 @@ jobs:
     strategy:
       matrix:
         platform: [linux/amd64]
+        msname: ["ui", "app", "docs"]
 
     env:
-      MSNAME: web
+      MSNAME: ${{ matrix.msname }}
 
     steps:
       - uses: actions/checkout@v3
@@ -31,7 +32,6 @@ jobs:
           else
             export DOCKERFILE_PATH=apps/web
           fi
-
           echo "DOCKERFILE_PATH=${DOCKERFILE_PATH}" >> $GITHUB_ENV
 
       - name: Build the Docker image
