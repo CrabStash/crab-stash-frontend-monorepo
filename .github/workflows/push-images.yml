@@ -39,11 +39,11 @@ jobs:
           docker build . \
             --build-arg MSNAME=${{ env.MSNAME }} \
             --file ${{ env.DOCKERFILE_PATH }}/Dockerfile \
-            --tag ghcr.io/crabstash/${{ env.MSNAME }}:${{ github.run_number }} \
+            --tag ghcr.io/crabstash/${{ env.MSNAME }}:latest \
             --platform linux/amd64
 
       - name: Log in to GitHub Container Registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u CrabStash --password-stdin
 
       - name: Push Docker image to GitHub Container Registry
-        run: docker push ghcr.io/crabstash/${{ env.MSNAME }}:${{ github.run_number }}
+        run: docker push ghcr.io/crabstash/${{ env.MSNAME }}:latest
