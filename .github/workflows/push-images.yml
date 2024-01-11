@@ -1,0 +1,47 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: ["develop"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        platform: [linux/amd64]
+        msname: ["ui", "app", "docs"]
+
+    env:
+      MSNAME: ${{ matrix.msname }}
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Set Dockerfile path based on MSNAME
+        run: |
+          if [ "${{ env.MSNAME }}" == "docs" ]; then
+            export DOCKERFILE_PATH=apps/docs
+          elif [ "${{ env.MSNAME }}" == "ui" ]; then
+            export DOCKERFILE_PATH=packages/ui
+          else
+            export DOCKERFILE_PATH=apps/web
+          fi
+          echo "DOCKERFILE_PATH=${DOCKERFILE_PATH}" >> $GITHUB_ENV
+
+      - name: Build the Docker image
+        run: |
+          docker build . \
+            --build-arg MSNAME=${{ env.MSNAME }} \
+            --file ${{ env.DOCKERFILE_PATH }}/Dockerfile \
+            --tag ghcr.io/crabstash/${{ env.MSNAME }}:latest \
+            --platform linux/amd64
+
+      - name: Log in to GitHub Container Registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u CrabStash --password-stdin
+
+      - name: Push Docker image to GitHub Container Registry
+        run: docker push ghcr.io/crabstash/${{ env.MSNAME }}:latest
