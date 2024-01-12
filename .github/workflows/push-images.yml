@@ -2,7 +2,7 @@ name: Docker Image CI
 
 on:
   push:
-    branches: ["develop"]
+    branches: ["*"]
 
 jobs:
   build:
@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         platform: [linux/amd64]
-        msname: ["ui", "app", "docs"]
+        msname: ["app",]
 
     env:
       MSNAME: ${{ matrix.msname }}
