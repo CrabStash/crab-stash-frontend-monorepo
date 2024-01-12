@@ -32,8 +32,8 @@ RUN pnpm install
 COPY --from=builder /app/out/full/ .
 COPY --from=builder /app/.env ./.env
 RUN pnpm run prettier:fix
-ENV NEXT_PUBLIC_API_URL=https://api.microservices.svc.cluster.local:80/ \
-    NEXT_PUBLIC_DOCS_URL=http://docs.crabstash.tech
+ENV NEXT_PUBLIC_API_URL=http://api.microservices.svc.cluster.local:80/ \
+    NEXT_PUBLIC_DOCS_URL=https://docs.crabstash.tech
 RUN pnpm turbo run build --filter=web
  
 FROM base AS runner
