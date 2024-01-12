@@ -14,7 +14,11 @@ export type FieldsQueryResponse = Response<
   }>
 >;
 
-export const fieldsFetcher = async (id: string | null, page = 1, parentCategory?: string) => {
+export const fieldsFetcher = async (
+  id: string | null,
+  page = 1,
+  parentCategory?: string | null,
+) => {
   if (!id) {
     throw new Error("No id");
   }

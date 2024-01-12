@@ -140,6 +140,7 @@ function CategoryTreeItem({
           <Button
             onClick={() => handleExpand(id)}
             variant="ghost"
+            aria-label={`open ${title} category`}
             icon={isCategoryExpanded ? ChevronUp : ChevronDown}
             className={cn(
               !isCategoryExpanded && "text-accent-foreground",

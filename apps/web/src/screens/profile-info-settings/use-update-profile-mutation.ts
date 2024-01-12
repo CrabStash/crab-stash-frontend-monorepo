@@ -72,7 +72,7 @@ export const useUpdateProfileMutation = () => {
         queryClient.setQueryData(queryKey, context.previousUserInfo);
       },
       onSettled: () => {
-        queryClient.invalidateQueries({ queryKey });
+        queryClient.invalidateQueries({ queryKey: [meQueryKey] });
       },
       onSuccess: () => {
         toast({

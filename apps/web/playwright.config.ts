@@ -17,23 +17,21 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
     baseURL: "http://localhost:3000",
+    ignoreHTTPSErrors: true,
   },
+  testMatch: "e2e/setup/test.list.ts",
 
+  timeout: 30 * 1000,
   /* Configure projects for major browsers */
   projects: [
+    { name: "setup-chromium", testMatch: /auth.chromium.setup\.ts/ },
     {
       name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
-    },
-
-    {
-      name: "firefox",
-      use: { ...devices["Desktop Firefox"] },
-    },
-
-    {
-      name: "webkit",
-      use: { ...devices["Desktop Safari"] },
+      use: {
+        ...devices["Desktop Chrome"], // Use prepared auth state.
+        storageState: "playwright/.auth/chromium-user.json",
+      },
+      dependencies: ["setup-chromium"],
     },
   ],
 
