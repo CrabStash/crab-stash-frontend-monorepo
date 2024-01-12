@@ -3,6 +3,7 @@ import type { ChangeEvent, FocusEvent, ReactElement } from "react";
 
 import FieldsWidget from "./widgets/fields-widget";
 import ParentsWidget from "./widgets/parents-widget";
+import { WidegetContextProvider } from "./widgets-context";
 
 import type { SelectItem } from "@crab-stash/ui";
 import { DatePicker, Tooltip } from "@crab-stash/ui";
@@ -247,30 +248,32 @@ function JsonSchemaForm({
   readonly = false,
 }: JsonSchemaFormProps) {
   return (
-    <Form
-      schema={schema}
-      uiSchema={uiSchema}
-      validator={validator}
-      formData={formData}
-      formContext={{
-        readonly,
-      }}
-      templates={{
-        ButtonTemplates: {
-          SubmitButton,
-        },
-        BaseInputTemplate,
-        FieldTemplate,
-        ObjectFieldTemplate: (props) => (
-          <ObjectFieldTemplate {...props} inModal={inModal} footer={footer} />
-        ),
-      }}
-      widgets={{
-        parentsWidget: (props) => <ParentsWidget {...props} />,
-        fieldsWidget: (props) => <FieldsWidget {...props} />,
-      }}
-      onSubmit={onSubmit}
-    />
+    <WidegetContextProvider>
+      <Form
+        schema={schema}
+        uiSchema={uiSchema}
+        validator={validator}
+        formData={formData}
+        formContext={{
+          readonly,
+        }}
+        templates={{
+          ButtonTemplates: {
+            SubmitButton,
+          },
+          BaseInputTemplate,
+          FieldTemplate,
+          ObjectFieldTemplate: (props) => (
+            <ObjectFieldTemplate {...props} inModal={inModal} footer={footer} />
+          ),
+        }}
+        widgets={{
+          parentsWidget: ParentsWidget,
+          fieldsWidget: FieldsWidget,
+        }}
+        onSubmit={onSubmit}
+      />
+    </WidegetContextProvider>
   );
 }
 

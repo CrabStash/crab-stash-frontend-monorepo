@@ -1,8 +1,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-import { useRouter } from "next/router";
-
 import { fieldsFetcher } from "@app/hooks/queries/use-fields-query";
 import useWarehouseId from "@app/hooks/use-warehouse-id";
 import { Button, Checkbox, Dialog } from "@crab-stash/ui";
@@ -12,6 +10,7 @@ interface AddFieldDialogProps {
   setIsAddFieldDialogOpen: (open: boolean) => void;
   value?: string[];
   onChange?: (value: string[]) => void;
+  parentId: string | null;
 }
 
 function AddFieldDialog({
@@ -19,10 +18,10 @@ function AddFieldDialog({
   setIsAddFieldDialogOpen,
   value,
   onChange,
+  parentId,
 }: AddFieldDialogProps) {
-  const router = useRouter();
   const warehouseId = useWarehouseId();
-  const parentCategory = router.query.parentCategory as string;
+  const parentCategory = parentId;
 
   const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: ["infinte-fields", warehouseId, parentCategory],
@@ -40,7 +39,21 @@ function AddFieldDialog({
     if (!value) return;
 
     if (value.includes(id)) {
+      const newValue = value.filter((v) => v !== id);
+
+      if (newValue.length === 0) {
+        onChange?.(["root"]);
+
+        return;
+      }
+
       onChange?.(value.filter((v) => v !== id));
+
+      return;
+    }
+
+    if (value[0] === "root") {
+      onChange?.([id]);
 
       return;
     }

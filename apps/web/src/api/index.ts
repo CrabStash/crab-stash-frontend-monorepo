@@ -40,7 +40,10 @@ api.interceptors.request.use((config) => {
 
   if (token) {
     config.headers["Authorization"] = "Bearer " + token;
-    config.headers["Cookie"] = `${COOKIES_AUTH_TOKEN_KEY}=${token}`;
+
+    if (isServer) {
+      config.headers["Cookie"] = `${COOKIES_AUTH_TOKEN_KEY}=${token}`;
+    }
   }
 
   return config;

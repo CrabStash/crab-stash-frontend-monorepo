@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import { useRouter } from "next/router";
+import { useWidegetContext } from "../../widgets-context";
 
 import CategoryTree, { ROOT_CATEGORY_ID } from "@app/components/category-tree";
 import useCategoryByIdInheritanceQuery from "@app/hooks/queries/use-category-inheritance-by-id-query";
@@ -11,20 +11,16 @@ function ParentsWidget(props: WidgetProps) {
   const { data } = useCategoryByIdInheritanceQuery({
     categoryId: props.value.length > 0 ? props.value[props.value.length - 1] : ROOT_CATEGORY_ID,
   });
-  const router = useRouter();
+
+  const { setParentId } = useWidegetContext();
 
   const parents = data?.response.data.parents;
   const directParent =
     props.value.length > 0 ? props.value[props.value.length - 1] : ROOT_CATEGORY_ID;
 
   useEffect(() => {
-    if (directParent !== ROOT_CATEGORY_ID && router.query.parentCategory !== directParent) {
-      router.push({
-        query: {
-          ...router.query,
-          parentCategory: directParent,
-        },
-      });
+    if (directParent !== ROOT_CATEGORY_ID) {
+      setParentId?.(directParent);
     }
   }, [directParent]);
 

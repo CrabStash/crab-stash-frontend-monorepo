@@ -4,7 +4,7 @@ import { URLS } from "@app/constants/urls";
 import type { RegisterForm } from "@app/screens/register";
 import type { APIRequestContext, Page } from "@playwright/test";
 
-const generateRegistrationData = (workerName: string) => {
+export const generateRegistrationData = (workerName: string) => {
   const registerData: RegisterForm = {
     email: `test${workerName}@test.com`,
     password: "testPassword123",
@@ -18,9 +18,7 @@ const generateRegistrationData = (workerName: string) => {
 
 const baseUrl = API_BASE_URL.slice(0, -1);
 
-export const registerAndLogin = async (page: Page, request: APIRequestContext, name: string) => {
-  const registerData = generateRegistrationData(name);
-
+export const register = async (request: APIRequestContext, registerData: RegisterForm) => {
   await request.post(baseUrl + API_ENDPOINTS.auth.register, {
     data: {
       email: registerData.email,
@@ -29,6 +27,12 @@ export const registerAndLogin = async (page: Page, request: APIRequestContext, n
       lastName: registerData.lastName,
     },
   });
+};
+
+export const registerAndLogin = async (page: Page, request: APIRequestContext, name: string) => {
+  const registerData = generateRegistrationData(name);
+
+  await register(request, registerData);
 
   await page.goto(URLS.login);
 
