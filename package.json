@@ -12,6 +12,7 @@
     "dev": "dotenv -- turbo run dev",
     "dev:app": "dotenv -- turbo run dev --filter=web --filter=docs",
     "dev:web": "dotenv -- turbo run dev --filter=web",
+    "e2e": "dotenv -- turbo run e2e",
     "eslint:check": "turbo run eslint:check",
     "eslint:fix": "turbo run eslint:fix",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",

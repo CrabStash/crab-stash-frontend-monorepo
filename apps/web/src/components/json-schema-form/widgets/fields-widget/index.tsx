@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
+import { useWidegetContext } from "../../widgets-context";
 import AddFieldDialog from "./add-field-dialog";
 import Field from "./field";
 
@@ -8,7 +9,15 @@ import type { WidgetProps } from "@rjsf/utils";
 
 function FieldsWidget(props: WidgetProps) {
   const [isAddFieldDialogOpen, setIsAddFieldDialogOpen] = useState(false);
-  const hasFields = props.value?.length > 0;
+  const hasFields = props.value?.length > 0 && props.value[0] !== "root";
+
+  const { parentId } = useWidegetContext();
+
+  useEffect(() => {
+    if (props.value.length === 0) {
+      props.onChange(["root"]);
+    }
+  }, []);
 
   return (
     <div className="grid w-full max-w-full items-center gap-1.5">
@@ -37,6 +46,7 @@ function FieldsWidget(props: WidgetProps) {
       <AddFieldDialog
         isAddFieldDialogOpen={isAddFieldDialogOpen}
         setIsAddFieldDialogOpen={setIsAddFieldDialogOpen}
+        parentId={parentId}
         onChange={props.onChange}
         value={props.value}
       />

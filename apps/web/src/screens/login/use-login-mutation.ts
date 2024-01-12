@@ -13,7 +13,7 @@ type LoginMutationVariables = {
   passwd: string;
 };
 
-type LoginMutationResponse = Response<LoginMutation>;
+export type LoginMutationResponse = Response<LoginMutation>;
 
 const fetcher = async (options: LoginMutationVariables) => {
   const { data } = await api.post<LoginMutationResponse>(API_ENDPOINTS.auth.login, options);

@@ -13,7 +13,7 @@ export type MeQueryResponse = Response<User>;
 export const meFetcher = async (context?: GetServerSidePropsContext) => {
   const cookies = nookies.get(context || null);
 
-  if (!cookies[COOKIES_AUTH_TOKEN_KEY]) {
+  if (!cookies[COOKIES_AUTH_TOKEN_KEY] && isServer) {
     return undefined;
   }
 

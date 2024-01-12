@@ -56,7 +56,8 @@ const Avatar = React.forwardRef<
 >(({ src, fullName, ...rest }, ref) => {
   const fallback = fullName
     ?.split(" ")
-    .map((n) => n[0])
+    .slice(0, 2)
+    .map((n) => n[0].toUpperCase())
     .join("");
 
   return (
