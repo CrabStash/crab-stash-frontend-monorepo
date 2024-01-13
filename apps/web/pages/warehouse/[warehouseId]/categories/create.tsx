@@ -7,8 +7,9 @@ import { Layout } from "@app/components";
 import CategoriesLayout from "@app/components/categories-layout";
 import CategoryCreator from "@app/screens/category-creator";
 import { createPageTitle } from "@crab-stash/utils";
-import { withAuth } from "lib/withAuth";
-import { getRequiredPageData } from "lib/withRequiredPageData";
+import { withAuth } from "lib/with-auth";
+import { withRequiredPageData } from "lib/with-required-page-data";
+import { WarehouseRole } from "types/warehouse-role";
 
 const Page: NextPage = () => {
   return (
@@ -26,16 +27,22 @@ const Page: NextPage = () => {
 };
 
 export const getServerSideProps = withAuth(async (ctx, queryClient) => {
-  await getRequiredPageData(ctx, queryClient, {
-    withWarehouses: true,
-    withCurrentWarehouse: true,
-  });
-
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
+  return await withRequiredPageData({
+    context: ctx,
+    queryClient,
+    callback: async () => {
+      return {
+        props: {
+          dehydratedState: dehydrate(queryClient),
+        },
+      };
     },
-  };
+    options: {
+      withWarehouses: true,
+      withCurrentWarehouse: true,
+      requiredRole: WarehouseRole.MODERATOR,
+    },
+  });
 });
 
 export default Page;

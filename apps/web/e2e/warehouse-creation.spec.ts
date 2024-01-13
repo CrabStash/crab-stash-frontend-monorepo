@@ -69,7 +69,7 @@ export default function warehouseCreationTest() {
     await testWarehouseCreatorFlow(page, "1");
   });
 
-  test("can create warehouse in dedicated view", async ({ page }, testInfo) => {
+  test("can create warehouse in dedicated view", async ({ page }) => {
     await page.goto(URLS.createWarehouse);
     await testWarehouseCreatorFlow(page, "2");
   });

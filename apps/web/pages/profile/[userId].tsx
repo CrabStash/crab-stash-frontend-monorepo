@@ -4,11 +4,11 @@ import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 
 import { Layout } from "@app/components";
-import useUserQuery, { userFetcher, userQueryKey } from "@app/hooks/queries/use-user-query";
+import useUserQuery from "@app/hooks/queries/use-user-query";
 import Profile from "@app/screens/profile";
 import { createPageTitle } from "@crab-stash/utils";
-import { withAuth } from "lib/withAuth";
-import { getRequiredPageData } from "lib/withRequiredPageData";
+import { withAuth } from "lib/with-auth";
+import { withRequiredPageData } from "lib/with-required-page-data";
 
 const Page: NextPage = () => {
   const { data } = useUserQuery();
@@ -27,19 +27,20 @@ const Page: NextPage = () => {
 };
 
 export const getServerSideProps: GetServerSideProps = withAuth(async (ctx, queryClient) => {
-  await getRequiredPageData(ctx, queryClient, {
-    withWarehouses: true,
-  });
-
-  const userId = ctx.query.userId as string;
-
-  await queryClient.prefetchQuery([userQueryKey, userId], () => userFetcher(userId));
-
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
+  return await withRequiredPageData({
+    callback: async () => {
+      return {
+        props: {
+          dehydratedState: dehydrate(queryClient),
+        },
+      };
     },
-  };
+    context: ctx,
+    queryClient,
+    options: {
+      withWarehouses: true,
+    },
+  });
 });
 
 export default Page;

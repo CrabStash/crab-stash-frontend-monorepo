@@ -1,12 +1,14 @@
 import type { QueryClient } from "@tanstack/react-query";
 
-import type { GetServerSidePropsContext } from "next";
+import type { GetServerSideProps, GetServerSidePropsContext } from "next";
 
+import { URLS } from "@app/constants/urls";
 import {
   categoryByIdFetcher,
   categoryByIdQueryKey,
 } from "@app/hooks/queries/use-category-by-id-query";
 import { fieldsFetcher, fieldsQueryKey } from "@app/hooks/queries/use-fields-query";
+import type { WarehouseQueryResponse } from "@app/hooks/queries/use-warehouse-info-query";
 import { warehouseInfoFetcher } from "@app/hooks/queries/use-warehouse-info-query";
 import {
   warehouseUsersFetcher,
@@ -14,6 +16,20 @@ import {
 } from "@app/hooks/queries/use-warehouse-users-query";
 import { warehousesFetcher, warehousesQueryKey } from "@app/hooks/queries/use-warehouses-query";
 import { getCategoryId, getWarehouseId } from "@app/utils/param-ids";
+import { formatIdToQuery } from "@app/utils/queryIds";
+import type { WarehouseRole } from "types/warehouse-role";
+
+const hasRequiredRole = (warehouseRole?: WarehouseRole, requiredRole?: WarehouseRole) => {
+  if (!warehouseRole || !requiredRole) {
+    return false;
+  }
+
+  if (warehouseRole >= requiredRole) {
+    return true;
+  }
+
+  return false;
+};
 
 type Options = {
   withWarehouses?: boolean;
@@ -22,13 +38,20 @@ type Options = {
   withWarehouseFields?: boolean;
   withCurrentCategory?: boolean;
   withCurrentProduct?: boolean;
+  requiredRole?: WarehouseRole;
 };
 
-export async function getRequiredPageData(
-  context: GetServerSidePropsContext,
-  queryClient: QueryClient,
-  options?: Options,
-) {
+export async function withRequiredPageData({
+  callback,
+  options,
+  queryClient,
+  context,
+}: {
+  callback: () => ReturnType<GetServerSideProps>;
+  queryClient: QueryClient;
+  context: GetServerSidePropsContext;
+  options?: Options;
+}) {
   const warehouseId = getWarehouseId(context.query);
   const categoryId = getCategoryId(context.query);
 
@@ -40,6 +63,28 @@ export async function getRequiredPageData(
       queryClient.prefetchQuery([warehousesQueryKey, warehouseId], () =>
         warehouseInfoFetcher(warehouseId),
       ),
+  ]);
+
+  const warehouse = queryClient.getQueryData<WarehouseQueryResponse>([
+    warehousesQueryKey,
+    warehouseId,
+  ]);
+  const warehouseRole = warehouse?.response?.data?.role;
+
+  if (options?.requiredRole && warehouseId) {
+    if (!hasRequiredRole(warehouseRole, options.requiredRole)) {
+      return {
+        redirect: {
+          destination: `${URLS.warehouseDashboard(
+            formatIdToQuery(warehouseId),
+          )}?permissionDenied=true`,
+          permanent: false,
+        },
+      };
+    }
+  }
+
+  await Promise.all([
     options?.withWarehouseUsers &&
       warehouseId &&
       queryClient.prefetchQuery([warehouseUsersKey, warehouseId, 1], () =>
@@ -55,4 +100,6 @@ export async function getRequiredPageData(
         categoryByIdFetcher(warehouseId, categoryId),
       ),
   ]);
+
+  return callback();
 }

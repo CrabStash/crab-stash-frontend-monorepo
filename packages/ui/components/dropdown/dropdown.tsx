@@ -183,6 +183,7 @@ type DropdownItem = {
   label: string | React.ReactNode;
   onClick?: () => void;
   sub?: DropdownItemSub;
+  disabled?: boolean;
 };
 
 type DropdownItemGroup = DropdownItem[];
@@ -211,7 +212,7 @@ const Dropdown = React.forwardRef<
         {itemGroups.map((itemGroup, index) => (
           <React.Fragment key={index}>
             <DropdownMenuGroup>
-              {itemGroup.map(({ label, onClick, sub }, index) => (
+              {itemGroup.map(({ label, onClick, sub, disabled }, index) => (
                 <React.Fragment key={index}>
                   {sub ? (
                     <DropdownMenuSub>
@@ -234,7 +235,7 @@ const Dropdown = React.forwardRef<
                       </DropdownMenuSubContent>
                     </DropdownMenuSub>
                   ) : (
-                    <DropdownMenuItem key={index} onClick={onClick}>
+                    <DropdownMenuItem disabled={disabled} key={index} onClick={onClick}>
                       {label}
                     </DropdownMenuItem>
                   )}

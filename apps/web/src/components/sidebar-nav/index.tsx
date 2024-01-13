@@ -8,6 +8,7 @@ interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
   items: {
     href: string;
     title: string;
+    disabled?: boolean;
   }[];
 }
 function SidebarNav({ className, items, ...props }: SidebarNavProps) {

@@ -7,8 +7,8 @@ import { Layout } from "@app/components";
 import ProductsLayout from "@app/components/products-layout";
 import Products from "@app/screens/products";
 import { createPageTitle } from "@crab-stash/utils";
-import { withAuth } from "lib/withAuth";
-import { getRequiredPageData } from "lib/withRequiredPageData";
+import { withAuth } from "lib/with-auth";
+import { withRequiredPageData } from "lib/with-required-page-data";
 
 const Page: NextPage = () => {
   return (
@@ -26,15 +26,20 @@ const Page: NextPage = () => {
 };
 
 export const getServerSideProps = withAuth(async (ctx, queryClient) => {
-  await getRequiredPageData(ctx, queryClient, {
-    withWarehouses: true,
-  });
-
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
+  return await withRequiredPageData({
+    context: ctx,
+    queryClient,
+    callback: async () => {
+      return {
+        props: {
+          dehydratedState: dehydrate(queryClient),
+        },
+      };
     },
-  };
+    options: {
+      withWarehouses: true,
+    },
+  });
 });
 
 export default Page;
