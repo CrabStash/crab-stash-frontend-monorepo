@@ -67,6 +67,10 @@ function WarehouseSwitcher() {
 
   if (!selectedWarehouse) return null;
 
+  const selectedWarehouseData = data?.response.data.list?.find(
+    ({ warehouse }) => warehouse.id === selectedWarehouse.value,
+  );
+
   return (
     <>
       <Popover
@@ -80,7 +84,7 @@ function WarehouseSwitcher() {
           >
             <Avatar
               className="mr-1 h-6 w-6"
-              src={undefined}
+              src={selectedWarehouseData?.warehouse.logo}
               fullName={selectedWarehouse.label.split(" ")?.[0]}
             />
             <span className="truncate" title={selectedWarehouse.label}>

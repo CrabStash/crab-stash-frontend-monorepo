@@ -1,5 +1,7 @@
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 
+import { ALLOWED_FILE_TYPES, convertToBase64 } from "../profile-info-settings";
 import { additionalInformationSchema } from "../warehouse-creator/steps/additional-information";
 import { basicInformationSchema } from "../warehouse-creator/steps/basic-information";
 import WarehouseDelete from "./warehouse-delete";
@@ -9,6 +11,7 @@ import { useUpdateWarehouseMutation } from "@app/hooks/mutations/use-update-ware
 import useWarehouseInfoQuery from "@app/hooks/queries/use-warehouse-info-query";
 import useWarehouseId from "@app/hooks/use-warehouse-id";
 import {
+  Avatar,
   Button,
   Form,
   FormField,
@@ -30,6 +33,9 @@ function GeneralSettings() {
 
   const { data } = useWarehouseInfoQuery({ id: warehouseId });
   const warehouseInfo = data?.response.data;
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [file, setFile] = useState<File | null>(null);
+  const [fileAsBase64, setFileAsBase64] = useState<string | null>(null);
 
   const { mutateAsync } = useUpdateWarehouseMutation({
     id: warehouseId,
@@ -55,7 +61,7 @@ function GeneralSettings() {
         desc: formData.description,
         capacity: formData.isPhysical ? formData.capacity || 0 : -1,
         isPhysical: formData.isPhysical,
-        logo: data.response.data.logo,
+        logo: file,
       });
 
       toast({
@@ -79,6 +85,38 @@ function GeneralSettings() {
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 max-w-2xl">
+          <input
+            type="file"
+            accept={ALLOWED_FILE_TYPES.join(",")}
+            ref={fileInputRef}
+            className="hidden"
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+
+              if (!file) return;
+
+              setFile(file);
+
+              convertToBase64(file, (base64) => {
+                if (!base64) return;
+
+                setFileAsBase64(base64?.toString());
+              });
+            }}
+          />
+          <Button
+            variant="ghost"
+            className="w-24 h-24 rounded-full"
+            onClick={() => {
+              fileInputRef.current?.click();
+            }}
+          >
+            <Avatar
+              src={fileAsBase64 ? fileAsBase64.toString() : data?.response.data.logo}
+              fullName={data?.response.data.name.split(" ").slice(0, 2).join(" ")}
+              className="w-24 h-24"
+            />
+          </Button>
           <FormField
             control={form.control}
             name="name"

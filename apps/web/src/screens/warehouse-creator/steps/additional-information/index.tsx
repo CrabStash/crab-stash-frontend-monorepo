@@ -6,6 +6,7 @@ import StepHeader from "../../components/step-header";
 import type { WarehouseCreateStepFormId } from "../../types";
 import { useCreateWarehouseMutation } from "../../use-create-warehouse-mutation";
 import { useBasicInformationStepStore } from "../basic-information/basic-information-step-store";
+import { useLogoStepStore } from "../logo/logo-step-store";
 import { useAdditionalInformationStepStore } from "./additional-information-step-store";
 
 import { URLS } from "@app/constants/urls";
@@ -45,6 +46,7 @@ function AdditionalInformation({
   const basicInformationStepData = useBasicInformationStepStore(
     (state) => state.basicInformationStepData,
   );
+  const logo = useLogoStepStore((state) => state.logo);
   const { mutateAsync } = useCreateWarehouseMutation();
   const { toast } = useToast();
 
@@ -59,7 +61,7 @@ function AdditionalInformation({
         desc: basicInformationStepData.description,
         isPhysical: data.isPhysical,
         capacity: data.isPhysical ? data.capacity || 0 : -1,
-        logo: "https://google.com",
+        logo: logo,
       });
 
       toast({

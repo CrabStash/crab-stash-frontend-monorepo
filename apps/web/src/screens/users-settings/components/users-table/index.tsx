@@ -27,7 +27,7 @@ function UsersTable() {
         header: () => <div className="w-80px">Avatar</div>,
         cell: ({ row }) => (
           <div className="w-[80px]">
-            <Avatar fullName={row.getValue("name")} />
+            <Avatar src={row.getValue("avatar")} fullName={row.getValue("name")} />
           </div>
         ),
       },

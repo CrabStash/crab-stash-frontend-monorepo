@@ -17,6 +17,7 @@ export type DashboardQueryResponse = Response<{
     description: string;
     category_id: string;
     price: number;
+    entity_id: string;
   }[];
 }>;
 

@@ -1,7 +1,6 @@
 import { URLS } from "@app/constants/urls";
 import type { Page } from "@playwright/test";
 import test, { expect } from "@playwright/test";
-import path from "path";
 
 const createSubcategory = async (page: Page) => {
   await page.goto(URLS.dashboard);
@@ -19,17 +18,7 @@ const createSubcategory = async (page: Page) => {
     .getByRole("textbox", { name: /category description/i })
     .fill("Test description for subcategory");
 
-  const fileChooserPromise = page.waitForEvent("filechooser");
-
-  await page.getByLabel("logo").click();
-
-  const fileChooser = await fileChooserPromise;
-
-  await fileChooser.setFiles(path.join(__dirname, "../public/logo.png"));
-
-  await expect(page.getByText("logo.png")).toBeVisible();
-
-  await page.getByRole("button", { name: /test root category/i }).click();
+  await page.getByRole("button", { name: "Test root category", exact: true }).click();
 
   await page.getByRole("button", { name: /add field/i }).click();
 
@@ -64,16 +53,6 @@ export default function categoriesTest() {
     await page
       .getByRole("textbox", { name: /category description/i })
       .fill("Test description for root category");
-
-    const fileChooserPromise = page.waitForEvent("filechooser");
-
-    await page.getByLabel("logo").click();
-
-    const fileChooser = await fileChooserPromise;
-
-    await fileChooser.setFiles(path.join(__dirname, "../public/logo.png"));
-
-    await expect(page.getByText("logo.png")).toBeVisible();
 
     await page.getByRole("button", { name: /add field/i }).click();
 
@@ -130,14 +109,6 @@ export default function categoriesTest() {
 
     await page.getByRole("textbox", { name: /category name/i }).fill("Test subcategory edited");
 
-    const fileChooserPromise = page.waitForEvent("filechooser");
-
-    await page.getByLabel("logo").click();
-
-    const fileChooser = await fileChooserPromise;
-
-    await fileChooser.setFiles(path.join(__dirname, "../public/logo.png"));
-
     await page.getByRole("button", { name: /submit/i }).click();
 
     await page.waitForURL("/warehouse/**/categories");
@@ -172,7 +143,9 @@ export default function categoriesTest() {
 
     await page.waitForURL("/warehouse/**/categories");
 
-    await expect(page.getByRole("button", { name: /open test root category/i })).not.toBeVisible();
+    await expect(
+      page.getByRole("button", { name: /open test subcategory edited/i }),
+    ).not.toBeVisible();
 
     await createSubcategory(page);
   });

@@ -2,9 +2,13 @@ import type { LucideIcon } from "lucide-react";
 import { ShoppingBag } from "lucide-react";
 import { DollarSign, ShoppingCart, Users } from "lucide-react";
 
+import Link from "next/link";
+
 import { graphData } from "./data";
 import useDashboardQuery from "./use-dashboard-query";
 
+import { URLS } from "@app/constants/urls";
+import useWarehouseId from "@app/hooks/use-warehouse-id";
 import { formatNumber } from "@app/utils/formatNumber";
 import { formatPrice } from "@app/utils/formatPrice";
 import { Avatar, BarGraph, Card } from "@crab-stash/ui";
@@ -19,6 +23,7 @@ type OverviewQuickStats = {
 function Overview() {
   const query = useDashboardQuery();
   const data = query.data?.response?.data;
+  const warehouseId = useWarehouseId();
 
   const quickStats: OverviewQuickStats[] = [
     {
@@ -46,6 +51,8 @@ function Overview() {
       icon: Users,
     },
   ];
+
+  if (!warehouseId) return null;
 
   return (
     <div className="space-y-8 mt-8">
@@ -83,14 +90,20 @@ function Overview() {
         >
           <div className="space-y-8">
             {data?.newestEntities?.map((product) => (
-              <div className="flex items-center" key={product.name}>
-                <Avatar fullName={product.name} className="h-9 w-9" />
-                <div className="ml-4 space-y-1">
-                  <p className="text-sm font-medium leading-none">{product.name}</p>
-                  <p className="text-sm text-muted-foreground">{product.description}</p>
+              <Link
+                href={URLS.productById(warehouseId, product.category_id, product.entity_id)}
+                key={product.entity_id}
+                passHref
+              >
+                <div className="flex items-center" key={product.name}>
+                  <Avatar fullName={product.name} className="h-9 w-9" />
+                  <div className="ml-4 space-y-1">
+                    <p className="text-sm font-medium leading-none">{product.name}</p>
+                    <p className="text-sm text-muted-foreground">{product.description}</p>
+                  </div>
+                  <div className="ml-auto font-medium">{formatPrice(product.price)}</div>
                 </div>
-                <div className="ml-auto font-medium">{formatPrice(product.price)}</div>
-              </div>
+              </Link>
             ))}
           </div>
         </Card>
