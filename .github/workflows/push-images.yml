@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         platform: [linux/amd64]
-        msname: ["app",]
+        msname: ["ui", "docs", "app"]
 
     env:
       MSNAME: ${{ matrix.msname }}
