@@ -7,8 +7,9 @@ import { Layout } from "@app/components";
 import FieldsLayout from "@app/components/fields-layout";
 import Fields from "@app/screens/fields";
 import { createPageTitle } from "@crab-stash/utils";
-import { withAuth } from "lib/withAuth";
-import { getRequiredPageData } from "lib/withRequiredPageData";
+import { withAuth } from "lib/with-auth";
+import { withRequiredPageData } from "lib/with-required-page-data";
+import { WarehouseRole } from "types/warehouse-role";
 
 const Page: NextPage = () => {
   return (
@@ -25,18 +26,24 @@ const Page: NextPage = () => {
   );
 };
 
-export const getServerSideProps = withAuth(async (ctx, queryClient) => {
-  await getRequiredPageData(ctx, queryClient, {
-    withWarehouses: true,
-    withWarehouseFields: true,
-    withCurrentWarehouse: true,
-  });
-
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
+export const getServerSideProps = withAuth(async (context, queryClient) => {
+  return await withRequiredPageData({
+    context,
+    queryClient,
+    options: {
+      withWarehouses: true,
+      withWarehouseFields: true,
+      withCurrentWarehouse: true,
+      requiredRole: WarehouseRole.MODERATOR,
     },
-  };
+    callback: async () => {
+      return {
+        props: {
+          dehydratedState: dehydrate(queryClient),
+        },
+      };
+    },
+  });
 });
 
 export default Page;

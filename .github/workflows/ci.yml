@@ -42,10 +42,10 @@ jobs:
         run: pnpm install
 
       - name: linting
-        run: pnpm turbo eslint:check
+        run: pnpm run eslint:check
 
       - name: build
-        run: pnpm turbo build
+        run: pnpm run build
 
       - name: test
-        run: pnpm turbo test
+        run: pnpm run test

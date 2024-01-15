@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { useRemoveProductMutation } from "./use-remove-product-mutation";
 
 import { URLS } from "@app/constants/urls";
+import useUserRole from "@app/hooks/use-user-role";
 import useWarehouseId from "@app/hooks/use-warehouse-id";
 import type { Row } from "@crab-stash/ui";
 import { Button, Dialog, Dropdown } from "@crab-stash/ui";
@@ -34,6 +35,7 @@ function ProductTableRowActions({ row }: ProductTableRowActionsProps) {
     categoryId: product.categoryId,
     onSuccess: () => setIsRemoveModalOpen(false),
   });
+  const { isModerator } = useUserRole();
 
   if (!warehouseId) return null;
 
@@ -61,6 +63,7 @@ function ProductTableRowActions({ row }: ProductTableRowActionsProps) {
             {
               label: "Remove",
               onClick: () => setIsRemoveModalOpen(true),
+              disabled: !isModerator,
             },
           ],
         ]}

@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 
 import { useAddWarehouseUserMutation } from "./use-add-warehouse-user-mutation";
 
+import useUserRole from "@app/hooks/use-user-role";
 import useWarehouseId from "@app/hooks/use-warehouse-id";
 import { Button, Form, FormField, InputField, useToast } from "@crab-stash/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,6 +20,7 @@ function AddUser() {
   const warehouseId = useWarehouseId();
   const { mutateAsync } = useAddWarehouseUserMutation();
   const { toast } = useToast();
+  const { isAdmin } = useUserRole();
   const form = useForm<AddUserForm>({
     resolver: zodResolver(addUserSchema),
     defaultValues: {
@@ -56,13 +58,14 @@ function AddUser() {
           render={({ field }) => (
             <InputField
               button={
-                <Button type="submit" className="whitespace-nowrap">
+                <Button disabled={!isAdmin} type="submit" className="whitespace-nowrap">
                   Add User
                 </Button>
               }
               buttonPosition="right"
               label="Email"
               placeholder="Enter your email"
+              disabled={!isAdmin}
               {...field}
             />
           )}

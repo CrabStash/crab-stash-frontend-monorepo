@@ -17,7 +17,7 @@ const redirectToLogin = {
   },
 } as const;
 
-type GSSPWithQueryClient = GetServerSideProps extends (context: infer U) => infer R
+export type GSSPWithQueryClient = GetServerSideProps extends (context: infer U) => infer R
   ? (context: U, queryClient: QueryClient) => R
   : never;
 

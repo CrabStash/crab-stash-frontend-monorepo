@@ -2,7 +2,7 @@ import type { GetServerSidePropsContext } from "next";
 
 import { API_ENDPOINTS } from "@app/constants/api-endpoints";
 import { COOKIES_AUTH_TOKEN_KEY } from "@app/constants/tokens";
-import { storeAuthTokens } from "@app/utils/tokens";
+import { destroyAuthTokens, storeAuthTokens } from "@app/utils/tokens";
 import axios from "axios";
 import createAuthRefreshInterceptor from "axios-auth-refresh";
 import nookies from "nookies";
@@ -54,16 +54,24 @@ const endpointsWithoutAuth = [API_ENDPOINTS.auth.login, API_ENDPOINTS.auth.regis
 createAuthRefreshInterceptor(api, async (failedRequest) => {
   const failedRequestUrl = failedRequest.config.url;
 
+  if (failedRequest.response?.status !== 403) return Promise.reject(failedRequest);
+
   if (endpointsWithoutAuth.includes(failedRequestUrl)) {
     return Promise.reject(failedRequest);
   }
 
-  const { data } = await api.get<{ token: string }>(API_ENDPOINTS.auth.refresh, {
-    withCredentials: true,
-  });
+  try {
+    const { data } = await api.get<{ token: string }>(API_ENDPOINTS.auth.refresh, {
+      withCredentials: true,
+    });
 
-  storeAuthTokens(null, data);
-  failedRequest.response.config.headers["Authorization"] = "Bearer " + data.token;
+    storeAuthTokens(null, data);
+    failedRequest.response.config.headers["Authorization"] = "Bearer " + data.token;
 
-  return Promise.resolve();
+    return Promise.resolve();
+  } catch (e) {
+    destroyAuthTokens(context);
+
+    return Promise.reject(failedRequest);
+  }
 });

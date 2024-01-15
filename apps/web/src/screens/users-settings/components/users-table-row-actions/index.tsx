@@ -8,6 +8,7 @@ import { useRemoveUserMutation } from "./use-remove-user-mutation";
 
 import { URLS } from "@app/constants/urls";
 import useMeQuery from "@app/hooks/queries/use-me-query";
+import useUserRole from "@app/hooks/use-user-role";
 import useWarehouseId from "@app/hooks/use-warehouse-id";
 import type { Row } from "@crab-stash/ui";
 import { useToast } from "@crab-stash/ui";
@@ -34,6 +35,7 @@ function UsersTableRowActions({ row, page }: UserTableRowActionsProps) {
   const user = row.original;
 
   const { push } = useRouter();
+  const { isAdmin } = useUserRole();
   const { data } = useMeQuery();
   const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
   const { isLoading, mutateAsync } = useRemoveUserMutation();
@@ -109,7 +111,7 @@ function UsersTableRowActions({ row, page }: UserTableRowActionsProps) {
                   { value: WarehouseRole.CONTENT_CREATOR.toString(), label: "Content Creator" },
                   { value: WarehouseRole.VIEWER.toString(), label: "Viewer" },
                 ].map((radio) => {
-                  if (isOwner) {
+                  if (isOwner || !isAdmin) {
                     return {
                       ...radio,
                       disabled: true,
@@ -126,6 +128,7 @@ function UsersTableRowActions({ row, page }: UserTableRowActionsProps) {
                 [
                   {
                     label: "Remove",
+                    disabled: !isAdmin,
                     onClick: () => {
                       setIsRemoveModalOpen(true);
                     },

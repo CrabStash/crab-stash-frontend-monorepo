@@ -37,11 +37,9 @@ function CategoryDelete() {
     }
   };
 
-  if (!isOwner) return null;
-
   return (
     <>
-      <Button onClick={() => setOpen(true)} variant="destructive">
+      <Button disabled={!isOwner} onClick={() => setOpen(true)} variant="destructive">
         Delete category
       </Button>
       <Dialog

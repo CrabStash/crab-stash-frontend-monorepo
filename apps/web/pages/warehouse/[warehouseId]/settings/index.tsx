@@ -7,8 +7,8 @@ import { Layout } from "@app/components";
 import WarehouseSettingLayout from "@app/components/warehouse-settings-layout";
 import GeneralSettings from "@app/screens/general-settings";
 import { createPageTitle } from "@crab-stash/utils";
-import { withAuth } from "lib/withAuth";
-import { getRequiredPageData } from "lib/withRequiredPageData";
+import { withAuth } from "lib/with-auth";
+import { withRequiredPageData } from "lib/with-required-page-data";
 
 const Page: NextPage = () => {
   return (
@@ -26,16 +26,21 @@ const Page: NextPage = () => {
 };
 
 export const getServerSideProps = withAuth(async (context, queryClient) => {
-  await getRequiredPageData(context, queryClient, {
-    withWarehouses: true,
-    withCurrentWarehouse: true,
-  });
-
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
+  return await withRequiredPageData({
+    context,
+    queryClient,
+    callback: async () => {
+      return {
+        props: {
+          dehydratedState: dehydrate(queryClient),
+        },
+      };
     },
-  };
+    options: {
+      withWarehouses: true,
+      withCurrentWarehouse: true,
+    },
+  });
 });
 
 export default Page;

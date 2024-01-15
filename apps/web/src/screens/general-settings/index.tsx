@@ -7,6 +7,7 @@ import WarehouseDelete from "./warehouse-delete";
 import SettingsTab from "@app/components/settings-tab";
 import { useUpdateWarehouseMutation } from "@app/hooks/mutations/use-update-warehouse-mutation";
 import useWarehouseInfoQuery from "@app/hooks/queries/use-warehouse-info-query";
+import useUserRole from "@app/hooks/use-user-role";
 import useWarehouseId from "@app/hooks/use-warehouse-id";
 import {
   Button,
@@ -27,6 +28,7 @@ type GeneralSettingsForm = z.infer<typeof generalSettingsSchema>;
 function GeneralSettings() {
   const warehouseId = useWarehouseId();
   const { toast } = useToast();
+  const { isAdmin } = useUserRole();
 
   const { data } = useWarehouseInfoQuery({ id: warehouseId });
   const warehouseInfo = data?.response.data;
@@ -83,7 +85,12 @@ function GeneralSettings() {
             control={form.control}
             name="name"
             render={({ field }) => (
-              <InputField label="Name" placeholder="Enter name of your warehouse" {...field} />
+              <InputField
+                label="Name"
+                placeholder="Enter name of your warehouse"
+                disabled={!isAdmin}
+                {...field}
+              />
             )}
           />
           <FormField
@@ -95,6 +102,7 @@ function GeneralSettings() {
                 placeholder="Enter description of your warehouse"
                 rows={5}
                 {...field}
+                disabled={!isAdmin}
               />
             )}
           />
@@ -110,6 +118,7 @@ function GeneralSettings() {
                   form.setValue("isPhysical", !field.value);
                 }}
                 checked={field.value}
+                disabled={!isAdmin}
               />
             )}
           />
@@ -127,12 +136,13 @@ function GeneralSettings() {
                   onChange={(e) => {
                     field.onChange(parseInt(e.target.value));
                   }}
+                  disabled={!isAdmin}
                 />
               )}
             />
           )}
           <div className="flex flex-col gap-4 w-fit">
-            <Button type="submit">Update general settings</Button>
+            {isAdmin && <Button type="submit">Update general settings</Button>}
             <WarehouseDelete />
           </div>
         </form>
