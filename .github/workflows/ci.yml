@@ -7,8 +7,6 @@ on:
     branches: ["develop"]
   merge_group:
 
-# You can leverage Vercel Remote Caching with Turbo to speed up your builds
-# @link https://turborepo.org/docs/core-concepts/remote-caching#remote-caching-on-vercel-builds
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
@@ -42,6 +40,9 @@ jobs:
             ${{ runner.os }}-pnpm-store-
       - name: Install deps (with cache)
         run: pnpm install
+
+      - name: linting
+        run: pnpm turbo eslint:check
 
       - name: build
         run: pnpm turbo build
