@@ -3,6 +3,7 @@ import { create } from "zustand";
 type LogoStepData = {
   logoFileName: string;
   logoAsBase64: string;
+  logo: File | null;
 };
 
 type LogoStepStore = LogoStepData & {
@@ -13,6 +14,7 @@ type LogoStepStore = LogoStepData & {
 export const useLogoStepStore = create<LogoStepStore>((set) => ({
   logoAsBase64: "",
   logoFileName: "",
+  logo: null,
   submitLogoStepData: (data) => {
     set(data);
   },
@@ -20,6 +22,7 @@ export const useLogoStepStore = create<LogoStepStore>((set) => ({
     set({
       logoAsBase64: "",
       logoFileName: "",
+      logo: null,
     });
   },
 }));

@@ -30,7 +30,7 @@ function UserNavigation({ user }: UserNavigationProps) {
       className="w-56"
       trigger={
         <Button variant="ghost" className="relative h-8 w-8 rounded-full" aria-label="User menu">
-          <Avatar className="h-8 w-8" fullName={fullName} src={undefined} />
+          <Avatar className="h-8 w-8" fullName={fullName} src={data?.response.data.avatar} />
         </Button>
       }
       label={

@@ -15,16 +15,29 @@ export type CreateWarehouseMutationVariables = {
   name: string;
   desc: string;
   capacity: number;
-  logo: string;
+  logo: File | null;
   isPhysical?: boolean;
 };
 
 type CreateWarehouseMutationResponse = Response<CreateWarehouseMutation>;
 
 const fetcher = async (options: CreateWarehouseMutationVariables) => {
+  const formData = new FormData();
+
+  formData.append("name", options.name);
+  formData.append("desc", options.desc);
+  formData.append("capacity", options.capacity.toString());
+  formData.append("logo", options.logo as Blob);
+  formData.append("isPhysical", options.isPhysical?.toString() ?? "false");
+
   const { data } = await api.post<CreateWarehouseMutationResponse>(
     API_ENDPOINTS.warehouse.createWarehouse,
-    options,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    },
   );
 
   return data;

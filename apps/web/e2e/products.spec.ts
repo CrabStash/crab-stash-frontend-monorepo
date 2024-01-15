@@ -49,7 +49,7 @@ export default function productsTest() {
 
     await page.getByRole("button", { name: /open Test root category/ }).click();
 
-    await page.getByRole("button", { name: "Test subcategory" }).click();
+    await page.getByRole("button", { name: "Test subcategory", exact: true }).click();
 
     await page.getByRole("button", { name: /next/i }).click();
 

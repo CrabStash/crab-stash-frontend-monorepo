@@ -30,7 +30,19 @@ export const useUpdateWarehouseMutation = (params: UseUpdateWarehouseMutationPar
         throw new Error("No id");
       }
 
-      return api.put(API_ENDPOINTS.warehouse.update(params.id), options);
+      const formData = new FormData();
+
+      formData.append("name", options.name);
+      formData.append("desc", options.desc);
+      formData.append("capacity", options.capacity.toString());
+      formData.append("logo", options.logo as Blob);
+      formData.append("isPhysical", options.isPhysical?.toString() ?? "false");
+
+      return api.put(API_ENDPOINTS.warehouse.update(params.id), formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
     },
     {
       onSuccess: () => {

@@ -65,9 +65,14 @@ function LogoUploader() {
   const goToNextStep = useWarehouseCreatorStore((state) => state.goToNextStep);
 
   const onSubmit = (data: LogoUploaderForm) => {
+    const file = fileInputRef.current?.files?.[0];
+
+    if (!file) return;
+
     submitLogoStepData({
       logoAsBase64: data.logoAsBase64,
       logoFileName: data.logo,
+      logo: file,
     });
     goToNextStep();
   };
@@ -130,36 +135,6 @@ function LogoUploader() {
                   />
                 )}
               />
-              {/* <FormField */}
-              {/*   control={form.control} */}
-              {/*   name="logo" */}
-              {/*   render={({ field }) => ( */}
-              {/*     <InputField */}
-              {/*       id="logo-upload" */}
-              {/*       label="Logo Upload" */}
-              {/*       type="file" */}
-              {/*       accept={ALLOWED_FILE_TYPES.join(",")} */}
-              {/*       {...field} */}
-              {/*       onChange={(e) => { */}
-              {/*         field.onChange(e); */}
-              {/**/}
-              {/*         const file = e.target.files?.[0]; */}
-              {/**/}
-              {/*         if (file) { */}
-              {/*           convertToBase64(file, (asBase64) => { */}
-              {/*             const stringified = asBase64?.toString(); */}
-              {/**/}
-              {/*             if (!stringified) return; */}
-              {/**/}
-              {/*             form.setValue("logoAsBase64", stringified); */}
-              {/*           }); */}
-              {/**/}
-              {/*           return; */}
-              {/*         } */}
-              {/*       }} */}
-              {/*     /> */}
-              {/*   )} */}
-              {/* /> */}
             </div>
             <div className="flex items-center justify-center p-4 sm:p-8 bg-zinc-100 dark:bg-zinc-800 rounded-lg">
               {logoAsBase64 ? (

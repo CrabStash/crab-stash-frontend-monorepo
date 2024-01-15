@@ -50,3 +50,5 @@ config/endpoint.js
 .github
 .cache
 tmp
+
+**/playwright/**
