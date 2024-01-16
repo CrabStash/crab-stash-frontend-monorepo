@@ -8,25 +8,23 @@ This turborepo uses [pnpm](https://pnpm.io/) as a package manager. It includes t
 
 ```md
 .github
-  └─ workflows
-        └─ CI with pnpm cache setup
+└─ workflows
+└─ CI with pnpm cache setup
 .vscode
-  └─ Recommended extensions and settings for VSCode users
+└─ Recommended extensions and settings for VSCode users
 apps
-  ├─ landing
-  |    └─ Astro app
-  ├─ app
-  |    └─ Next.js app
-  |
-  └─ docs
-       └─ Next.js app
+├─ app
+| └─ Next.js app
+|
+└─ docs
+└─ Next.js app
 packages
- ├─ ui
- |   └─ a stub React component library shared by apps created with Storybook.js
- ├─ tsconfig
- |   └─ `tsconfig.json`s used throughout the monorepo
- └─ linting
-     └─ `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
+├─ ui
+| └─ a stub React component library shared by apps created with Storybook.js
+├─ tsconfig
+| └─ `tsconfig.json`s used throughout the monorepo
+└─ linting
+└─ `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
 ```
 
 ### Utilities
