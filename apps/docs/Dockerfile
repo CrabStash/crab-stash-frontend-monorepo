@@ -22,6 +22,8 @@ COPY apps/docs/ .
 
 # Build the Docusaurus app
 RUN pnpm install
+ENV WEB_APP_URL=https://app.crabstash.tech
+
 RUN pnpm run build
 
 # Use a lightweight Node image for the production environment
