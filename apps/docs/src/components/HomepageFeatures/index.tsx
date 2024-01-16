@@ -11,32 +11,38 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: "Easy to Use",
+    title: "Easy to Navigate",
     Svg: require("@site/static/img/undraw_docusaurus_mountain.svg").default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and used to get your
-        website up and running quickly.
+        Crab Stash Documentation is organized intuitively, making it easy for users to find the
+        information they need. Our navigation system ensures a smooth and efficient browsing
+        experience, allowing users to quickly locate relevant details about fields, categories,
+        products, and user roles.
       </>
     ),
   },
   {
-    title: "Focus on What Matters",
+    title: "Effortless Form Management",
     Svg: require("@site/static/img/undraw_docusaurus_tree.svg").default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go ahead and move your
-        docs into the <code>docs</code> directory.
+        With Crab Stash, form creation is a breeze. The application automatically generates forms
+        based on categories, streamlining the process of adding and editing fields. This
+        user-friendly feature ensures that your team can manage data effortlessly, saving time and
+        reducing the learning curve for form-related tasks.
       </>
     ),
   },
   {
-    title: "Powered by React",
+    title: "Robust User Role Management",
     Svg: require("@site/static/img/undraw_docusaurus_react.svg").default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can be extended while
-        reusing the same header and footer.
+        Crab Stash empowers you to manage user roles seamlessly. From viewers to owners, the
+        application provides fine-grained control over permissions. Whether it's restricting access
+        to read-only viewing or granting extensive editing capabilities, you have the flexibility to
+        tailor user roles to match your warehouse management requirements.
       </>
     ),
   },
