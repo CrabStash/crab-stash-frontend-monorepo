@@ -15,16 +15,15 @@ This turborepo uses [pnpm](https://pnpm.io/) as a package manager. It includes t
 apps
 ├─ app
 | └─ Next.js app
-|
 └─ docs
-└─ Next.js app
+  └─ Docusaurus app 
 packages
 ├─ ui
 | └─ a stub React component library shared by apps created with Storybook.js
 ├─ tsconfig
 | └─ `tsconfig.json`s used throughout the monorepo
 └─ linting
-└─ `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
+  └─ `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
 ```
 
 ### Utilities
