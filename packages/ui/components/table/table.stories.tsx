@@ -40,5 +40,9 @@ export const Default: Story = {
       },
     ],
     pageCount: 1,
+    pagination: {
+      pageSize: 10,
+      pageIndex: 0,
+    },
   },
 };
